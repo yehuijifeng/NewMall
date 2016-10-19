@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_color_rl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/toolbar_color_img"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <LinearLayout
+        android:id="@+id/toolbar_ly"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_title_height"
+        android:background="@color/title_color"
+        android:tag="skin:title_color:background">
+
+        <ImageView
+            android:id="@+id/title_default_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.8"
+            android:background="@drawable/bg_title_back"
+            android:gravity="center"
+            android:padding="@dimen/padding_and_margin_x"
+            android:src="@drawable/ic_menu_back" />
+
+        <TextView
+            android:id="@+id/title_default_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:padding="@dimen/padding_and_margin_x"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_xxxx" />
+
+        <TextView
+            android:id="@+id/title_default_right_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.8"
+            android:background="@drawable/bg_title_edit"
+            android:gravity="center"
+            android:padding="@dimen/padding_and_margin_x"
+            android:text="编辑"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_x"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/title_default_right_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.8"
+            android:background="@drawable/bg_title_edit"
+            android:gravity="center"
+            android:padding="@dimen/padding_and_margin_x"
+            android:src="@drawable/ic_media_fullscreen" />
+    </LinearLayout>
+
+    <View style="@style/default_hour_view" />
+
+    <com.alsfox.mall.view.baseview.LoadingView
+        android:id="@+id/default_loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_ly"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
+
