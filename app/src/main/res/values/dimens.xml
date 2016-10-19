@@ -39,16 +39,34 @@
     <dimen name="button_height">40dp</dimen>
     <dimen name="button_width">70dp</dimen>
 
+    <dimen name="dialog_button_height">40dp</dimen>
+    <dimen name="dialog_button_width">70dp</dimen>
+
     <dimen name="refresh_icon_height">45dp</dimen>
 
     <dimen name="default_title_height">48dp</dimen>
     <dimen name="default_title_ly_height">73dp</dimen>
     <dimen name="default_title_actionbar_height">25dp</dimen>
+
     <dimen name="default_dialog_fillet">5dp</dimen>
-    <dimen name="default_button_height">40dp</dimen>
-    <dimen name="default_button_width">70dp</dimen>
+
+    <dimen name="default_button_height_main">40dp</dimen>
+    <dimen name="default_button_width_main">70dp</dimen>
+    <dimen name="default_text_size_main">18sp</dimen>
+
+    <dimen name="default_button_height_main_red">40dp</dimen>
+    <dimen name="default_button_width_main_red">70dp</dimen>
+    <dimen name="default_text_size_main_red">18sp</dimen>
+
+
+    <dimen name="default_button_height_main_white">40dp</dimen>
+    <dimen name="default_button_width_main_white">70dp</dimen>
+    <dimen name="default_text_size_main_white">18sp</dimen>
+
     <dimen name="viewpager_image_bar_height">10dp</dimen>
     <dimen name="viewpager_tab_img_height">35dp</dimen>
+
     <dimen name="default_dialog_list_item">5dp</dimen>
+
 
 </resources>

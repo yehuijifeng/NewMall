@@ -98,4 +98,53 @@
         <item name="android:textSize">@dimen/text_size_xxxx</item>
     </style>
 
+    <style name="layout_ww" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="layout_mm" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="layout_mw" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="layout_wm" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="btn_main_type" parent="layout_ww">
+        <item name="android:layout_height">@dimen/default_button_height_main</item>
+        <item name="android:background">@drawable/bg_main_btn</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/default_text_size_main</item>
+    </style>
+
+    <style name="btn_main_red_type" parent="layout_ww">
+        <item name="android:layout_height">@dimen/default_button_height_main_red</item>
+        <item name="android:background">@drawable/bg_main_btn_red</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/default_text_size_main_red</item>
+    </style>
+
+    <style name="btn_main_red_long_type" parent="layout_mw">
+        <item name="android:layout_height">@dimen/default_button_height_main_red</item>
+        <item name="android:background">@drawable/bg_main_btn_red</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/default_text_size_main_red</item>
+        <item name="android:layout_margin">@dimen/padding_and_margin_x</item>
+    </style>
+
+    <style name="btn_main_white_type" parent="layout_ww">
+        <item name="android:layout_height">@dimen/default_button_height_main_white</item>
+        <item name="android:background">@drawable/bg_main_btn_white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/default_text_size_main_white</item>
+    </style>
+
 </resources>

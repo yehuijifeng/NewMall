@@ -12,6 +12,7 @@
     <color name="transparent_xxxxx">#60000000</color>
     <color name="transparent_xxxxxx">#70000000</color>
     <color name="transparent_xxxxxxx">#80000000</color>
+
     <color name="title_color">#3F51B5</color>
     <color name="title_color_red">#FF4081</color>
     <color name="default_gray">#C2C5CD</color>
@@ -20,4 +21,22 @@
     <color name="dialog_ok_color">#3F51B5</color>
     <color name="dialog_cancel_color">#FF4081</color>
     <color name="viewpager_image_bar_color">#FF4081</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
+    <color name="blue">#0000FF</color>
+
+    <color name="mall_main">#EB6234</color>
+    <color name="mall_main_tow">#CA5123</color>
+    <color name="mall_gray">#C4C4C4</color>
+    <color name="mall_red">#E04241</color>
+    <color name="mall_red_tow">#F15352</color>
+    <color name="mall_white">#E7E7E7</color>
+    <color name="mall_white_tow">#D6D6D6</color>
+    <color name="mall_green">#16BB00</color>
+    <color name="mall_text_color">#5E5E5E</color>
+
+
 </resources>

@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/loading_img"
-            android:layout_width="@dimen/default_button_width"
-            android:layout_height="@dimen/default_button_width"
+            android:layout_width="@dimen/dialog_button_width"
+            android:layout_height="@dimen/dialog_button_height"
             android:adjustViewBounds="true"
             android:padding="@dimen/padding_and_margin"
             android:scaleType="fitXY"
