@@ -4,5 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.alsfox.mall.view.customview.SearchTitleView
+        android:id="@+id/search_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <include layout="@layout/default_listview" />
 </LinearLayout>

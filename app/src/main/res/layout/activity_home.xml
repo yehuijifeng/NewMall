@@ -23,7 +23,9 @@
     <com.alsfox.mall.view.baseview.MyViewPager
         android:id="@+id/my_viewpager_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/my_viewpager_view_tab" />
+
 
     <LinearLayout
         android:id="@+id/my_viewpager_view_tab"
@@ -34,10 +36,12 @@
         android:layout_alignParentStart="true"
         android:orientation="vertical">
 
+        <View style="@style/default_hour_view" />
+
         <LinearLayout
             android:id="@+id/viewpager_btn_layout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/default_title_height"
             android:orientation="horizontal">
 
         </LinearLayout>

@@ -127,7 +127,7 @@ public abstract class BaseGridFragment<T extends BasePresenter> extends BaseFrag
                 viewGroup.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
             }
         }
-        baseGridAdapter = new BaseGridAdapter(data, baseGridview.footView,new OnAdapterStatus());
+        baseGridAdapter = new BaseGridAdapter(data, baseGridview.footView, new OnAdapterStatus());
         myGridView.setAdapter(baseGridAdapter);
         myGridView.setOnItemClickListener(this);
         myGridView.setNumColumns(getNumColumns());
@@ -147,12 +147,12 @@ public abstract class BaseGridFragment<T extends BasePresenter> extends BaseFrag
 
         @Override
         public View getItemViews(int position, int type, ViewGroup parent) {
-            return getActivity().getLayoutInflater().inflate(getItemView(position, type), parent);
+            return getActivity().getLayoutInflater().inflate(getItemView(position, type), null, false);
         }
 
         @Override
         public void getItemDatas(int position, BaseViewHolder baseViewHolder, int type) {
-            getItemDatas(position, baseViewHolder, type);
+            getItemData(position, baseViewHolder, type);
         }
 
         @Override

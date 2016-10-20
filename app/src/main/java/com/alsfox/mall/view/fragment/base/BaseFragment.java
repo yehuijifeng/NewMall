@@ -26,7 +26,6 @@ import com.alsfox.mall.utils.NetWorkUtils;
 import com.alsfox.mall.view.activity.base.BaseHelper;
 import com.alsfox.mall.view.baseview.LoadingView;
 import com.alsfox.mall.view.baseview.MyTitleView;
-import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -77,11 +76,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
      * 获取屏幕宽高
      */
     protected DisplayMetrics outMetrics = new DisplayMetrics();
-
-    /**
-     * gson,解析json数据或者类转json时能用到
-     */
-    protected Gson gson = new Gson();
 
     /**
      * imageloader工具类的初始化
@@ -337,9 +331,9 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
     }
 
-    protected void onRequestComplete(ResponseFinalAction complete) {
-
-    }
+//    protected void onRequestComplete(ResponseFinalAction complete) {
+//
+//    }
 
     /**
      * 是否开启防抖动

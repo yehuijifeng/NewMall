@@ -16,8 +16,8 @@
     <color name="title_color">#3F51B5</color>
     <color name="title_color_red">#FF4081</color>
     <color name="default_gray">#C2C5CD</color>
-    <color name="viewpager_tab_text_color_selected">#3F51B5</color>
-    <color name="viewpager_tab_text_color">#000000</color>
+    <color name="viewpager_tab_text_color_selected">@color/mall_main</color>
+    <color name="viewpager_tab_text_color">@color/mall_gray</color>
     <color name="dialog_ok_color">#3F51B5</color>
     <color name="dialog_cancel_color">#FF4081</color>
     <color name="viewpager_image_bar_color">#FF4081</color>
@@ -37,6 +37,5 @@
     <color name="mall_white_tow">#D6D6D6</color>
     <color name="mall_green">#16BB00</color>
     <color name="mall_text_color">#5E5E5E</color>
-
 
 </resources>

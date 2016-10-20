@@ -1,5 +1,6 @@
 package com.alsfox.mall.view.fragment.base;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -23,6 +24,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * Created by Luhao on 2016/7/22.
+ * 列表fragment
  */
 public abstract class BaseListFragment<T extends BasePresenter> extends BaseFragment<T> implements ListView.OnItemClickListener {
 
@@ -105,12 +107,12 @@ public abstract class BaseListFragment<T extends BasePresenter> extends BaseFrag
 
         @Override
         public View getItemViews(int position, int type, ViewGroup parent) {
-            return getActivity().getLayoutInflater().inflate(getItemView(position, type), parent);
+            return LayoutInflater.from(getActivity()).inflate(getItemView(position, type), null, false);
         }
 
         @Override
         public void getItemDatas(int position, BaseViewHolder baseViewHolder, int type) {
-            getItemDatas(position, baseViewHolder, type);
+            getItemData(position, baseViewHolder, type);
         }
 
         @Override

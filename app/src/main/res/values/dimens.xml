@@ -64,9 +64,10 @@
     <dimen name="default_text_size_main_white">18sp</dimen>
 
     <dimen name="viewpager_image_bar_height">10dp</dimen>
-    <dimen name="viewpager_tab_img_height">35dp</dimen>
+    <dimen name="viewpager_tab_img_height">30dp</dimen>
 
     <dimen name="default_dialog_list_item">5dp</dimen>
 
+    <dimen name="search_title_height">48dp</dimen>
 
 </resources>

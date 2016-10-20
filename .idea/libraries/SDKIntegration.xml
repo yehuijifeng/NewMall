@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SDKIntegration">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/umeng/libs/SDKIntegration.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

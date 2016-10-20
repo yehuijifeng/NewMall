@@ -3,6 +3,7 @@ package com.alsfox.mall.function.imageloader;
 import android.graphics.Bitmap;
 import android.os.Handler;
 
+import com.alsfox.mall.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
@@ -40,9 +41,9 @@ public class ImageOptions {
 
         // 使用DisplayImageOptions.Builder()创建DisplayImageOptions
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(android.R.drawable.ic_menu_rotate)//加载的时候显示的图片
-                .showImageForEmptyUri(android.R.drawable.stat_sys_warning)  // empty空或者错误的情况下URI时显示的图片
-                .showImageOnFail(android.R.drawable.ic_delete)// 不是图片文件或者解码错误情况下的图片
+                .showImageOnLoading(R.drawable.ic_default_img)//加载的时候显示的图片
+                .showImageForEmptyUri(R.drawable.ic_default_img)  // empty空或者错误的情况下URI时显示的图片
+                .showImageOnFail(R.drawable.ic_default_img)// 不是图片文件或者解码错误情况下的图片
                 .resetViewBeforeLoading(false)  //设置图片在下载前是否重置，复位
                 .delayBeforeLoading(0)//加载前延迟：1s
                 .cacheInMemory(true)// 设置下载的图片是否缓存在内存中,default 不缓存至内存
@@ -96,9 +97,9 @@ public class ImageOptions {
      */
     public static DisplayImageOptions roundOptions() {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(android.R.drawable.ic_menu_rotate)//加载的时候显示的图片
-                .showImageForEmptyUri(android.R.drawable.stat_sys_warning)  // empty空或者错误的情况下URI时显示的图片
-                .showImageOnFail(android.R.drawable.ic_delete)// 不是图片文件或者解码错误情况下的图片
+                .showImageOnLoading(R.drawable.ic_default_user)//加载的时候显示的图片
+                .showImageForEmptyUri(R.drawable.ic_default_user)  // empty空或者错误的情况下URI时显示的图片
+                .showImageOnFail(R.drawable.ic_default_user)// 不是图片文件或者解码错误情况下的图片
                 .resetViewBeforeLoading(true)  //设置图片在下载前是否重置，复位
                 .delayBeforeLoading(0)//加载前延迟：1s
                 .considerExifParams(true) //考虑Exif参数

@@ -112,11 +112,18 @@ public class RetrofitManage {
     public Subscription sendRequest(final RequestAction requesteAction) {
         //预备发送请求，将参数生成Observable
         requesteAction.getRequest();
-        for (Map.Entry entry : requesteAction.params.getParams().entrySet()) {
-            String key = entry.getKey().toString();
-            String value = entry.getValue().toString();
-            LogUtils.i("key=" + key + " ==> value=" + value + "\n");
-        }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (Map.Entry entry : requesteAction.params.getParams().entrySet()) {
+                    String key = entry.getKey().toString();
+                    String value = entry.getValue().toString();
+                    LogUtils.i("key=" + key + " ==> value=" + value + "\n");
+                }
+            }
+        }).start();
+
         return requesteAction.observable
                 .subscribeOn(Schedulers.newThread())//网络请求必须在子线程中进行
                 .observeOn(Schedulers.newThread())
@@ -247,7 +254,7 @@ public class RetrofitManage {
                     public void call(Subscriber<? super Response<ResponseBody>> subscriber) {
                         try {
                             //Call<ResponseBody> call = service.getUploadFile(photos, requestAction.params.getParams());
-                            Call<ResponseBody> call =null;
+                            Call<ResponseBody> call = null;
                             Response<ResponseBody> response = call.execute();
                             subscriber.onNext(response);
                         } catch (IOException e) {

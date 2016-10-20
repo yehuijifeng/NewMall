@@ -9,7 +9,7 @@ public class RequestUrls {
     /**
      * 服务器地址、项目名
      */
-    public static final String IP = "http://114.55.245.32/";//本地测试。基础商城
+    public static final String IP = "http://115.29.224.175:9999/";//本地测试。基础商城
     public static final String ROOT_URL = IP + "";//本地测试。基础商城
 
     /**

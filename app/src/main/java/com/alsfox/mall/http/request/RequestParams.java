@@ -1,6 +1,9 @@
 package com.alsfox.mall.http.request;
 
+import com.alsfox.mall.http.SignUtils;
+
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Luhao on 2016/6/23.
@@ -8,13 +11,9 @@ import java.util.HashMap;
  */
 public class RequestParams {
 
-    public RequestParams() {
-        params = new HashMap<>();
-    }
+    private Map<String, Object> params= SignUtils.getParameters();//请求参数
 
-    private HashMap<String, Object> params;//请求参数
-
-    public HashMap<String, Object> getParams() {
+    public Map<String, Object> getParams() {
         return params;
     }
 

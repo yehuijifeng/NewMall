@@ -26,7 +26,8 @@
     <string name="network_error">网络不可用!</string>
     <string name="restart_btn">请重试</string>
     <string name="refresh_btn">刷新</string>
-    <!--测试数据-->
+
+
     <string name="str_home">首页</string>
     <string name="str_classification">分类</string>
     <string name="str_shopping_cart">购物车</string>
@@ -127,6 +128,9 @@
     <string name="str_opinion_content">意见内容</string>
     <string name="str_commit_opinion">提交意见</string>
 
-
+    <string name="str_success_pay">支付成功！</string>
+    <string name="str_cancel_pay">取消支付！</string>
+    <string name="str_unknown_error">未知错误！</string>
+    <string name="str_weixin_pay_result">微信支付结果：</string>
 
 </resources>

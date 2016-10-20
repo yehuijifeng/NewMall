@@ -11,14 +11,15 @@ import rx.Observable;
  */
 public enum RequestAction {
 
-    GET_GOODS_LIST(new RequestParams()) {
+    GET_INDE_DATA(new RequestParams()) {
         @Override
         public void getRequest() {
-            //observable = RetrofitManage.getInstance().getService().getGoodsList(params.getParams());
+            observable = RetrofitManage.getInstance().getService().getIndexData(params.getParams());
         }
     },
 
     ;
+
     public Call<ResponseBody> call;//下载文件专用，okhttp类型的回调
     public Observable observable;//普通网络请求使用，网络请求的操作实例
     public RequestParams params;//请求参数实例
@@ -29,4 +30,6 @@ public enum RequestAction {
 
     //发送请求，生成预请求对象
     public abstract void getRequest();
+
+
 }

@@ -101,12 +101,12 @@ public abstract class BaseListActivity<T extends BasePresenter> extends BaseActi
 
         @Override
         public View getItemViews(int position, int type, ViewGroup parent) {
-            return inflater.inflate(getItemView(position, type), parent);
+            return inflater.inflate(getItemView(position, type), null,false);
         }
 
         @Override
         public void getItemDatas(int position, BaseViewHolder baseViewHolder, int type) {
-            getItemDatas(position, baseViewHolder, type);
+            getItemData(position, baseViewHolder, type);
         }
 
         @Override
