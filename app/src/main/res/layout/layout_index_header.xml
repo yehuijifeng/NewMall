@@ -4,4 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.take.turns.view.TakeTurnsView
+        android:id="@+id/index_header_lunfan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.alsfox.mall.view.customview.IndexHeaderYuanView
+        android:id="@+id/index_header_ly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         />
+
+    <com.alsfox.mall.view.customview.IndexHeaderYuanView
+        android:id="@+id/index_header_ly_tow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        />
+
+    <include
+        android:id="@+id/index_header_qianggou"
+        layout="@layout/layout_flash_sale" />
+
+
 </LinearLayout>

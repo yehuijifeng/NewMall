@@ -14,7 +14,7 @@ public class IndexMokuaiContentInfoBean {
     private int indexs;                     // 排序序号，索引从1开始
     private String showImg;                     // 显示图片地址，缩略图
     private int fkId;//内容id
-    private int contentType;//0,商品，1，商品分类
+    private int contentType;//0,商品，1，商品分类，2，公告
 
     public int getContentId() {
         return contentId;

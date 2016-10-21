@@ -68,6 +68,11 @@
 
     <dimen name="default_dialog_list_item">5dp</dimen>
 
-    <dimen name="search_title_height">48dp</dimen>
+    <dimen name="header_item_img_height">48dp</dimen>
+
+    <!--退换货进度条-->
+    <color name="goods_jindu">#66c896</color>
+    <color name="goods_bg">#989898</color>
+    <color name="transparent_flash">#70000000</color>
 
 </resources>

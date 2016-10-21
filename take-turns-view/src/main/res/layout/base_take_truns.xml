@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.viewpagerdemo.viewpager.NoScrollViewPager
+    <com.take.turns.viewpager.NoScrollViewPager
         android:id="@+id/take_turns_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

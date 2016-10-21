@@ -23,7 +23,7 @@ public class IndexPresenter extends BasePresenter<IIndexView> {
      *
      * @param mView
      */
-    public IndexPresenter(IIndexView mView,int windowWidth) {
+    public IndexPresenter(IIndexView mView, int windowWidth) {
         super(mView);
         indexModel = new IndexModel(windowWidth);
     }
@@ -49,6 +49,7 @@ public class IndexPresenter extends BasePresenter<IIndexView> {
             public void onItemImgClick(View v, IndexMokuaiContentInfoBean moduleContent) {
                 mView.onItemImgClick(v, moduleContent);
             }
+
         });
         indexModel.getItemData(position, baseViewHolder, itemType, indexMokuaiInfoBean);
 

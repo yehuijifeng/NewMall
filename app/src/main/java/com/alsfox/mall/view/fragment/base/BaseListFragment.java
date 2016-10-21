@@ -80,12 +80,13 @@ public abstract class BaseListFragment<T extends BasePresenter> extends BaseFrag
     protected void initView(View parentView) {
         baseListView = (BaseListView) parentView.findViewById(R.id.default_list_view);
         listView = baseListView.listView;
-        if (getHeaderView() > 0) {
-            View view = View.inflate(getActivity(), getHeaderView(), null);
+        if (setHeaderView() > 0) {
+            View view = View.inflate(getActivity(), setHeaderView(), null);
             if (view != null) {
                 ViewGroup viewGroup = (ViewGroup) view.getRootView();
                 viewGroup.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
                 listView.addHeaderView(view, null, getIsHeaderViewClick());
+                getHeaderView(view);
             }
         }
         baseListAdapter = new BaseListAdapter(data, new OnAdapterStatus());
@@ -149,8 +150,14 @@ public abstract class BaseListFragment<T extends BasePresenter> extends BaseFrag
     /**
      * 传入头view
      */
-    protected int getHeaderView() {
+    protected int setHeaderView() {
         return 0;
+    }
+
+    /**
+     * 传出头view
+     */
+    protected void getHeaderView(View view) {
     }
 
     /**

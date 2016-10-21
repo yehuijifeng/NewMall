@@ -1,21 +1,40 @@
 package com.alsfox.mall.view.fragment.home;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alsfox.mall.R;
+import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.base.BaseViewHolder;
+import com.alsfox.mall.bean.index.IndexDaohangInfoBean;
+import com.alsfox.mall.bean.index.IndexFlashShopInfoBean;
 import com.alsfox.mall.bean.index.IndexInfoBean;
+import com.alsfox.mall.bean.index.IndexLunfanInfoBean;
 import com.alsfox.mall.bean.index.IndexMokuaiContentInfoBean;
 import com.alsfox.mall.bean.index.IndexMokuaiInfoBean;
+import com.alsfox.mall.bean.index.IndexQianggouInfoBean;
+import com.alsfox.mall.constances.MallConstant;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.model.home.IndexModel;
 import com.alsfox.mall.presenter.home.IndexPresenter;
+import com.alsfox.mall.utils.DisplayUtils;
+import com.alsfox.mall.view.customview.IndexHeaderYuanView;
 import com.alsfox.mall.view.customview.SearchTitleView;
 import com.alsfox.mall.view.fragment.base.BaseListFragment;
 import com.alsfox.mall.view.interfaces.home.IIndexView;
+import com.take.turns.view.TakeTurnsView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,11 +43,18 @@ import java.util.List;
  * 首页
  */
 
-public class IndexFragment extends BaseListFragment<IndexPresenter> implements IIndexView {
+public class IndexFragment extends BaseListFragment<IndexPresenter> implements IIndexView, View.OnClickListener {
 
     private SearchTitleView search_title_view;
 
     private List<IndexMokuaiInfoBean> indexData;
+
+    //头view的控件
+    private TakeTurnsView index_header_lunfan;
+    private IndexHeaderYuanView index_header_ly, index_header_ly_tow;
+    //限时抢购view
+    private LinearLayout index_header_qianggou, flash_frame_ly;
+    private TextView flash_text_d, flash_text_h, flash_text_m;
 
     @Override
     protected IndexPresenter initPresenter() {
@@ -41,22 +67,213 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
     }
 
     @Override
+    protected int setHeaderView() {
+        return R.layout.layout_index_header;
+    }
+
+    @Override
+    protected void getHeaderView(View view) {
+        index_header_lunfan = (TakeTurnsView) view.findViewById(R.id.index_header_lunfan);
+        index_header_ly = (IndexHeaderYuanView) view.findViewById(R.id.index_header_ly);
+        index_header_ly_tow = (IndexHeaderYuanView) view.findViewById(R.id.index_header_ly_tow);
+        index_header_qianggou = (LinearLayout) view.findViewById(R.id.index_header_qianggou);
+        flash_frame_ly = (LinearLayout) view.findViewById(R.id.flash_frame_ly);
+        flash_text_d = (TextView) view.findViewById(R.id.flash_text_d);
+        flash_text_h = (TextView) view.findViewById(R.id.flash_text_h);
+        flash_text_m = (TextView) view.findViewById(R.id.flash_text_m);
+        index_header_qianggou.setOnClickListener(this);
+    }
+
+    /**
+     * 添加限时抢购数据
+     *
+     * @param indexQianggouInfoBean
+     */
+    private void getFlashSale(IndexQianggouInfoBean indexQianggouInfoBean) {
+        if (indexQianggouInfoBean == null || indexQianggouInfoBean.getShopInfoList().isEmpty()) {
+            index_header_qianggou.setVisibility(View.GONE);
+            return;
+        } else {
+            index_header_qianggou.setVisibility(View.VISIBLE);
+        }
+        for (IndexFlashShopInfoBean indexFlashShopInfoBean : indexQianggouInfoBean.getShopInfoList()) {
+            flash_frame_ly.addView(getFlashSaleView(indexFlashShopInfoBean.getShopIcon(), "￥" + indexFlashShopInfoBean.getShowPrice()));
+        }
+    }
+
+    /**
+     * 动态添加限时抢购模块
+     *
+     * @param imgUrl
+     * @param money
+     */
+    private View getFlashSaleView(String imgUrl, CharSequence money) {
+        //frameLayout
+        FrameLayout frameLayout = new FrameLayout(getActivity());
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+        layoutParams.rightMargin = DisplayUtils.dip2px(getActivity(), 3);
+        frameLayout.setLayoutParams(layoutParams);
+        //imageview
+        ImageView imageView = new ImageView(getActivity());
+        FrameLayout.LayoutParams layoutParams1 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams1.gravity = Gravity.CENTER_HORIZONTAL;
+        imageView.setLayoutParams(layoutParams1);
+        imageView.setAdjustViewBounds(true);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageLoader.displayImage(imgUrl, imageView, MallAppliaction.getInstance().defaultOptions);
+        //textview
+        TextView textView = new TextView(getActivity());
+        FrameLayout.LayoutParams layoutParams2 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams2.gravity = Gravity.BOTTOM;
+        textView.setLayoutParams(layoutParams2);
+        textView.setGravity(Gravity.CENTER_HORIZONTAL);
+        textView.setBackgroundResource(R.color.transparent_flash);
+        textView.setTextColor(getResources().getColor(R.color.white));
+        textView.setText(money);
+        //添加view
+        frameLayout.addView(imageView);
+        frameLayout.addView(textView);
+        return frameLayout;
+    }
+
+    private String[] headerStrs = new String[]{"公告", "物流信息", "我的订单", "我的收藏"};//圆形图标的四个默认按钮
+    private int[] headerIcons = new int[]{R.drawable.ic_notice, R.drawable.ic_wuliu, R.drawable.ic_my_order, R.drawable.ic_collection};//圆形图标的四个默认按钮图片资源
+
+    /**
+     * 圆形图标默认数据
+     */
+    private void getDaohangList() {
+        List<IndexDaohangInfoBean> indexDaohangInfoBeans = new ArrayList<>();
+        for (int i = 0; i < headerStrs.length; i++) {
+            IndexDaohangInfoBean indexDaohangInfoBean = new IndexDaohangInfoBean();
+            indexDaohangInfoBean.setIndexs(i);
+            indexDaohangInfoBean.setNavName(headerStrs[i]);
+            indexDaohangInfoBean.setShowImgRes(headerIcons[i]);
+            indexDaohangInfoBeans.add(indexDaohangInfoBean);
+        }
+        if (index_header_ly == null) return;
+        index_header_ly.setOnHeaderViewClick(new IndexHeaderYuanView.OnHeaderViewClick() {
+            @Override
+            public void onItemClickData(int position) {
+                headerItemClick(position);
+            }
+        });
+        index_header_ly.getDataList(indexDaohangInfoBeans);
+    }
+
+    /**
+     * 圆形图标本地点击事件
+     */
+    private void headerItemClick(int position) {
+        switch (position) {
+            case 0://公告
+                //startActivity(NoticeListActivity.class);
+                break;
+            case 1://物流信息
+//                if (isLogin()) {
+//                    Bundle bundle=new Bundle();
+//                    bundle.putInt("currentItem", 2);
+//                    startActivity(OrderListActivity.class, bundle);
+//                }
+                break;
+            case 2://订单列表
+//                if (isLogin()) {
+//                    startActivity(OrderListActivity.class);
+//                }
+                break;
+            case 3://我的收藏
+//                if (isLogin()) {
+//                    startActivity(UserCommodityCollectActivity.class);
+//                }
+                break;
+        }
+    }
+
+    /**
+     * 圆形图标网络点击事件
+     *
+     * @param indexDaohangInfoBeans
+     */
+    private void getHeaderDaoHangUrlList(List<IndexDaohangInfoBean> indexDaohangInfoBeans) {
+        if (index_header_ly_tow == null) return;
+        index_header_ly_tow.setOnHeaderViewClick(new IndexHeaderYuanView.OnHeaderViewClick() {
+            @Override
+            public void onItemClickData(int position) {
+//                        IndexDaohangInfoBean indexDaohangInfoBean = indexDaohangInfoBeans.get(position);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putInt(MallConstant.SHOPINFO_TYPEID, indexDaohangInfoBean.getShopTypeId());
+//                        startActivity(CommodityListActivity.class, bundle);
+            }
+        });
+        index_header_ly_tow.getUrlDataList(indexDaohangInfoBeans);
+    }
+
+    private float downY;
+
+    /**
+     * 轮番图
+     *
+     * @param indexLunfanContentList
+     */
+    private void getLunFanView(final List<IndexLunfanInfoBean> indexLunfanContentList) {
+        List<String> imageUrls = new ArrayList<>();
+        for (IndexLunfanInfoBean indexLunfanInfoBean : indexLunfanContentList) {
+            imageUrls.add(indexLunfanInfoBean.getShowImg());
+        }
+        index_header_lunfan.setImageUrls(imageUrls, MallAppliaction.getInstance().defaultOptions);
+        index_header_lunfan.setTakeTurnsHeight((int) (getWindowWidth() / 2.28));
+        index_header_lunfan.setSleepTime(4 * 1000);//轮番的循环时间
+        index_header_lunfan.setViewpagerScrollTime(300);//轮番滑动速率
+        index_header_lunfan.setUpdateUI(new TakeTurnsView.UpdateUI() {
+            @Override
+            public void onUpdateUI(int position) {
+
+            }
+
+            @Override
+            public void onItemClick(int position, ImageView imageView) {
+                IndexLunfanInfoBean indexLunfanInfoBean = indexLunfanContentList.get(position);
+                getHeaderStartActivity(indexLunfanInfoBean.getLunfanType(), indexLunfanInfoBean.getFkId());
+            }
+        });
+
+        index_header_lunfan.setTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        downY = event.getRawY();
+                        return true;
+                    //break;
+                    case MotionEvent.ACTION_MOVE:
+                        float moveY = Math.abs(event.getRawY()) - downY;
+                        if (moveY > 10f) {
+                            setRefresh(false);
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        setRefresh(true);
+                        return false;
+                    //break;
+                }
+                return false;
+            }
+        });
+
+    }
+
+    @Override
     protected void initView(View parentView) {
         super.initView(parentView);
         search_title_view = (SearchTitleView) parentView.findViewById(R.id.search_title_view);
-
     }
 
     @Override
     protected void initData() {
         showLoading("正在加载首页数据……");
         presenter.getIndexData();
-        search_title_view.setSearchClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showShortToast("进入搜索页面");
-            }
-        });
+        search_title_view.setOnClickListener(this);
+        getDaohangList();//默认圆形图标数据
     }
 
 
@@ -76,6 +293,9 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
                 clearAll();
                 addAll(indexData);
                 loadSuccess();
+                getLunFanView(indexInfoBean.getIndexLunfanContentList());//轮番图
+                getHeaderDaoHangUrlList(indexInfoBean.getIndexNavList());//圆形图片
+                getFlashSale(indexInfoBean.getShopTimeOut());//限时抢购
                 break;
         }
     }
@@ -97,15 +317,6 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
 
     }
 
-    /**
-     * 0：一排三列；
-     * 1：├型；
-     * 2：田型；
-     * 3：┤型；
-     * 4：┬型；
-     * 5：┴型；
-     * 6：一型；
-     */
     @Override
     public void getItemData(int position, BaseViewHolder baseViewHolder, int itemType) {
         IndexMokuaiInfoBean indexMokuaiInfoBean = indexData.get(position);
@@ -187,6 +398,19 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
         return indexMokuaiInfoBean.getMoudleType();
     }
 
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.index_header_qianggou://点击进入限时抢购
+
+                break;
+            case R.id.search_title_view://点击标题搜索
+
+                break;
+        }
+    }
+
     /**
      * 点击每一张图片的事件
      *
@@ -195,6 +419,38 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
      */
     @Override
     public void onItemImgClick(View v, IndexMokuaiContentInfoBean moduleContent) {
+        getHeaderStartActivity(moduleContent.getContentType(), moduleContent.getFkId());
+    }
 
+
+    /**
+     * 轮番图和首页图片的点击事件
+     *
+     * @param type
+     * @param fkId
+     */
+    private void getHeaderStartActivity(int type, int fkId) {
+        Bundle bundle = new Bundle();
+        Intent intent = null;
+        switch (type) {
+            case 0://商品信息
+                bundle.putInt(MallConstant.SHOPINFO_SHOPID, fkId);
+                //intent = new Intent(getActivity(), CommodityDetailActivity.class);
+                showShortToast("商品信息");
+                break;
+            case 1://商品分类
+                bundle.putInt(MallConstant.SHOPINFO_TYPEID, fkId);
+                //intent = new Intent(getActivity(), CommodityListActivity.class);
+                showShortToast("商品分类");
+                break;
+            case 2://公告
+                bundle.putInt(MallConstant.INFORMATION_INFORMATIONID, fkId);
+                //intent = new Intent(getActivity(), CommodityListActivity.class);
+                showShortToast("公告");
+                break;
+        }
+        if (intent == null) return;
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

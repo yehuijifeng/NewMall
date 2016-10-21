@@ -33,8 +33,9 @@ public class IndexModel extends BaseModel {
     public static final int INDEX_ITEM_SEX = INDEX_ITEM_FIVE + 1;//5：┴型；
     public static final int INDEX_ITEM_SEVEN = INDEX_ITEM_SEX + 1;//6：一型；
 
-    private int windowWidth;
-    private ImageLoader imageLoader = ImageLoader.getInstance();
+    private int windowWidth;//当前手机屏幕的宽度
+    private ImageLoader imageLoader = ImageLoader.getInstance();//imageloader图片加载
+
 
     public IndexModel(int windowWidth) {
         this.windowWidth = windowWidth;
@@ -537,4 +538,5 @@ public class IndexModel extends BaseModel {
             setItemHeightThree(index_item_seven_ly);
         }
     }
+
 }

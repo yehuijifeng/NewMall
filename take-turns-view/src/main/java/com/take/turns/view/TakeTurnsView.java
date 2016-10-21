@@ -71,6 +71,8 @@ public class TakeTurnsView extends LinearLayout {
         return updateUI;
     }
 
+    private ImageLoader imageLoader;
+
     public void setUpdateUI(UpdateUI updateUI) {
         this.updateUI = updateUI;
         if (getUpdateUI() != null)
@@ -81,11 +83,11 @@ public class TakeTurnsView extends LinearLayout {
         return imageDataUrls;
     }
 
-    public void setImageUrls(List<String> imageUrls, ImageLoader imageLoader, DisplayImageOptions displayImageOptions) {
-        setImageUrls(imageUrls, 0, imageLoader, displayImageOptions);
+    public void setImageUrls(List<String> imageUrls, DisplayImageOptions displayImageOptions) {
+        setImageUrls(imageUrls, 0, displayImageOptions);
     }
 
-    public void setImageUrls(List<String> imageUrls, int drawableId, ImageLoader imageLoader, DisplayImageOptions displayImageOptions) {
+    public void setImageUrls(List<String> imageUrls, int drawableId, DisplayImageOptions displayImageOptions) {
         //为null则不赋值
         if (imageUrls == null || imageUrls.isEmpty()) return;
         if (imageDataUrls != null && imageDataUrls.equals(imageUrls)) return;
@@ -98,8 +100,8 @@ public class TakeTurnsView extends LinearLayout {
             getRadioButton(drawableId);
         }
         //检测数据需不需要更新，只关心数据长度，若长度一样则只更新内容
-        if (!checkData(imageLoader, displayImageOptions))
-            getImageViews(imageLoader, displayImageOptions);
+        if (!checkData(displayImageOptions))
+            getImageViews(displayImageOptions);
 
         //take_turns_view_pager.removeAllViews();
 
@@ -119,15 +121,10 @@ public class TakeTurnsView extends LinearLayout {
         //设置当前点点的位置
         tips[take_turns_view_pager.getCurrentItem() < imageDataUrls.size() ? take_turns_view_pager.getCurrentItem() : (take_turns_view_pager.getCurrentItem() % imageDataUrls.size()) == 0 ? (take_turns_view_pager.getCurrentItem() % imageDataUrls.size()) : (take_turns_view_pager.getCurrentItem() % imageDataUrls.size()) - 1].setChecked(true);
 
-        //变换位置x
-        //int i = take_turns_view_pager.getCurrentItem();
-        //take_turns_view_pager.setCurrentItem(getViewpagerCurrent(take_turns_view_pager.getCurrentItem()));
         //轮番开始
-//        if (mHandler != null) {
-//            Contant.isRun = true;
-//            mHandler.removeCallbacksAndMessages(null);
-//            mHandler.sendEmptyMessage(1);
-//        }
+        if (!Contant.isRun) {
+            onResume();
+        }
     }
 
 
@@ -162,9 +159,9 @@ public class TakeTurnsView extends LinearLayout {
     /**
      * 将数据添加进inmageview中
      *
-     * @param imageLoader
+     * @param displayImageOptions
      */
-    private void getImageViews(ImageLoader imageLoader, DisplayImageOptions displayImageOptions) {
+    private void getImageViews(DisplayImageOptions displayImageOptions) {
         //清理数据
         imageViews.clear();
 
@@ -222,7 +219,7 @@ public class TakeTurnsView extends LinearLayout {
         }
     }
 
-    private boolean checkData(ImageLoader imageLoader, DisplayImageOptions displayImageOptions) {
+    private boolean checkData(DisplayImageOptions displayImageOptions) {
         if (imageViews == null || imageViews.isEmpty()) return false;
         // 将图片装载到数组中
         if (imageDataUrls.size() == 1) {
@@ -278,6 +275,7 @@ public class TakeTurnsView extends LinearLayout {
     }
 
     private void initView() {
+        imageLoader = ImageLoader.getInstance();
         root = LayoutInflater.from(getContext()).inflate(R.layout.base_take_truns, this);
         take_turns_view_pager = (NoScrollViewPager) root.findViewById(R.id.take_turns_view_pager);
         take_turns_radio_group = (RadioGroup) root.findViewById(R.id.take_turns_radio_group);
