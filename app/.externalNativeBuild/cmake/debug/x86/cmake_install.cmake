@@ -1,4 +1,4 @@
-# Install script for directory: E:/GitHub/NewMall/app
+# Install script for directory: D:/GitHub/NewMall/app
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "E:/GitHub/NewMall/app/.externalNativeBuild/cmake/debug/x86/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/GitHub/NewMall/app/.externalNativeBuild/cmake/debug/x86/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

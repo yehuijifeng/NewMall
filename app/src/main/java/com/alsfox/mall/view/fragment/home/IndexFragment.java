@@ -99,6 +99,11 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
         for (IndexFlashShopInfoBean indexFlashShopInfoBean : indexQianggouInfoBean.getShopInfoList()) {
             flash_frame_ly.addView(getFlashSaleView(indexFlashShopInfoBean.getShopIcon(), "￥" + indexFlashShopInfoBean.getShowPrice()));
         }
+        if (indexQianggouInfoBean.getShopInfoList().size() < 3) {
+            ViewGroup.LayoutParams layoutParams = flash_frame_ly.getLayoutParams();
+            layoutParams.height = (int) (getWindowWidth() / 2);
+            flash_frame_ly.setLayoutParams(layoutParams);
+        }
     }
 
     /**
