@@ -1,6 +1,7 @@
 package com.alsfox.mall.http.interfaces;
 
 
+import com.alsfox.mall.bean.classify.ShopTypeBean;
 import com.alsfox.mall.bean.index.IndexInfoBean;
 import com.alsfox.mall.http.HttpBean;
 import com.alsfox.mall.http.request.RequestUrls;
@@ -30,7 +31,15 @@ public interface ApiService {
     // http://gc.ditu.aliyun.com/geocoding?a=苏州市
     //那么key中的值也就是从注解path中得到的，它并要求和{}替换符中的字符一致
     //参数不能为null,且不能只有url的参数，还应该包括地址的字段；正确：geocoding?a=苏州市；错误：a=苏州市
+
+    //首页
     @POST(RequestUrls.GET_INDEX_CONTENT_URL)
     Observable<HttpBean<IndexInfoBean>> getIndexData(@QueryMap Map<String, Object> options);
+
+    //分类
+    @POST(RequestUrls.GET_COMMODITY_CLASSIFY_URL)
+    Observable<HttpBean<ShopTypeBean>> getClassifyData(@QueryMap Map<String, Object> options);
+
+
 
 }

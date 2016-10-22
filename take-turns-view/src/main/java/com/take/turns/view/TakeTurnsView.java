@@ -71,23 +71,21 @@ public class TakeTurnsView extends LinearLayout {
         return updateUI;
     }
 
-    private ImageLoader imageLoader;
+    //private ImageLoader imageLoader;
 
     public void setUpdateUI(UpdateUI updateUI) {
         this.updateUI = updateUI;
-        if (getUpdateUI() != null)
-            getUpdateUI().onUpdateUI(0);
     }
 
     public List<String> getImageUrls() {
         return imageDataUrls;
     }
 
-    public void setImageUrls(List<String> imageUrls, DisplayImageOptions displayImageOptions) {
-        setImageUrls(imageUrls, 0, displayImageOptions);
+    public void setImageUrls(List<String> imageUrls) {
+        setImageUrls(imageUrls, 0);
     }
 
-    public void setImageUrls(List<String> imageUrls, int drawableId, DisplayImageOptions displayImageOptions) {
+    public void setImageUrls(List<String> imageUrls, int drawableId) {
         //为null则不赋值
         if (imageUrls == null || imageUrls.isEmpty()) return;
         if (imageDataUrls != null && imageDataUrls.equals(imageUrls)) return;
@@ -100,20 +98,24 @@ public class TakeTurnsView extends LinearLayout {
             getRadioButton(drawableId);
         }
         //检测数据需不需要更新，只关心数据长度，若长度一样则只更新内容
-        if (!checkData(displayImageOptions))
-            getImageViews(displayImageOptions);
+        if (!checkData()) {
+            getImageViews();
+        }
 
         //take_turns_view_pager.removeAllViews();
 
         //适配器在有了数据以后才创建
         if (pagerAdapter == null) {
             pagerAdapter = new MyAdapter();
+            pagerAdapter.setmImageViews(imageViews);
             take_turns_view_pager.setInfinateAdapter(mHandler, pagerAdapter);
-            take_turns_view_pager.setCurrentItem(imageViews.size() * 100);
-        }
-
-        //更新适配器数据
-        pagerAdapter.setmImageViews(imageViews);
+            take_turns_view_pager.setCurrentItem(imageViews.size() * 100 + 1, true);
+            take_turns_view_pager.setCurrentItem(imageViews.size() * 100, true);
+            //更新
+            //pagerAdapter.notifyDataSetChanged();
+        } else
+            //更新适配器数据
+            pagerAdapter.setmImageViews(imageViews);
 
         //更新
         //pagerAdapter.notifyDataSetChanged();
@@ -121,10 +123,6 @@ public class TakeTurnsView extends LinearLayout {
         //设置当前点点的位置
         tips[take_turns_view_pager.getCurrentItem() < imageDataUrls.size() ? take_turns_view_pager.getCurrentItem() : (take_turns_view_pager.getCurrentItem() % imageDataUrls.size()) == 0 ? (take_turns_view_pager.getCurrentItem() % imageDataUrls.size()) : (take_turns_view_pager.getCurrentItem() % imageDataUrls.size()) - 1].setChecked(true);
 
-        //轮番开始
-        if (!Contant.isRun) {
-            onResume();
-        }
     }
 
 
@@ -156,15 +154,13 @@ public class TakeTurnsView extends LinearLayout {
         }
     }
 
+
     /**
      * 将数据添加进inmageview中
-     *
-     * @param displayImageOptions
      */
-    private void getImageViews(DisplayImageOptions displayImageOptions) {
+    private void getImageViews() {
         //清理数据
         imageViews.clear();
-
         //图片布局
         ViewGroup.LayoutParams imageLayoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         take_turns_view_pager.setNoScroll(false);
@@ -176,18 +172,17 @@ public class TakeTurnsView extends LinearLayout {
                 imageView.setOnClickListener(new OnItemClickListener(0));
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setLayoutParams(imageLayoutParams);
-                imageLoader.displayImage(imageDataUrls.get(0), imageView, displayImageOptions);
                 imageViews.add(imageView);
             }
             take_turns_view_pager.setNoScroll(true);
         } else if (imageDataUrls.size() == 2 || imageDataUrls.size() == 3) {
+
             for (int i = 0; i < imageDataUrls.size() * 2; i++) {
                 ImageView imageView = new ImageView(getContext());
                 imageView.setId(i > (imageDataUrls.size() - 1) ? i - imageDataUrls.size() : i);
                 imageView.setOnClickListener(new OnItemClickListener(i > (imageDataUrls.size() - 1) ? i - imageDataUrls.size() : i));
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setLayoutParams(imageLayoutParams);
-                imageLoader.displayImage(imageDataUrls.get((i > (imageDataUrls.size() - 1)) ? i - imageDataUrls.size() : i), imageView, displayImageOptions);
                 imageViews.add(imageView);
             }
         } else {
@@ -197,7 +192,6 @@ public class TakeTurnsView extends LinearLayout {
                 imageView.setOnClickListener(new OnItemClickListener(i));
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setLayoutParams(imageLayoutParams);
-                imageLoader.displayImage(imageDataUrls.get(i), imageView, displayImageOptions);
                 imageViews.add(imageView);
             }
         }
@@ -219,30 +213,30 @@ public class TakeTurnsView extends LinearLayout {
         }
     }
 
-    private boolean checkData(DisplayImageOptions displayImageOptions) {
+    private boolean checkData() {
         if (imageViews == null || imageViews.isEmpty()) return false;
         // 将图片装载到数组中
         if (imageDataUrls.size() == 1) {
             if (imageViews.size() == 2) {
-                for (ImageView imageView : imageViews) {
-                    imageLoader.displayImage(imageDataUrls.get(0), imageView, displayImageOptions);
-                }
+//                for (ImageView imageView : imageViews) {
+//                    imageLoader.displayImage(imageDataUrls.get(0), imageView, displayImageOptions);
+//                }
                 return true;
             }
             return false;
         } else if (imageDataUrls.size() == 2 || imageDataUrls.size() == 3) {
             if (imageViews.size() == imageDataUrls.size() * 2) {
-                for (int i = 0; i < imageViews.size(); i++) {
-                    imageLoader.displayImage(imageDataUrls.get((i > (imageDataUrls.size() - 1)) ? i - imageDataUrls.size() : i), imageViews.get(i), displayImageOptions);
-                }
+//                for (int i = 0; i < imageViews.size(); i++) {
+//                    imageLoader.displayImage(imageDataUrls.get((i > (imageDataUrls.size() - 1)) ? i - imageDataUrls.size() : i), imageViews.get(i), displayImageOptions);
+//                }
                 return true;
             }
             return false;
         } else {
             if (imageViews.size() == imageDataUrls.size()) {
-                for (int i = 0; i < imageViews.size(); i++) {
-                    imageLoader.displayImage(imageDataUrls.get(i), imageViews.get(i), displayImageOptions);
-                }
+//                for (int i = 0; i < imageViews.size(); i++) {
+//                    imageLoader.displayImage(imageDataUrls.get(i), imageViews.get(i), displayImageOptions);
+//                }
                 return true;
             }
             return false;
@@ -275,7 +269,7 @@ public class TakeTurnsView extends LinearLayout {
     }
 
     private void initView() {
-        imageLoader = ImageLoader.getInstance();
+        //imageLoader = ImageLoader.getInstance();
         root = LayoutInflater.from(getContext()).inflate(R.layout.base_take_truns, this);
         take_turns_view_pager = (NoScrollViewPager) root.findViewById(R.id.take_turns_view_pager);
         take_turns_radio_group = (RadioGroup) root.findViewById(R.id.take_turns_radio_group);
@@ -391,7 +385,8 @@ public class TakeTurnsView extends LinearLayout {
             if (imageViews.size() < 1) return;
             int j = setImageBackground(position % imageViews.size());
             if (getUpdateUI() != null)
-                getUpdateUI().onUpdateUI(j);
+                getUpdateUI().onUpdateUI(j, imageViews.get(j), imageDataUrls.get(j));
+            //imageLoader.displayImage(imageDataUrls.get(j), imageViews.get(j), displayImageOptions);
         }
 
 
@@ -446,7 +441,7 @@ public class TakeTurnsView extends LinearLayout {
      */
     public interface UpdateUI {
         //当前ui显示出来的位置
-        void onUpdateUI(int position);
+        void onUpdateUI(int position, ImageView imageView, String imgUrl);
 
         //点击了当前页面
         void onItemClick(int position, ImageView imageView);

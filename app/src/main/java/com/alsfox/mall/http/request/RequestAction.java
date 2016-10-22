@@ -18,7 +18,12 @@ public enum RequestAction {
         }
     },
 
-    ;
+    GET_CLASSIFY_DATA(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getClassifyData(params.getParams());
+        }
+    },;
 
     public Call<ResponseBody> call;//下载文件专用，okhttp类型的回调
     public Observable observable;//普通网络请求使用，网络请求的操作实例

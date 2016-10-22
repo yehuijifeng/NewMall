@@ -10,8 +10,8 @@ import android.widget.TextView;
 import com.alsfox.mall.R;
 import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.base.BaseViewHolder;
-import com.alsfox.mall.bean.index.IndexMokuaiContentInfoBean;
-import com.alsfox.mall.bean.index.IndexMokuaiInfoBean;
+import com.alsfox.mall.bean.index.IndexMokuaiContentBean;
+import com.alsfox.mall.bean.index.IndexMokuaiBean;
 import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.http.request.RetrofitManage;
 import com.alsfox.mall.model.base.BaseModel;
@@ -56,9 +56,9 @@ public class IndexModel extends BaseModel {
      * @param itemType
      * @param indexMokuaiInfoBean
      */
-    public void getItemData(int position, BaseViewHolder baseViewHolder, int itemType, IndexMokuaiInfoBean indexMokuaiInfoBean) {
+    public void getItemData(int position, BaseViewHolder baseViewHolder, int itemType, IndexMokuaiBean indexMokuaiInfoBean) {
         if (indexMokuaiInfoBean == null) return;
-        List<IndexMokuaiContentInfoBean> mokuaiContentInfoBeens = indexMokuaiInfoBean.getIndexMoudleContentList();
+        List<IndexMokuaiContentBean> mokuaiContentInfoBeens = indexMokuaiInfoBean.getIndexMoudleContentList();
         if (mokuaiContentInfoBeens.isEmpty()) return;
 
         switch (itemType) {
@@ -71,7 +71,7 @@ public class IndexModel extends BaseModel {
                     oneViewHolder.index_item_text.setText(indexMokuaiInfoBean.getMoudleName());
                 }
                 for (int i = 0; i < mokuaiContentInfoBeens.size(); i++) {
-                    IndexMokuaiContentInfoBean moduleContent = mokuaiContentInfoBeens.get(i);
+                    IndexMokuaiContentBean moduleContent = mokuaiContentInfoBeens.get(i);
                     ImageView imageView;
                     if (i == 0) {
                         imageView = oneViewHolder.one_img;
@@ -95,7 +95,7 @@ public class IndexModel extends BaseModel {
                     towViewHolder.index_item_text.setText(indexMokuaiInfoBean.getMoudleName());
                 }
                 for (int i = 0; i < mokuaiContentInfoBeens.size(); i++) {
-                    IndexMokuaiContentInfoBean moduleContent = mokuaiContentInfoBeens.get(i);
+                    IndexMokuaiContentBean moduleContent = mokuaiContentInfoBeens.get(i);
                     ImageView imageView;
                     if (i == 0) {
                         imageView = towViewHolder.one_img;
@@ -119,7 +119,7 @@ public class IndexModel extends BaseModel {
                     threeViewHolder.index_item_text.setText(indexMokuaiInfoBean.getMoudleName());
                 }
                 for (int i = 0; i < mokuaiContentInfoBeens.size(); i++) {
-                    IndexMokuaiContentInfoBean moduleContent = mokuaiContentInfoBeens.get(i);
+                    IndexMokuaiContentBean moduleContent = mokuaiContentInfoBeens.get(i);
                     ImageView imageView;
                     if (i == 0) {
                         imageView = threeViewHolder.one_img;
@@ -145,7 +145,7 @@ public class IndexModel extends BaseModel {
                     fourViewHolder.index_item_text.setText(indexMokuaiInfoBean.getMoudleName());
                 }
                 for (int i = 0; i < mokuaiContentInfoBeens.size(); i++) {
-                    IndexMokuaiContentInfoBean moduleContent = mokuaiContentInfoBeens.get(i);
+                    IndexMokuaiContentBean moduleContent = mokuaiContentInfoBeens.get(i);
                     ImageView imageView;
                     if (i == 0) {
                         imageView = fourViewHolder.one_img;
@@ -169,7 +169,7 @@ public class IndexModel extends BaseModel {
                     fiveViewHolder.index_item_text.setText(indexMokuaiInfoBean.getMoudleName());
                 }
                 for (int i = 0; i < mokuaiContentInfoBeens.size(); i++) {
-                    IndexMokuaiContentInfoBean moduleContent = mokuaiContentInfoBeens.get(i);
+                    IndexMokuaiContentBean moduleContent = mokuaiContentInfoBeens.get(i);
                     ImageView imageView;
                     if (i == 0) {
                         imageView = fiveViewHolder.one_img;
@@ -193,7 +193,7 @@ public class IndexModel extends BaseModel {
                     sexViewHolder.index_item_text.setText(indexMokuaiInfoBean.getMoudleName());
                 }
                 for (int i = 0; i < mokuaiContentInfoBeens.size(); i++) {
-                    IndexMokuaiContentInfoBean moduleContent = mokuaiContentInfoBeens.get(i);
+                    IndexMokuaiContentBean moduleContent = mokuaiContentInfoBeens.get(i);
                     ImageView imageView;
                     if (i == 0) {
                         imageView = sexViewHolder.one_img;
@@ -217,7 +217,7 @@ public class IndexModel extends BaseModel {
                     sevenViewHolder.index_item_text.setText(indexMokuaiInfoBean.getMoudleName());
                 }
                 for (int i = 0; i < mokuaiContentInfoBeens.size(); i++) {
-                    IndexMokuaiContentInfoBean moduleContent = mokuaiContentInfoBeens.get(i);
+                    IndexMokuaiContentBean moduleContent = mokuaiContentInfoBeens.get(i);
                     ImageView imageView;
                     if (i == 0) {
                         imageView = sevenViewHolder.one_img;
@@ -253,16 +253,16 @@ public class IndexModel extends BaseModel {
      * 图片点击事件接口
      */
     public interface OnItemImgClickInterface {
-        void onItemImgClick(View v, IndexMokuaiContentInfoBean moduleContent);
+        void onItemImgClick(View v, IndexMokuaiContentBean moduleContent);
     }
 
     /**
      * 每个图片的点击事件
      */
     private class ItemClickListener implements View.OnClickListener {
-        IndexMokuaiContentInfoBean moduleContent;
+        IndexMokuaiContentBean moduleContent;
 
-        ItemClickListener(IndexMokuaiContentInfoBean moduleContent) {
+        ItemClickListener(IndexMokuaiContentBean moduleContent) {
             this.moduleContent = moduleContent;
         }
 

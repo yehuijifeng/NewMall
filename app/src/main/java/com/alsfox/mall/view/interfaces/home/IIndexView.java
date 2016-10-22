@@ -2,7 +2,7 @@ package com.alsfox.mall.view.interfaces.home;
 
 import android.view.View;
 
-import com.alsfox.mall.bean.index.IndexMokuaiContentInfoBean;
+import com.alsfox.mall.bean.index.IndexMokuaiContentBean;
 import com.alsfox.mall.view.interfaces.base.IBaseView;
 
 /**
@@ -18,6 +18,6 @@ public interface IIndexView extends IBaseView {
      * @param v
      * @param moduleContent
      */
-    void onItemImgClick(View v, IndexMokuaiContentInfoBean moduleContent);
+    void onItemImgClick(View v, IndexMokuaiContentBean moduleContent);
 
 }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.alsfox.mall.R;
 import com.alsfox.mall.presenter.base.BasePresenter;
 import com.alsfox.mall.view.activity.base.BaseViewPagerActivity;
+import com.alsfox.mall.view.fragment.home.ClassifyFragment;
 import com.alsfox.mall.view.fragment.home.IndexFragment;
 
 /**
@@ -36,6 +37,7 @@ public class HomeActivity extends BaseViewPagerActivity {
     protected void initView() {
         super.initView();
         mViewList.add(new IndexFragment());
+        mViewList.add(new ClassifyFragment());
         setPageNumber(0);
     }
 

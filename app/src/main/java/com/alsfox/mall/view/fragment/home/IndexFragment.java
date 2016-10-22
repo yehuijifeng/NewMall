@@ -15,21 +15,21 @@ import android.widget.TextView;
 import com.alsfox.mall.R;
 import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.base.BaseViewHolder;
-import com.alsfox.mall.bean.index.IndexDaohangInfoBean;
-import com.alsfox.mall.bean.index.IndexFlashShopInfoBean;
+import com.alsfox.mall.bean.index.IndexDaohangBean;
+import com.alsfox.mall.bean.index.IndexFlashShopBean;
 import com.alsfox.mall.bean.index.IndexInfoBean;
-import com.alsfox.mall.bean.index.IndexLunfanInfoBean;
-import com.alsfox.mall.bean.index.IndexMokuaiContentInfoBean;
-import com.alsfox.mall.bean.index.IndexMokuaiInfoBean;
-import com.alsfox.mall.bean.index.IndexQianggouInfoBean;
+import com.alsfox.mall.bean.index.IndexLunfanBean;
+import com.alsfox.mall.bean.index.IndexMokuaiBean;
+import com.alsfox.mall.bean.index.IndexMokuaiContentBean;
+import com.alsfox.mall.bean.index.IndexQianggouBean;
 import com.alsfox.mall.constances.MallConstant;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.model.home.IndexModel;
 import com.alsfox.mall.presenter.home.IndexPresenter;
 import com.alsfox.mall.utils.DisplayUtils;
-import com.alsfox.mall.view.customview.IndexHeaderYuanView;
 import com.alsfox.mall.view.customview.SearchTitleView;
+import com.alsfox.mall.view.customview.index.IndexHeaderYuanView;
 import com.alsfox.mall.view.fragment.base.BaseListFragment;
 import com.alsfox.mall.view.interfaces.home.IIndexView;
 import com.take.turns.view.TakeTurnsView;
@@ -47,7 +47,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
 
     private SearchTitleView search_title_view;
 
-    private List<IndexMokuaiInfoBean> indexData;
+    private List<IndexMokuaiBean> indexData;
 
     //头view的控件
     private TakeTurnsView index_header_lunfan;
@@ -84,19 +84,24 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
         index_header_qianggou.setOnClickListener(this);
     }
 
+    private List<IndexFlashShopBean> indexQianggouInfoBeanCache;
+
     /**
      * 添加限时抢购数据
      *
      * @param indexQianggouInfoBean
      */
-    private void getFlashSale(IndexQianggouInfoBean indexQianggouInfoBean) {
+    private void getFlashSale(IndexQianggouBean indexQianggouInfoBean) {
         if (indexQianggouInfoBean == null || indexQianggouInfoBean.getShopInfoList().isEmpty()) {
             index_header_qianggou.setVisibility(View.GONE);
             return;
         } else {
             index_header_qianggou.setVisibility(View.VISIBLE);
         }
-        for (IndexFlashShopInfoBean indexFlashShopInfoBean : indexQianggouInfoBean.getShopInfoList()) {
+        if (indexQianggouInfoBean.getShopInfoList().containsAll(indexQianggouInfoBeanCache)) return;
+        else
+            indexQianggouInfoBeanCache = indexQianggouInfoBean.getShopInfoList();
+        for (IndexFlashShopBean indexFlashShopInfoBean : indexQianggouInfoBean.getShopInfoList()) {
             flash_frame_ly.addView(getFlashSaleView(indexFlashShopInfoBean.getShopIcon(), "￥" + indexFlashShopInfoBean.getShowPrice()));
         }
         if (indexQianggouInfoBean.getShopInfoList().size() < 3) {
@@ -148,13 +153,13 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
      * 圆形图标默认数据
      */
     private void getDaohangList() {
-        List<IndexDaohangInfoBean> indexDaohangInfoBeans = new ArrayList<>();
+        List<IndexDaohangBean> indexDaohangBeans = new ArrayList<>();
         for (int i = 0; i < headerStrs.length; i++) {
-            IndexDaohangInfoBean indexDaohangInfoBean = new IndexDaohangInfoBean();
-            indexDaohangInfoBean.setIndexs(i);
-            indexDaohangInfoBean.setNavName(headerStrs[i]);
-            indexDaohangInfoBean.setShowImgRes(headerIcons[i]);
-            indexDaohangInfoBeans.add(indexDaohangInfoBean);
+            IndexDaohangBean indexDaohangBean = new IndexDaohangBean();
+            indexDaohangBean.setIndexs(i);
+            indexDaohangBean.setNavName(headerStrs[i]);
+            indexDaohangBean.setShowImgRes(headerIcons[i]);
+            indexDaohangBeans.add(indexDaohangBean);
         }
         if (index_header_ly == null) return;
         index_header_ly.setOnHeaderViewClick(new IndexHeaderYuanView.OnHeaderViewClick() {
@@ -163,7 +168,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
                 headerItemClick(position);
             }
         });
-        index_header_ly.getDataList(indexDaohangInfoBeans);
+        index_header_ly.getDataList(indexDaohangBeans);
     }
 
     /**
@@ -199,12 +204,12 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
      *
      * @param indexDaohangInfoBeans
      */
-    private void getHeaderDaoHangUrlList(List<IndexDaohangInfoBean> indexDaohangInfoBeans) {
+    private void getHeaderDaoHangUrlList(List<IndexDaohangBean> indexDaohangInfoBeans) {
         if (index_header_ly_tow == null) return;
         index_header_ly_tow.setOnHeaderViewClick(new IndexHeaderYuanView.OnHeaderViewClick() {
             @Override
             public void onItemClickData(int position) {
-//                        IndexDaohangInfoBean indexDaohangInfoBean = indexDaohangInfoBeans.get(position);
+//                        IndexDaohangBean indexDaohangInfoBean = indexDaohangInfoBeans.get(position);
 //                        Bundle bundle = new Bundle();
 //                        bundle.putInt(MallConstant.SHOPINFO_TYPEID, indexDaohangInfoBean.getShopTypeId());
 //                        startActivity(CommodityListActivity.class, bundle);
@@ -220,27 +225,28 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
      *
      * @param indexLunfanContentList
      */
-    private void getLunFanView(final List<IndexLunfanInfoBean> indexLunfanContentList) {
+    private void getLunFanView(final List<IndexLunfanBean> indexLunfanContentList) {
+        if (indexLunfanContentList.isEmpty()) return;
         List<String> imageUrls = new ArrayList<>();
-        for (IndexLunfanInfoBean indexLunfanInfoBean : indexLunfanContentList) {
+        for (IndexLunfanBean indexLunfanInfoBean : indexLunfanContentList) {
             imageUrls.add(indexLunfanInfoBean.getShowImg());
         }
-        index_header_lunfan.setImageUrls(imageUrls, MallAppliaction.getInstance().defaultOptions);
         index_header_lunfan.setTakeTurnsHeight((int) (getWindowWidth() / 2.28));
         index_header_lunfan.setSleepTime(4 * 1000);//轮番的循环时间
         index_header_lunfan.setViewpagerScrollTime(300);//轮番滑动速率
         index_header_lunfan.setUpdateUI(new TakeTurnsView.UpdateUI() {
             @Override
-            public void onUpdateUI(int position) {
-
+            public void onUpdateUI(int position, ImageView imageView, String imgUrl) {
+                imageLoader.displayImage(imgUrl, imageView, MallAppliaction.getInstance().defaultOptions);
             }
 
             @Override
             public void onItemClick(int position, ImageView imageView) {
-                IndexLunfanInfoBean indexLunfanInfoBean = indexLunfanContentList.get(position);
+                IndexLunfanBean indexLunfanInfoBean = indexLunfanContentList.get(position);
                 getHeaderStartActivity(indexLunfanInfoBean.getLunfanType(), indexLunfanInfoBean.getFkId());
             }
         });
+        index_header_lunfan.setImageUrls(imageUrls);
 
         index_header_lunfan.setTouchListener(new View.OnTouchListener() {
             @Override
@@ -249,7 +255,6 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
                     case MotionEvent.ACTION_DOWN:
                         downY = event.getRawY();
                         return true;
-                    //break;
                     case MotionEvent.ACTION_MOVE:
                         float moveY = Math.abs(event.getRawY()) - downY;
                         if (moveY > 10f) {
@@ -259,13 +264,27 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
                     case MotionEvent.ACTION_UP:
                         setRefresh(true);
                         return false;
-                    //break;
                 }
                 return false;
             }
         });
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (index_header_lunfan != null)
+            index_header_lunfan.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (index_header_lunfan != null)
+            index_header_lunfan.onPause();
+    }
+
 
     @Override
     protected void initView(View parentView) {
@@ -296,11 +315,11 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
                 IndexInfoBean indexInfoBean = (IndexInfoBean) success.getHttpBean().getObject();
                 indexData = indexInfoBean.getIndexMoudleList();
                 clearAll();
-                addAll(indexData);
-                loadSuccess();
                 getLunFanView(indexInfoBean.getIndexLunfanContentList());//轮番图
                 getHeaderDaoHangUrlList(indexInfoBean.getIndexNavList());//圆形图片
                 getFlashSale(indexInfoBean.getShopTimeOut());//限时抢购
+                addAll(indexData);
+                loadSuccess();
                 break;
         }
     }
@@ -324,7 +343,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
 
     @Override
     public void getItemData(int position, BaseViewHolder baseViewHolder, int itemType) {
-        IndexMokuaiInfoBean indexMokuaiInfoBean = indexData.get(position);
+        IndexMokuaiBean indexMokuaiInfoBean = indexData.get(position);
         presenter.getItemData(position, baseViewHolder, itemType, indexMokuaiInfoBean);
     }
 
@@ -399,7 +418,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
 
     @Override
     public int getItemViewType(int position) {
-        IndexMokuaiInfoBean indexMokuaiInfoBean = indexData.get(position);
+        IndexMokuaiBean indexMokuaiInfoBean = indexData.get(position);
         return indexMokuaiInfoBean.getMoudleType();
     }
 
@@ -423,7 +442,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
      * @param moduleContent
      */
     @Override
-    public void onItemImgClick(View v, IndexMokuaiContentInfoBean moduleContent) {
+    public void onItemImgClick(View v, IndexMokuaiContentBean moduleContent) {
         getHeaderStartActivity(moduleContent.getContentType(), moduleContent.getFkId());
     }
 

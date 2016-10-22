@@ -3,8 +3,8 @@ package com.alsfox.mall.presenter.home;
 import android.view.View;
 
 import com.alsfox.mall.base.BaseViewHolder;
-import com.alsfox.mall.bean.index.IndexMokuaiContentInfoBean;
-import com.alsfox.mall.bean.index.IndexMokuaiInfoBean;
+import com.alsfox.mall.bean.index.IndexMokuaiContentBean;
+import com.alsfox.mall.bean.index.IndexMokuaiBean;
 import com.alsfox.mall.model.home.IndexModel;
 import com.alsfox.mall.presenter.base.BasePresenter;
 import com.alsfox.mall.view.interfaces.home.IIndexView;
@@ -43,10 +43,10 @@ public class IndexPresenter extends BasePresenter<IIndexView> {
      * @param itemType
      * @param indexMokuaiInfoBean
      */
-    public void getItemData(int position, BaseViewHolder baseViewHolder, int itemType, IndexMokuaiInfoBean indexMokuaiInfoBean) {
+    public void getItemData(int position, BaseViewHolder baseViewHolder, int itemType, IndexMokuaiBean indexMokuaiInfoBean) {
         indexModel.setOnItemImgClickInterface(new IndexModel.OnItemImgClickInterface() {
             @Override
-            public void onItemImgClick(View v, IndexMokuaiContentInfoBean moduleContent) {
+            public void onItemImgClick(View v, IndexMokuaiContentBean moduleContent) {
                 mView.onItemImgClick(v, moduleContent);
             }
 

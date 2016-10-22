@@ -17,12 +17,13 @@
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.25"
+            android:layout_weight="0.3"
             android:layerType="none">
 
             <RadioGroup
+                android:id="@+id/classify_one_radio_group"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" />
         </ScrollView>
 
@@ -30,7 +31,7 @@
             android:id="@+id/tow_classify_ly"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.75"
+            android:layout_weight="0.7"
             android:orientation="vertical">
 
             <include layout="@layout/default_gridview" />

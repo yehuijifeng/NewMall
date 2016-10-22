@@ -102,21 +102,21 @@
     </item>
     <item
         is-multidex="false"
+        jar="E:\GitHub\NewMall\app\build\intermediates\exploded-aar\NewMall\take-turns-view\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="df95454f7bd4f55bcf4715c9e844ba304aa2e9b6">
+        <dex dex="E:\GitHub\NewMall\app\build\intermediates\pre-dexed\debug\NewMall-take-turns-view-unspecified_85fa3066a34a7fcec7da3cc319fa18be153b00f8.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="E:\GitHub\NewMall\app\build\intermediates\exploded-aar\NewMall\umeng\unspecified\jars\libs\SocialSDK_tencentWB_3.jar"
         jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="b029f9e54d8639614528d0c55ca403f4431d7515">
         <dex dex="E:\GitHub\NewMall\app\build\intermediates\pre-dexed\debug\SocialSDK_tencentWB_3_39d206fd8167c94b0d19e8594d4000c273eb8945.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="E:\GitHub\NewMall\app\build\intermediates\exploded-aar\NewMall\take-turns-view\unspecified\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="24.0.3"
-        sha1="8fd70c4d504cb0513f03c473a945881c0cb13a13">
-        <dex dex="E:\GitHub\NewMall\app\build\intermediates\pre-dexed\debug\NewMall-take-turns-view-unspecified_85fa3066a34a7fcec7da3cc319fa18be153b00f8.jar" />
     </item>
     <item
         is-multidex="false"

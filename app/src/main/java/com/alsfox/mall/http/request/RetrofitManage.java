@@ -4,6 +4,7 @@ import android.os.Environment;
 
 import com.alsfox.mall.function.RxBus;
 import com.alsfox.mall.http.HttpBean;
+import com.alsfox.mall.http.SignUtils;
 import com.alsfox.mall.http.StatusCode;
 import com.alsfox.mall.http.download.OnProgressListener;
 import com.alsfox.mall.http.download.ProgressHelper;
@@ -112,7 +113,7 @@ public class RetrofitManage {
     public Subscription sendRequest(final RequestAction requesteAction) {
         //预备发送请求，将参数生成Observable
         requesteAction.getRequest();
-
+        requesteAction.params.getParams().put(SignUtils.KEY_SIGN, SignUtils.getSign(requesteAction.params.getParams()));
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -123,7 +124,6 @@ public class RetrofitManage {
                 }
             }
         }).start();
-
         return requesteAction.observable
                 .subscribeOn(Schedulers.newThread())//网络请求必须在子线程中进行
                 .observeOn(Schedulers.newThread())

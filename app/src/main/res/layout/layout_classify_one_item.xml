@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<RadioButton
+<RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/classify_one_radio"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="一元云购"
-    android:button=""
-    android:background=""/>
-</LinearLayout>
+    android:background="@drawable/bg_classify_one_tiem"
+    android:button="@drawable/bg_classify_one_btn"
+    android:padding="@dimen/padding_and_margin_xx"
+    android:text="商品分类"
+    android:textColor="@color/bg_classify_one_text"
+    android:textSize="@dimen/text_size_xx" />
