@@ -43,6 +43,9 @@ dependencies {
     compile project(':cropper')
     compile files('src/main/jniLibs/ormlite-android-4.48.jar')
     compile files('src/main/jniLibs/ormlite-core-4.48.jar')
+    compile files('src/main/jniLibs/alipaysdk.jar')
+    compile files('src/main/jniLibs/alipaysecsdk.jar')
+    compile files('src/main/jniLibs/alipayutdid.jar')
     compile 'io.reactivex:rxjava:1.0.14'
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.1'
@@ -50,7 +53,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.1'
     compile 'in.srain.cube:ultra-ptr:1.0.10'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile files('src/main/jniLibs/alipaysdk.jar')
-    compile files('src/main/jniLibs/alipaysecsdk.jar')
-    compile files('src/main/jniLibs/alipayutdid.jar')
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
 }

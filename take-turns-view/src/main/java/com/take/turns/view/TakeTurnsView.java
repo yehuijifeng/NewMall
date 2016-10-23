@@ -15,8 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.take.turns.R;
 import com.take.turns.adapter.MyAdapter;
 import com.take.turns.contants.Contant;
@@ -75,6 +73,8 @@ public class TakeTurnsView extends LinearLayout {
 
     public void setUpdateUI(UpdateUI updateUI) {
         this.updateUI = updateUI;
+        if (imageDataUrls != null)
+            updateUI.onUpdateUI(0, imageViews.get(0), imageDataUrls.get(0));
     }
 
     public List<String> getImageUrls() {
@@ -109,20 +109,14 @@ public class TakeTurnsView extends LinearLayout {
             pagerAdapter = new MyAdapter();
             pagerAdapter.setmImageViews(imageViews);
             take_turns_view_pager.setInfinateAdapter(mHandler, pagerAdapter);
-            take_turns_view_pager.setCurrentItem(imageViews.size() * 100 + 1, true);
-            take_turns_view_pager.setCurrentItem(imageViews.size() * 100, true);
-            //更新
-            //pagerAdapter.notifyDataSetChanged();
-        } else
-            //更新适配器数据
-            pagerAdapter.setmImageViews(imageViews);
-
+            take_turns_view_pager.setCurrentItem(imageViews.size() * 100);
+        }else
+        //更新适配器数据
+        pagerAdapter.setmImageViews(imageViews);
         //更新
         //pagerAdapter.notifyDataSetChanged();
-
         //设置当前点点的位置
         tips[take_turns_view_pager.getCurrentItem() < imageDataUrls.size() ? take_turns_view_pager.getCurrentItem() : (take_turns_view_pager.getCurrentItem() % imageDataUrls.size()) == 0 ? (take_turns_view_pager.getCurrentItem() % imageDataUrls.size()) : (take_turns_view_pager.getCurrentItem() % imageDataUrls.size()) - 1].setChecked(true);
-
     }
 
 
@@ -139,9 +133,8 @@ public class TakeTurnsView extends LinearLayout {
         RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         //设置边距
-        int margs = DisplayUtil.dip2px(getContext(), 2);
+        int margs = DisplayUtil.dip2px(getContext(), 3);
         layoutParams.setMargins(margs, margs, margs, margs);
-
         //radiobutton的样式
         drawableId = drawableId == 0 ? R.drawable.bg_page_item_tag : drawableId;
 
@@ -219,7 +212,7 @@ public class TakeTurnsView extends LinearLayout {
         if (imageDataUrls.size() == 1) {
             if (imageViews.size() == 2) {
 //                for (ImageView imageView : imageViews) {
-//                    imageLoader.displayImage(imageDataUrls.get(0), imageView, displayImageOptions);
+//                    //imageLoader.displayImage(imageDataUrls.get(0), imageView, displayImageOptions);
 //                }
                 return true;
             }
@@ -227,7 +220,7 @@ public class TakeTurnsView extends LinearLayout {
         } else if (imageDataUrls.size() == 2 || imageDataUrls.size() == 3) {
             if (imageViews.size() == imageDataUrls.size() * 2) {
 //                for (int i = 0; i < imageViews.size(); i++) {
-//                    imageLoader.displayImage(imageDataUrls.get((i > (imageDataUrls.size() - 1)) ? i - imageDataUrls.size() : i), imageViews.get(i), displayImageOptions);
+//                    //imageLoader.displayImage(imageDataUrls.get((i > (imageDataUrls.size() - 1)) ? i - imageDataUrls.size() : i), imageViews.get(i), displayImageOptions);
 //                }
                 return true;
             }
@@ -235,7 +228,7 @@ public class TakeTurnsView extends LinearLayout {
         } else {
             if (imageViews.size() == imageDataUrls.size()) {
 //                for (int i = 0; i < imageViews.size(); i++) {
-//                    imageLoader.displayImage(imageDataUrls.get(i), imageViews.get(i), displayImageOptions);
+//                    //imageLoader.displayImage(imageDataUrls.get(i), imageViews.get(i), displayImageOptions);
 //                }
                 return true;
             }
@@ -461,7 +454,9 @@ public class TakeTurnsView extends LinearLayout {
 
     //跟随activity的生命周期
     public void onResume() {
-        Contant.isRun = true;
-        mHandler.sendEmptyMessageDelayed(0, sleepTime);
+        if (!Contant.isRun) {
+            Contant.isRun = true;
+            mHandler.sendEmptyMessageDelayed(0, sleepTime);
+        }
     }
 }

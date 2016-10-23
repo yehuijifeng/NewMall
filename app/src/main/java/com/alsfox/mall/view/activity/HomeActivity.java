@@ -10,6 +10,7 @@ import com.alsfox.mall.presenter.base.BasePresenter;
 import com.alsfox.mall.view.activity.base.BaseViewPagerActivity;
 import com.alsfox.mall.view.fragment.home.ClassifyFragment;
 import com.alsfox.mall.view.fragment.home.IndexFragment;
+import com.alsfox.mall.view.fragment.home.ShoppingCartFragment;
 
 /**
  * Created by 浩 on 2016/10/19.
@@ -38,6 +39,7 @@ public class HomeActivity extends BaseViewPagerActivity {
         super.initView();
         mViewList.add(new IndexFragment());
         mViewList.add(new ClassifyFragment());
+        mViewList.add(new ShoppingCartFragment());
         setPageNumber(0);
     }
 

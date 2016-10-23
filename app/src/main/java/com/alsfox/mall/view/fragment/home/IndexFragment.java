@@ -234,6 +234,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
         index_header_lunfan.setTakeTurnsHeight((int) (getWindowWidth() / 2.28));
         index_header_lunfan.setSleepTime(4 * 1000);//轮番的循环时间
         index_header_lunfan.setViewpagerScrollTime(300);//轮番滑动速率
+        index_header_lunfan.setImageUrls(imageUrls);
         index_header_lunfan.setUpdateUI(new TakeTurnsView.UpdateUI() {
             @Override
             public void onUpdateUI(int position, ImageView imageView, String imgUrl) {
@@ -246,8 +247,6 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
                 getHeaderStartActivity(indexLunfanInfoBean.getLunfanType(), indexLunfanInfoBean.getFkId());
             }
         });
-        index_header_lunfan.setImageUrls(imageUrls);
-
         index_header_lunfan.setTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
