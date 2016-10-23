@@ -53,7 +53,7 @@ public abstract class BaseGridActivity<T extends BasePresenter> extends BaseActi
     }
 
     /**
-     * 是否上拉加载
+     * 是否上拉加载更多
      */
     public void setLoadMore(boolean loadMore) {
         isLoadMore = loadMore;

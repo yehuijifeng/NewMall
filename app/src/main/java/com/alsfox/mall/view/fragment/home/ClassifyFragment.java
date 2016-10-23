@@ -2,6 +2,7 @@ package com.alsfox.mall.view.fragment.home;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -107,21 +108,19 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
      */
     private void setClassifyOneData(List<ShopTypeBean> shopTypeBeens) {
         if (shopTypeBeens.isEmpty()) return;
+        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        classify_one_radio_group.setOnCheckedChangeListener(new OnCheckListener());
         for (int i = 0; i < shopTypeBeens.size(); i++) {
             ShopTypeBean shopTypeBean = shopTypeBeens.get(i);
             RadioButton radioButton = (RadioButton) LayoutInflater.from(getActivity()).inflate(R.layout.layout_classify_one_item, null);
             radioButton.setId(i);//当前分类id
             radioButton.setText(shopTypeBean.getTypeName());
-//            ClassifyOneRadioBtn classifyOneRadioBtn = new ClassifyOneRadioBtn(getActivity());
-//            classifyOneRadioBtn.setId(i);//当前分类id
-//            classifyOneRadioBtn.setClassifyRadioText(shopTypeBean.getTypeName());
-            //classifyOneRadioBtn.setClassifyRadioCheckListener(new OnCheckListener());
+            radioButton.setLayoutParams(layoutParams);
             classify_one_radio_group.addView(radioButton);
             if (i == 0) {
                 radioButton.setChecked(true);
             }
         }
-        classify_one_radio_group.setOnCheckedChangeListener(new OnCheckListener());
     }
 
     /**
@@ -130,6 +129,7 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
     private class OnCheckListener implements RadioGroup.OnCheckedChangeListener {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if(shopTypeBeens==null||shopTypeBeens.isEmpty())return;
             ShopTypeBean shopTypeBean = shopTypeBeens.get(checkedId);
             setClassifyTowData(shopTypeBean.getSonShopTypeList());
         }

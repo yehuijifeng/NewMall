@@ -16,6 +16,7 @@
 
         <ScrollView
             android:layout_width="0dp"
+            android:background="@drawable/bg_classify_one_scroll"
             android:layout_height="match_parent"
             android:layout_weight="0.3"
             android:layerType="none">
@@ -23,6 +24,7 @@
             <RadioGroup
                 android:id="@+id/classify_one_radio_group"
                 android:layout_width="match_parent"
+                android:paddingRight="0.5dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
         </ScrollView>

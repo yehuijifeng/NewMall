@@ -50,6 +50,7 @@ public abstract class BaseGridFragment<T extends BasePresenter> extends BaseFrag
     public void setRefresh(boolean refresh) {
         isRefresh = refresh;
         if (baseGridview != null) baseGridview.setRefresh(refresh);
+
     }
 
     public boolean isLoadMore() {
@@ -62,6 +63,7 @@ public abstract class BaseGridFragment<T extends BasePresenter> extends BaseFrag
     public void setLoadMore(boolean loadMore) {
         isLoadMore = loadMore;
         if (baseGridview != null) baseGridview.setLoadMore(loadMore);
+        if (baseGridAdapter != null) baseGridAdapter.setFooterViewEnable(isLoadMore());
     }
 
     /**
@@ -133,6 +135,7 @@ public abstract class BaseGridFragment<T extends BasePresenter> extends BaseFrag
         myGridView.setNumColumns(getNumColumns());
         baseGridview.setRefresh(isRefresh());
         baseGridview.setLoadMore(isLoadMore());
+        baseGridAdapter.setFooterViewEnable(isLoadMore());
         defaultRefresh();
         defaultLoadMore();
 
