@@ -35,7 +35,7 @@ public class ClassifyOneRadioBtn extends LinearLayout {
     }
 
     private void initView() {
-        root = LayoutInflater.from(getContext()).inflate(R.layout.layout_classify_one_item, this);
+        root = LayoutInflater.from(getContext()).inflate(R.layout.item_classify_one, this);
         classify_one_radio = (RadioButton) root.findViewById(R.id.classify_one_radio);
     }
 

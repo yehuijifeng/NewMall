@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alsfox.mall.R;
@@ -24,7 +23,7 @@ public class MyTitleView extends LinearLayout {
     private ImageView title_default_back, title_default_right_image, toolbar_color_img;
     private TextView title_default_text, title_default_right_text;
     private LinearLayout toolbar_ly;
-    private RelativeLayout toolbar_color_rl;
+    private LinearLayout toolbar_color_rl;
     private View root;
     private LoadingView loadingView;
 
@@ -54,7 +53,7 @@ public class MyTitleView extends LinearLayout {
         root = LayoutInflater.from(context).inflate(R.layout.base_titleview, this);
         toolbar_ly = (LinearLayout) root.findViewById(R.id.toolbar_ly);
         title_default_right_image = (ImageView) root.findViewById(R.id.title_default_right_image);
-        toolbar_color_rl = (RelativeLayout) root.findViewById(R.id.toolbar_color_rl);
+        toolbar_color_rl = (LinearLayout) root.findViewById(R.id.toolbar_color_rl);
         title_default_back = (ImageView) root.findViewById(R.id.title_default_back);
         toolbar_color_img = (ImageView) root.findViewById(R.id.toolbar_color_img);
         title_default_text = (TextView) root.findViewById(R.id.title_default_text);

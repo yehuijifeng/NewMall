@@ -13,11 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alsfox.mall.R;
+import com.alsfox.mall.adapter.BaseViewHolder;
 import com.alsfox.mall.appliaction.MallAppliaction;
-import com.alsfox.mall.base.BaseViewHolder;
+import com.alsfox.mall.bean.index.IndexBean;
 import com.alsfox.mall.bean.index.IndexDaohangBean;
 import com.alsfox.mall.bean.index.IndexFlashShopBean;
-import com.alsfox.mall.bean.index.IndexInfoBean;
 import com.alsfox.mall.bean.index.IndexLunfanBean;
 import com.alsfox.mall.bean.index.IndexMokuaiBean;
 import com.alsfox.mall.bean.index.IndexMokuaiContentBean;
@@ -243,8 +243,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
 
             @Override
             public void onItemClick(int position, ImageView imageView) {
-                IndexLunfanBean indexLunfanInfoBean = indexLunfanContentList.get(position);
-                getHeaderStartActivity(indexLunfanInfoBean.getLunfanType(), indexLunfanInfoBean.getFkId());
+                getHeaderStartActivity(indexLunfanContentList.get(position).getLunfanType(), indexLunfanContentList.get(position).getFkId());
             }
         });
         index_header_lunfan.setTouchListener(new View.OnTouchListener() {
@@ -311,14 +310,22 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
         super.onRequestSuccess(success);
         switch (success.getRequestAction()) {
             case GET_INDE_DATA:
-                IndexInfoBean indexInfoBean = (IndexInfoBean) success.getHttpBean().getObject();
-                indexData = indexInfoBean.getIndexMoudleList();
+                final IndexBean indexInfoBean = (IndexBean) success.getHttpBean().getObject();
+                indexData = new ArrayList<>(indexInfoBean.getIndexMoudleList());
                 clearAll();
-                getLunFanView(indexInfoBean.getIndexLunfanContentList());//轮番图
-                getHeaderDaoHangUrlList(indexInfoBean.getIndexNavList());//圆形图片
+                getLunFanView(new ArrayList<>(indexInfoBean.getIndexLunfanContentList()));//轮番图
+                getHeaderDaoHangUrlList(new ArrayList<>(indexInfoBean.getIndexNavList()));//圆形图片
                 getFlashSale(indexInfoBean.getShopTimeOut());//限时抢购
                 addAll(indexData);
                 loadSuccess();
+
+                //缓存数据库
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.setIndexDataByDb(indexInfoBean);
+                    }
+                }).start();
                 break;
         }
     }
@@ -328,6 +335,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
         super.onRequestFinal(finals);
         switch (finals.getRequestAction()) {
             case GET_INDE_DATA:
+                presenter.getIndexDataByDb();
                 loadSuccess();
                 showLongToast(finals.getErrorMessage());
                 break;
@@ -443,6 +451,23 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
     @Override
     public void onItemImgClick(View v, IndexMokuaiContentBean moduleContent) {
         getHeaderStartActivity(moduleContent.getContentType(), moduleContent.getFkId());
+    }
+
+    /**
+     * 拿到数据库的缓存
+     *
+     * @param indexBean
+     */
+    @Override
+    public void getIndexDataByDb(IndexBean indexBean) {
+        if (indexBean == null) return;
+        indexData = new ArrayList<>(indexBean.getIndexMoudleList());
+        clearAll();
+        getLunFanView(new ArrayList<>(indexBean.getIndexLunfanContentList()));//轮番图
+        getHeaderDaoHangUrlList(new ArrayList<>(indexBean.getIndexNavList()));//圆形图片
+        getFlashSale(indexBean.getShopTimeOut());//限时抢购
+        addAll(indexData);
+        loadSuccess();
     }
 
 

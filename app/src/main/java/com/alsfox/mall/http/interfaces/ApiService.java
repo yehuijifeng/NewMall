@@ -2,7 +2,7 @@ package com.alsfox.mall.http.interfaces;
 
 
 import com.alsfox.mall.bean.classify.ShopTypeBean;
-import com.alsfox.mall.bean.index.IndexInfoBean;
+import com.alsfox.mall.bean.index.IndexBean;
 import com.alsfox.mall.http.HttpBean;
 import com.alsfox.mall.http.request.RequestUrls;
 
@@ -34,7 +34,7 @@ public interface ApiService {
 
     //首页
     @POST(RequestUrls.GET_INDEX_CONTENT_URL)
-    Observable<HttpBean<IndexInfoBean>> getIndexData(@QueryMap Map<String, Object> options);
+    Observable<HttpBean<IndexBean>> getIndexData(@QueryMap Map<String, Object> options);
 
     //分类
     @POST(RequestUrls.GET_COMMODITY_CLASSIFY_URL)

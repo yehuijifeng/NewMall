@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.alsfox.mall.R;
 import com.alsfox.mall.appliaction.MallAppliaction;
-import com.alsfox.mall.base.BaseViewHolder;
+import com.alsfox.mall.adapter.BaseViewHolder;
 import com.alsfox.mall.bean.classify.ShopTypeBean;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
@@ -20,6 +20,7 @@ import com.alsfox.mall.view.customview.SearchTitleView;
 import com.alsfox.mall.view.fragment.base.BaseGridFragment;
 import com.alsfox.mall.view.interfaces.home.IClassifyView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.alsfox.mall.http.request.RequestAction.GET_CLASSIFY_DATA;
@@ -112,7 +113,7 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
         classify_one_radio_group.setOnCheckedChangeListener(new OnCheckListener());
         for (int i = 0; i < shopTypeBeens.size(); i++) {
             ShopTypeBean shopTypeBean = shopTypeBeens.get(i);
-            RadioButton radioButton = (RadioButton) LayoutInflater.from(getActivity()).inflate(R.layout.layout_classify_one_item, null);
+            RadioButton radioButton = (RadioButton) LayoutInflater.from(getActivity()).inflate(R.layout.item_classify_one, null);
             radioButton.setId(i);//当前分类id
             radioButton.setText(shopTypeBean.getTypeName());
             radioButton.setLayoutParams(layoutParams);
@@ -129,9 +130,9 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
     private class OnCheckListener implements RadioGroup.OnCheckedChangeListener {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
-            if(shopTypeBeens==null||shopTypeBeens.isEmpty())return;
+            if (shopTypeBeens == null || shopTypeBeens.isEmpty()) return;
             ShopTypeBean shopTypeBean = shopTypeBeens.get(checkedId);
-            setClassifyTowData(shopTypeBean.getSonShopTypeList());
+            setClassifyTowData(new ArrayList<>(shopTypeBean.getSonShopTypeList()));
         }
     }
 

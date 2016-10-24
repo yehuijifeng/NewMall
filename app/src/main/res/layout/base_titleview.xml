@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar_color_rl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:gravity="center"
             android:padding="@dimen/padding_and_margin_x"
             android:text=""
-            android:textColor="@android:color/white"
+            android:textColor="@color/title_text_color"
             android:textSize="@dimen/text_size_xxxx" />
 
         <TextView
@@ -71,8 +71,6 @@
     <com.alsfox.mall.view.baseview.LoadingView
         android:id="@+id/default_loading_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar_ly"
-        android:layout_centerHorizontal="true" />
-</RelativeLayout>
+        android:layout_height="match_parent" />
+</LinearLayout>
 

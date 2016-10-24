@@ -1,9 +1,5 @@
 [
     {
-        "merged": "D:\\GitHub\\NewMall\\cropper\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\crop_image_view.xml",
-        "source": "D:\\GitHub\\NewMall\\cropper\\build\\intermediates\\bundles\\debug\\res\\layout\\crop_image_view.xml"
-    },
-    {
         "merged": "E:\\GitHub\\NewMall\\cropper\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\crop_image_view.xml",
         "source": "E:\\GitHub\\NewMall\\cropper\\build\\intermediates\\bundles\\debug\\res\\layout\\crop_image_view.xml"
     }

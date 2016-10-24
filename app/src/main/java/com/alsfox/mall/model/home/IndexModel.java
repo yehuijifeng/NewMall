@@ -8,15 +8,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alsfox.mall.R;
+import com.alsfox.mall.adapter.BaseViewHolder;
 import com.alsfox.mall.appliaction.MallAppliaction;
-import com.alsfox.mall.base.BaseViewHolder;
-import com.alsfox.mall.bean.index.IndexMokuaiContentBean;
+import com.alsfox.mall.bean.index.IndexBean;
 import com.alsfox.mall.bean.index.IndexMokuaiBean;
+import com.alsfox.mall.bean.index.IndexMokuaiContentBean;
+import com.alsfox.mall.db.indexdb.IndexDao;
 import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.http.request.RetrofitManage;
 import com.alsfox.mall.model.base.BaseModel;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,10 +38,11 @@ public class IndexModel extends BaseModel {
 
     private int windowWidth;//当前手机屏幕的宽度
     private ImageLoader imageLoader = ImageLoader.getInstance();//imageloader图片加载
-
+    private IndexDao indexDao;//操作数据库
 
     public IndexModel(int windowWidth) {
         this.windowWidth = windowWidth;
+        indexDao = new IndexDao();
     }
 
     /**
@@ -46,6 +50,25 @@ public class IndexModel extends BaseModel {
      */
     public void getIndexData() {
         RetrofitManage.getInstance().sendRequest(RequestAction.GET_INDE_DATA);
+    }
+
+    /**
+     * 将首页数据添加到数据库
+     *
+     * @param indexData
+     * @return
+     */
+    public int setIndexDataByDb(IndexBean indexData) {
+        return indexDao.insert(indexData);
+    }
+
+    /**
+     * 从数据库查询出首页数据
+     *
+     * @return
+     */
+    public IndexBean getIndexDataByDb() {
+        return indexDao.select();
     }
 
     /**
@@ -57,8 +80,9 @@ public class IndexModel extends BaseModel {
      * @param indexMokuaiInfoBean
      */
     public void getItemData(int position, BaseViewHolder baseViewHolder, int itemType, IndexMokuaiBean indexMokuaiInfoBean) {
-        if (indexMokuaiInfoBean == null) return;
-        List<IndexMokuaiContentBean> mokuaiContentInfoBeens = indexMokuaiInfoBean.getIndexMoudleContentList();
+        if (indexMokuaiInfoBean == null || indexMokuaiInfoBean.getIndexMoudleContentList() == null || indexMokuaiInfoBean.getIndexMoudleContentList().isEmpty())
+            return;
+        List<IndexMokuaiContentBean> mokuaiContentInfoBeens = new ArrayList<>(indexMokuaiInfoBean.getIndexMoudleContentList());
         if (mokuaiContentInfoBeens.isEmpty()) return;
 
         switch (itemType) {

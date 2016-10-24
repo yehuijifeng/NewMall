@@ -2,12 +2,12 @@ package com.alsfox.mall.view.interfaces.home;
 
 import android.view.View;
 
+import com.alsfox.mall.bean.index.IndexBean;
 import com.alsfox.mall.bean.index.IndexMokuaiContentBean;
 import com.alsfox.mall.view.interfaces.base.IBaseView;
 
 /**
  * Created by 浩 on 2016/10/19.
- *
  */
 
 public interface IIndexView extends IBaseView {
@@ -20,4 +20,10 @@ public interface IIndexView extends IBaseView {
      */
     void onItemImgClick(View v, IndexMokuaiContentBean moduleContent);
 
+    /**
+     * 从数据库拿出来的缓存
+     *
+     * @param indexBean
+     */
+    void getIndexDataByDb(IndexBean indexBean);
 }

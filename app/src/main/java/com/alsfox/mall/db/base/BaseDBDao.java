@@ -1,7 +1,7 @@
-package com.alsfox.mall.db;
+package com.alsfox.mall.db.base;
 
-import android.content.Context;
-
+import com.alsfox.mall.appliaction.MallAppliaction;
+import com.alsfox.mall.utils.LogUtils;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.util.List;
  * on 2016/1/6.
  * 数据库dao方法的代理类
  */
-public class BaseDBDao {
+public class BaseDBDao<T,ID> {
 
     /**
      * 条件查询QueryBuilder的使用：
@@ -64,21 +64,20 @@ public class BaseDBDao {
     /**
      * 数据库帮助类
      */
-    protected BaseDBHelper dBHelper;
-    public Dao<Object, Integer> dao;
+    protected BaseDBHelper dBHelper = MallAppliaction.getInstance().dBHelper;
+    public Dao<T, ID> dao;
     protected Class cla;
 
     /**
      * 工具类中操作增删改查的dao方法
      * 注意：初始化dao类的时候，数据库表已经被创建
      */
-    public BaseDBDao(Context context, Class cla) {
-        if (dBHelper == null)
-            dBHelper = BaseDBHelper.getInstance(context);//获得数据库帮助类并创建数据库
+    public BaseDBDao(Class cla) {
         this.cla = cla;
         try {
             dao = dBHelper.getDao(cla);//获得dao实例，根据传入的实体类来
         } catch (SQLException e) {
+            LogUtils.i("数据库错误：" + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -121,7 +120,7 @@ public class BaseDBDao {
     }
 
     //添加数据
-    public int insertData(Object obj) {
+    public int insertData(T obj) {
         try {
             if (!isOpenDB()) return 0;
             return dao.create(obj);
@@ -132,7 +131,7 @@ public class BaseDBDao {
     }
 
     //修改数据
-    public int updateData(Object obj) {
+    public int updateData(T obj) {
         try {
             if (!isOpenDB()) return 0;
             return dao.update(obj);
@@ -142,8 +141,20 @@ public class BaseDBDao {
         }
     }
 
+    //添加或者修改数据
+    public int insertOrUpdate(T obj) {
+        try {
+            if (!isOpenDB()) return 0;
+            Dao.CreateOrUpdateStatus createOrUpdateStatus = dao.createOrUpdate(obj);
+            return createOrUpdateStatus.getNumLinesChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     //删除数据，根据id来
-    public int deleteDataById(int id) {
+    public int deleteDataById(ID id) {
         try {
             if (!isOpenDB()) return 0;
             return dao.deleteById(id);
@@ -154,7 +165,7 @@ public class BaseDBDao {
     }
 
     //删除数据，根据实体类来
-    public int deleteData(Object obj) {
+    public int deleteData(T obj) {
         try {
             if (!isOpenDB()) return 0;
             return dao.delete(obj);
@@ -164,7 +175,8 @@ public class BaseDBDao {
         }
     }
 
-    public List<Object> queryAll() {
+
+    public List<T> queryAll() {
         try {
             if (!isOpenDB()) return null;
             return dao.queryForAll();
@@ -180,7 +192,7 @@ public class BaseDBDao {
      * @param userId
      * @return
      */
-    public List<Object> queryByUserId(String userIdStr, int userId) {
+    public List<T> queryByUserId(String userIdStr, int userId) {
         try {
             return dao.queryBuilder().where().eq(userIdStr, userId).query();
         } catch (SQLException e) {
@@ -189,7 +201,7 @@ public class BaseDBDao {
         }
     }
 
-    public List<Object> queryByUserName(String userNameStr, String userName) {
+    public List<T> queryByUserName(String userNameStr, String userName) {
         try {
             return dao.queryBuilder().where().eq(userNameStr, userName).query();
         } catch (SQLException e) {

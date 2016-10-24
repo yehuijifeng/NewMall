@@ -2,7 +2,8 @@ package com.alsfox.mall.presenter.home;
 
 import android.view.View;
 
-import com.alsfox.mall.base.BaseViewHolder;
+import com.alsfox.mall.adapter.BaseViewHolder;
+import com.alsfox.mall.bean.index.IndexBean;
 import com.alsfox.mall.bean.index.IndexMokuaiContentBean;
 import com.alsfox.mall.bean.index.IndexMokuaiBean;
 import com.alsfox.mall.model.home.IndexModel;
@@ -33,6 +34,25 @@ public class IndexPresenter extends BasePresenter<IIndexView> {
      */
     public void getIndexData() {
         indexModel.getIndexData();
+    }
+
+    /**
+     * 将首页数据添加到数据库
+     *
+     * @param indexData
+     * @return
+     */
+    public int setIndexDataByDb(IndexBean indexData) {
+        return indexModel.setIndexDataByDb(indexData);
+    }
+
+    /**
+     * 从数据库查询出首页数据
+     *
+     * @return
+     */
+    public void getIndexDataByDb() {
+        mView.getIndexDataByDb(indexModel.getIndexDataByDb());
     }
 
     /**

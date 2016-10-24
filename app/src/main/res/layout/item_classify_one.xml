@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_classify_one_tiem"
     android:button="@drawable/bg_classify_one_btn"
-    android:layout_margin="@dimen/padding_and_margin"
+    android:paddingLeft="@dimen/padding_and_margin_xx"
     android:text="商品分类"
     android:maxLines="2"
     android:gravity="center_vertical|left"

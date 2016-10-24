@@ -5,6 +5,7 @@ import com.alsfox.mall.http.request.RequestUrls;
 /**
  * Created by luhao
  * on 2015/11/18.
+ * 限时抢购商品列表
  */
 public class IndexFlashShopBean {
 

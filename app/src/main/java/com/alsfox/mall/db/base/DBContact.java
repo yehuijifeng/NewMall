@@ -1,4 +1,4 @@
-package com.alsfox.mall.db;
+package com.alsfox.mall.db.base;
 
 /**
  * Created by Luhao
@@ -15,5 +15,5 @@ public class DBContact {
     /**
      * 数据库版本
      */
-    public final static int DB_VERSION=5;
+    public final static int DB_VERSION=1;
 }

@@ -5,14 +5,14 @@
     <item android:state_pressed="true">
         <shape>
             <!-- 文本框里面的颜色 -->
-            <solid android:color="@android:color/white" />
+            <solid android:color="@color/dark_gray" />
         </shape>
     </item>
 
     <item>
         <shape>
             <!-- 文本框里面的颜色 -->
-            <solid android:color="@color/colorPrimary" />
+            <solid android:color="@color/title_color" />
         </shape>
     </item>
 </selector>

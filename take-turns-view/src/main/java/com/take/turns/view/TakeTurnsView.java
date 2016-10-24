@@ -110,9 +110,9 @@ public class TakeTurnsView extends LinearLayout {
             pagerAdapter.setmImageViews(imageViews);
             take_turns_view_pager.setInfinateAdapter(mHandler, pagerAdapter);
             take_turns_view_pager.setCurrentItem(imageViews.size() * 100);
-        }else
-        //更新适配器数据
-        pagerAdapter.setmImageViews(imageViews);
+        } else
+            //更新适配器数据
+            pagerAdapter.setmImageViews(imageViews);
         //更新
         //pagerAdapter.notifyDataSetChanged();
         //设置当前点点的位置
@@ -454,9 +454,7 @@ public class TakeTurnsView extends LinearLayout {
 
     //跟随activity的生命周期
     public void onResume() {
-        if (!Contant.isRun) {
-            Contant.isRun = true;
-            mHandler.sendEmptyMessageDelayed(0, sleepTime);
-        }
+        Contant.isRun = true;
+        mHandler.sendEmptyMessageDelayed(0, sleepTime);
     }
 }

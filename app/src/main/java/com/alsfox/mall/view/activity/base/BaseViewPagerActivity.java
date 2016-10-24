@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.alsfox.mall.R;
-import com.alsfox.mall.base.BaseFragmentViewPagerAdapter;
+import com.alsfox.mall.adapter.BaseFragmentViewPagerAdapter;
 import com.alsfox.mall.utils.DisplayUtils;
 import com.alsfox.mall.view.baseview.MyViewPager;
 

@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.take.turns.view.TakeTurnsView
-        android:id="@+id/test"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <include layout="@layout/default_titleview" />
+
 </LinearLayout>

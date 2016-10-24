@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.alsfox.mall.R;
-import com.alsfox.mall.base.BaseListAdapter;
-import com.alsfox.mall.base.BaseViewHolder;
+import com.alsfox.mall.adapter.BaseListAdapter;
+import com.alsfox.mall.adapter.BaseViewHolder;
 import com.alsfox.mall.http.StatusCode;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;

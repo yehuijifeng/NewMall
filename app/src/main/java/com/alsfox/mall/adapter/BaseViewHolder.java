@@ -1,4 +1,4 @@
-package com.alsfox.mall.base;
+package com.alsfox.mall.adapter;
 
 import android.view.View;
 

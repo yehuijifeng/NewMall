@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.alsfox.mall.R;
 import com.alsfox.mall.bean.index.IndexDaohangBean;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -56,7 +57,7 @@ public class IndexHeaderYuanView extends LinearLayout {
         }
     }
 
-    private List<IndexDaohangBean> indexDaohangInfoBeanList;
+    private Collection<IndexDaohangBean> indexDaohangInfoBeanList;
 
     public void getUrlDataList(List<IndexDaohangBean> indexDaohangInfoBeans) {
         if (header_yuan_ly == null) return;
@@ -65,6 +66,7 @@ public class IndexHeaderYuanView extends LinearLayout {
             return;
         else
             indexDaohangInfoBeanList = indexDaohangInfoBeans;
+
         header_yuan_ly.removeAllViews();
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
         for (int i = 0; i < indexDaohangInfoBeans.size(); i++) {

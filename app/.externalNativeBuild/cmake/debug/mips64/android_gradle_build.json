@@ -1,9 +1,9 @@
 
 {
-	"buildFiles" : [ "D:/GitHub/NewMall/app/CMakeLists.txt" ],
+	"buildFiles" : [ "E:/GitHub/NewMall/app/CMakeLists.txt" ],
 	"cleanCommands" : 
 	[
-		"F:\\AndroidSdk\\cmake\\3.6.3155560\\bin\\cmake.exe --build D:\\GitHub\\NewMall\\app\\.externalNativeBuild\\cmake\\debug\\mips64 --target clean"
+		"F:\\sdk\\cmake\\3.6.3155560\\bin\\cmake.exe --build E:\\GitHub\\NewMall\\app\\.externalNativeBuild\\cmake\\debug\\mips64 --target clean"
 	],
 	"cppFileExtensions" : [ "cpp" ],
 	"libraries" : 
@@ -12,27 +12,27 @@
 		{
 			"abi" : "mips64",
 			"artifactName" : "native-lib",
-			"buildCommand" : "F:\\AndroidSdk\\cmake\\3.6.3155560\\bin\\cmake.exe --build D:\\GitHub\\NewMall\\app\\.externalNativeBuild\\cmake\\debug\\mips64 --target native-lib",
+			"buildCommand" : "F:\\sdk\\cmake\\3.6.3155560\\bin\\cmake.exe --build E:\\GitHub\\NewMall\\app\\.externalNativeBuild\\cmake\\debug\\mips64 --target native-lib",
 			"buildType" : "debug",
 			"files" : 
 			[
 				
 				{
-					"flags" : "  -target mips64el-none-linux-android -gcc-toolchain F:/AndroidSdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=F:/AndroidSdk/ndk-bundle/platforms/android-21/arch-mips64  -Dnative_lib_EXPORTS -isystem F:\\AndroidSdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem F:\\AndroidSdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips64\\include -isystem F:\\AndroidSdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info  -fPIC    -c ",
-					"src" : "D:/GitHub/NewMall/app/src/main/cpp/native-lib.cpp",
-					"workingDirectory" : "D:/GitHub/NewMall/app/.externalNativeBuild/cmake/debug/mips64"
+					"flags" : "  -target mips64el-none-linux-android -gcc-toolchain F:/sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=F:/sdk/ndk-bundle/platforms/android-21/arch-mips64  -Dnative_lib_EXPORTS -isystem F:\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem F:\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips64\\include -isystem F:\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "E:/GitHub/NewMall/app/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "E:/GitHub/NewMall/app/.externalNativeBuild/cmake/debug/mips64"
 				}
 			],
-			"output" : "D:/GitHub/NewMall/app/build/intermediates/cmake/debug/obj/mips64/libnative-lib.so",
-			"toolchain" : "357452509"
+			"output" : "E:/GitHub/NewMall/app/build/intermediates/cmake/debug/obj/mips64/libnative-lib.so",
+			"toolchain" : "112696705"
 		}
 	},
 	"toolchains" : 
 	{
-		"357452509" : 
+		"112696705" : 
 		{
-			"cCompilerExecutable" : "F:/AndroidSdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
-			"cppCompilerExecutable" : "F:/AndroidSdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+			"cCompilerExecutable" : "F:/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "F:/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
 		}
 	}
 }

@@ -27,6 +27,7 @@ android {
             path "CMakeLists.txt"
         }
     }
+
 }
 
 dependencies {
@@ -41,8 +42,8 @@ dependencies {
     compile project(':umeng')
     compile project(':baidu-map')
     compile project(':cropper')
-    compile files('src/main/jniLibs/ormlite-android-4.48.jar')
-    compile files('src/main/jniLibs/ormlite-core-4.48.jar')
+    compile files('src/main/jniLibs/ormlite-android-5.0.jar')
+    compile files('src/main/jniLibs/ormlite-core-5.0.jar')
     compile files('src/main/jniLibs/alipaysdk.jar')
     compile files('src/main/jniLibs/alipaysecsdk.jar')
     compile files('src/main/jniLibs/alipayutdid.jar')
@@ -54,4 +55,5 @@ dependencies {
     compile 'in.srain.cube:ultra-ptr:1.0.10'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+
 }

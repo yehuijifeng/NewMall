@@ -2,7 +2,7 @@ package com.alsfox.mall.bean.classify;
 
 import com.alsfox.mall.http.request.RequestUrls;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Created by 浩 on 2016/10/22.
@@ -11,17 +11,17 @@ import java.util.List;
 
 public class ShopTypeBean {
 
-    private List<ShopTypeBean> sonShopTypeList;              // 子分类列表
+    private Collection<ShopTypeBean> sonShopTypeList;              // 子分类列表
     private int typeId;               // 商品分类ID
     private int parentId;             // 商品分类父ID
     private String typeName;              // 商品分类名称
     private String typeIcon;              // 商品分类图标地址链接
 
-    public List<ShopTypeBean> getSonShopTypeList() {
+    public Collection<ShopTypeBean> getSonShopTypeList() {
         return sonShopTypeList;
     }
 
-    public void setSonShopTypeList(List<ShopTypeBean> sonShopTypeList) {
+    public void setSonShopTypeList(Collection<ShopTypeBean> sonShopTypeList) {
         this.sonShopTypeList = sonShopTypeList;
     }
 

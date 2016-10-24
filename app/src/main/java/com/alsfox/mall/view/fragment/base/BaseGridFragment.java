@@ -6,8 +6,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.alsfox.mall.R;
-import com.alsfox.mall.base.BaseGridAdapter;
-import com.alsfox.mall.base.BaseViewHolder;
+import com.alsfox.mall.adapter.BaseGridAdapter;
+import com.alsfox.mall.adapter.BaseViewHolder;
 import com.alsfox.mall.http.StatusCode;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;

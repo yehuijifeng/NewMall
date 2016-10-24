@@ -16,6 +16,10 @@ public class MyAdapter extends PagerAdapter {
 
     private List<ImageView> mImageViews;
 
+    public MyAdapter() {
+
+    }
+
     public void setmImageViews(List<ImageView> mImageViews) {
         this.mImageViews = mImageViews;
     }
@@ -43,7 +47,7 @@ public class MyAdapter extends PagerAdapter {
      */
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        if (mImageViews==null||mImageViews.size() < 1) return;
+        if (mImageViews == null || mImageViews.size() < 1) return;
         container.removeView(mImageViews.get(position % mImageViews.size()));
 
     }
@@ -54,7 +58,7 @@ public class MyAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        if (mImageViews==null||mImageViews.size() < 1) return null;
+        if (mImageViews == null || mImageViews.size() < 1) return null;
         try {
             container.addView(mImageViews.get(position % mImageViews.size()), 0);
         } catch (Exception e) {

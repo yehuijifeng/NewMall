@@ -1,8 +1,14 @@
-package com.alsfox.mall.db;
+package com.alsfox.mall.db.base;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.alsfox.mall.bean.index.IndexBean;
+import com.alsfox.mall.bean.index.IndexDaohangBean;
+import com.alsfox.mall.bean.index.IndexLunfanBean;
+import com.alsfox.mall.bean.index.IndexMokuaiBean;
+import com.alsfox.mall.bean.shoppingcart.MerchantBean;
+import com.alsfox.mall.bean.shoppingcart.ShoppingCartBean;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -21,6 +27,27 @@ import rx.schedulers.Schedulers;
  * Created by Luhao
  * on 2016/1/6.
  * 数据库帮助类代理类
+ * <p>
+ *
+ * @DatabaseField 参数说明
+ * cloumnName:指定字段名,不指定则变量名作为字段名
+ * canBeNull:是否可以为null
+ * dataType:指定字段的类型
+ * defaultValue:指定默认值
+ * width:指定长度
+ * id:指定字段为id
+ * generatedId:指定字段为自增长的id,不能id,
+ * generatedIdSequence通用
+ * foreign 指定这个字段的对象是一个外键,外键值是这个对象的id
+ * useGetSet:指定ormlite访问变量使用set,get方法默认使用的是反射机制直接访问变量
+ * throwIfNull,如果空值抛出异常
+ * persisted:指定是否持久化此变量,默认true
+ * unique:字段值唯一	uniqueCombo整列的值唯一
+ * index:索引
+ * uniqueIndex 唯一索引
+ * foreignAutoRefresh 外键值,自动刷新
+ * foreignAutoCreate 外键不存在时是否自动添加到外间表中
+ * foreignColumnName外键字段指定的外键表中的哪个字段
  */
 public class BaseDBHelper extends OrmLiteSqliteOpenHelper {
 
@@ -43,14 +70,12 @@ public class BaseDBHelper extends OrmLiteSqliteOpenHelper {
      */
     private List<Class> tables() {
         List<Class> tables = new ArrayList<>();
-//        tables.add(UserInfoBean.class);
-//        tables.add(IndexBean.class);
-//        tables.add(IndexLunfanContentListBean.class);
-//        tables.add(IndexMoudleContentListBean.class);
-//        tables.add(IndexMoudleListBean.class);
-//        tables.add(IndexNavListBean.class);
-        //tables.add(ShopSpecListBean.class);
-        //tables.add(GoodsListBean.class);
+        tables.add(IndexBean.class);
+        tables.add(IndexLunfanBean.class);
+        tables.add(IndexDaohangBean.class);
+        tables.add(IndexMokuaiBean.class);
+        tables.add(ShoppingCartBean.class);
+        tables.add(MerchantBean.class);
         return tables;
     }
 
@@ -138,7 +163,7 @@ public class BaseDBHelper extends OrmLiteSqliteOpenHelper {
                             List<Class> tables = tables();
                             for (Class cla : tables) {
                                 //如果数据库没有表就创建
-                               int i = TableUtils.createTableIfNotExists(getConnectionSource(), cla);
+                                int i = TableUtils.createTableIfNotExists(getConnectionSource(), cla);
                             }
                             subscriber.onNext(tables);
                         } catch (Exception e) {
