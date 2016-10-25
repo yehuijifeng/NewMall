@@ -146,7 +146,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
         return frameLayout;
     }
 
-    private String[] headerStrs = new String[]{"公告", "物流信息", "我的订单", "我的收藏"};//圆形图标的四个默认按钮
+    private String[] headerStrs;//圆形图标的字体名字
     private int[] headerIcons = new int[]{R.drawable.ic_notice, R.drawable.ic_wuliu, R.drawable.ic_my_order, R.drawable.ic_collection};//圆形图标的四个默认按钮图片资源
 
     /**
@@ -288,6 +288,8 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
     protected void initView(View parentView) {
         super.initView(parentView);
         search_title_view = (SearchTitleView) parentView.findViewById(R.id.search_title_view);
+        headerStrs = new String[]{getResources().getString(R.string.str_notice), getResources().getString(R.string.str_logistics_query), getResources().getString(R.string.str_user_order), getResources().getString(R.string.str_user_collect)};//圆形图标的四个默认按钮
+
     }
 
     @Override
@@ -309,7 +311,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
     protected void onRequestSuccess(ResponseSuccessAction success) {
         super.onRequestSuccess(success);
         switch (success.getRequestAction()) {
-            case GET_INDE_DATA:
+            case GET_INDEX_DATA:
                 final IndexBean indexInfoBean = (IndexBean) success.getHttpBean().getObject();
                 indexData = new ArrayList<>(indexInfoBean.getIndexMoudleList());
                 clearAll();
@@ -334,7 +336,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
     protected void onRequestFinal(ResponseFinalAction finals) {
         super.onRequestFinal(finals);
         switch (finals.getRequestAction()) {
-            case GET_INDE_DATA:
+            case GET_INDEX_DATA:
                 presenter.getIndexDataByDb();
                 loadSuccess();
                 showLongToast(finals.getErrorMessage());

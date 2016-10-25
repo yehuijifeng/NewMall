@@ -154,4 +154,64 @@
         <item name="android:textSize">@dimen/default_text_size_main_white</item>
     </style>
 
+    <!--用户中心头按钮-->
+    <style name="btn_user_center_type" parent="layout_ww">
+        <item name="android:background">@drawable/bg_btn_user_center_header</item>
+        <item name="android:textColor">@color/mall_main</item>
+        <item name="android:textSize">@dimen/text_size_xx</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+
+
+    <!--用户中心订单按钮-->
+    <style name="fl_user_center_order" parent="layout_ww">
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:background">@drawable/bg_default_mall_white</item>
+        <item name="android:padding">@dimen/padding_and_margin</item>
+    </style>
+
+    <style name="text_order_type" parent="layout_ww">
+        <item name="android:textSize">@dimen/text_size_xx</item>
+        <item name="android:drawablePadding">3dp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="text_shape_circular_count" parent="layout_ww">
+        <item name="android:layout_width">@dimen/text_order_untreated_size</item>
+        <item name="android:layout_height">@dimen/text_order_untreated_size</item>
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_shape_circular</item>
+        <item name="android:layout_gravity">right</item>
+        <item name="android:layout_marginRight">@dimen/padding_and_margin_x</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="bg_user_center_layout_button" parent="layout_mw">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_default_mall_white</item>
+        <item name="android:padding">@dimen/padding_and_margin_xx</item>
+    </style>
+
+    <style name="ic_user_center_mark" parent="layout_ww">
+        <item name="android:layout_width">@dimen/index_bottom_tab_image_width</item>
+        <item name="android:layout_height">@dimen/index_bottom_tab_image_height</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="tv_user_center_options" parent="layout_ww">
+        <item name="android:layout_marginLeft">@dimen/padding_and_margin</item>
+        <item name="android:textColor">@color/mall_text_color</item>
+        <item name="android:textSize">@dimen/text_size_xx</item>
+    </style>
+
+    <style name="ic_user_center_options_more" parent="layout_ww">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:src">@drawable/ic_more</item>
+    </style>
 </resources>

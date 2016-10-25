@@ -62,6 +62,12 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     }
 
     @Override
+    protected void onVisible() {
+        super.onVisible();
+        refresh();
+    }
+
+    @Override
     protected void refresh() {
         clearAll();
         presenter.queryShoppingCart();
@@ -70,7 +76,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     @Override
     public void queryShoppingCart(List<ShoppingCartBean> shoppingCartBeenList) {
         if (shoppingCartBeenList == null || shoppingCartBeenList.isEmpty()) {
-            showErrorBtnLoading("购物车空空如也", "去逛逛", new View.OnClickListener() {
+            showErrorBtnLoading(getResources().getString(R.string.str_shoping_card_empty), getResources().getString(R.string.str_guangguang), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((BaseViewPagerActivity) getActivity()).setPageNumber(0);

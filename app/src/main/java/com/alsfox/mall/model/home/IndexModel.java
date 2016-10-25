@@ -49,7 +49,7 @@ public class IndexModel extends BaseModel {
      * 获取首页数据
      */
     public void getIndexData() {
-        RetrofitManage.getInstance().sendRequest(RequestAction.GET_INDE_DATA);
+        RetrofitManage.getInstance().sendRequest(RequestAction.GET_INDEX_DATA);
     }
 
     /**

@@ -198,8 +198,8 @@ public class MyTitleView extends LinearLayout {
     }
 
     //图片按钮的图片资源
-    public void setImageButtonDrawable(Drawable drawable) {
-        title_default_right_image.setImageDrawable(drawable);
+    public void setImageButtonDrawable(int resId) {
+        title_default_right_image.setImageResource(resId);
     }
 
     //编辑按钮文本内容

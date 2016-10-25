@@ -61,7 +61,7 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
     protected void initData() {
         search_title_view.setOnClickListener(this);
         search_title_view.setSearchIconGone(true);//隐藏小图标
-        showLoading("正在加载分类");
+        showLoading("正在加载分类……");
         getClassifyOne();
         classifyDao = new ClassifyDao();
 

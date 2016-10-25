@@ -3,6 +3,7 @@ package com.alsfox.mall.http.interfaces;
 
 import com.alsfox.mall.bean.classify.ShopTypeBean;
 import com.alsfox.mall.bean.index.IndexBean;
+import com.alsfox.mall.bean.order.OrderCountBean;
 import com.alsfox.mall.http.HttpBean;
 import com.alsfox.mall.http.request.RequestUrls;
 
@@ -40,6 +41,8 @@ public interface ApiService {
     @POST(RequestUrls.GET_COMMODITY_CLASSIFY_URL)
     Observable<HttpBean<ShopTypeBean>> getClassifyData(@QueryMap Map<String, Object> options);
 
-
+    //用户订单数量
+    @POST(RequestUrls.GET_USER_ORDER_COUNT_URL)
+    Observable<HttpBean<OrderCountBean>> getUserOderCount(@QueryMap Map<String, Object> options);
 
 }

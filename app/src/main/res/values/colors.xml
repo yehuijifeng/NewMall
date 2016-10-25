@@ -42,4 +42,12 @@
     <color name="mall_green">#16BB00</color>
     <color name="mall_text_color">#5E5E5E</color>
 
+    <color name="user_content_btn_color">#DD2E2D</color>
+    <color name="user_content_btn_color_v21">#C94012</color>
+
+    <!--退换货进度条-->
+    <color name="goods_jindu">#66c896</color>
+    <color name="goods_bg">#989898</color>
+    <color name="transparent_flash">#70000000</color>
+
 </resources>

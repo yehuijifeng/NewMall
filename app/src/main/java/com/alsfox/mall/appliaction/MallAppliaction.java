@@ -1,5 +1,6 @@
 package com.alsfox.mall.appliaction;
 
+import com.alsfox.mall.bean.user.UserBean;
 import com.alsfox.mall.db.base.BaseDBHelper;
 
 import rx.Observable;
@@ -21,7 +22,8 @@ public class MallAppliaction extends MvpAppliaction {
         return instance;
     }
 
-    public BaseDBHelper dBHelper;
+    public BaseDBHelper dBHelper;//操作数据库
+    public UserBean userBean;//用户信息
 
     @Override
     public void onCreate() {

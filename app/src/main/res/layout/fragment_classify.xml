@@ -19,7 +19,7 @@
             android:background="@drawable/bg_classify_one_scroll"
             android:layout_height="match_parent"
             android:layout_weight="0.3"
-            android:layerType="none">
+            android:scrollbars="none">
 
             <RadioGroup
                 android:id="@+id/classify_one_radio_group"

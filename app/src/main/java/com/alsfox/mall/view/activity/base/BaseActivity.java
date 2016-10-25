@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.alsfox.mall.R;
 import com.alsfox.mall.appliaction.ActivityCollector;
+import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.http.StatusCode;
 import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.http.response.ResponseAction;
@@ -107,6 +108,18 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
         initialize();
         initView();
         initData();
+    }
+
+    public boolean isLogin() {
+        return MallAppliaction.getInstance().userBean != null;
+    }
+
+    public boolean isLoginTo() {
+        if (MallAppliaction.getInstance().userBean == null) {
+            startActivity(UserLoginActivity.class);
+            return false;
+        }
+        return true;
     }
 
     public boolean isPullWindow() {

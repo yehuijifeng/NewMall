@@ -11,17 +11,27 @@ import rx.Observable;
  */
 public enum RequestAction {
 
-    GET_INDE_DATA(new RequestParams()) {
+    //获得首页数据
+    GET_INDEX_DATA(new RequestParams()) {
         @Override
         public void getRequest() {
             observable = RetrofitManage.getInstance().getService().getIndexData(params.getParams());
         }
     },
 
+    //获得分类数据
     GET_CLASSIFY_DATA(new RequestParams()) {
         @Override
         public void getRequest() {
             observable = RetrofitManage.getInstance().getService().getClassifyData(params.getParams());
+        }
+    },
+
+    //获取用户订单数量
+    GET_USER_ORDER_COUNT(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserOderCount(params.getParams());
         }
     },;
 

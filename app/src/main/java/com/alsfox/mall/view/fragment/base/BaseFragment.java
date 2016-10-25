@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alsfox.mall.R;
+import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.function.RxBus;
 import com.alsfox.mall.http.StatusCode;
 import com.alsfox.mall.http.request.RequestAction;
@@ -106,6 +107,18 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
      * activity的title
      */
     protected MyTitleView mTitleView;
+
+    public boolean isLogin() {
+        return MallAppliaction.getInstance().userBean != null;
+    }
+
+    public boolean isLoginTo() {
+        if (MallAppliaction.getInstance().userBean == null) {
+            startActivity(UserLoginActivity.class);
+            return false;
+        }
+        return true;
+    }
 
     /**
      * 创建视图,传入根view

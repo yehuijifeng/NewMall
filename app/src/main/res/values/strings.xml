@@ -41,12 +41,14 @@
     <string name="str_user_order">我的订单</string>
     <string name="str_user_collect">我的收藏</string>
     <string name="str_shoping_card_empty">购物车空空如也</string>
+    <string name="str_guangguang">去逛逛</string>
     <string name="str_user_centre">个人中心</string>
     <string name="str_await_money">待付款</string>
     <string name="str_await_out_goods">待发货</string>
     <string name="str_await_in_goods">待收货</string>
     <string name="str_await_evaluate">待评价</string>
     <string name="str_order_over">已完成</string>
+    <string name="str_user_all_order">全部订单</string>
     <string name="str_user_integral">我的积分</string>
     <string name="str_user_wallet">我的钱包</string>
     <string name="str_user_coupons">我的优惠券</string>

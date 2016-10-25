@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/default_titleview" />
+
+    <ScrollView
+        android:id="@+id/sv_user_center_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mall_white"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--登录头-->
+            <LinearLayout
+                android:id="@+id/user_centent_header_ly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_user_center_header"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/user_centent_user_ly"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="25dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/user_icon_img"
+                        android:layout_width="@dimen/height_width_tow_xx"
+                        android:layout_height="@dimen/height_width_tow_x"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="@dimen/padding_and_margin_x"
+                        android:src="@drawable/ic_default_user" />
+
+                    <TextView
+                        android:id="@+id/user_name_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="@dimen/padding_and_margin"
+                        android:text="用户名"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_xx" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/user_centent_login_ly"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="50dp">
+
+                    <Button
+                        android:id="@+id/user_login_btn"
+                        style="@style/btn_user_center_type"
+                        android:text="@string/str_login" />
+
+                    <Button
+                        android:id="@+id/user_registered_btn"
+                        style="@style/btn_user_center_type"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/str_registered" />
+                </LinearLayout>
+            </LinearLayout>
+            <!--登录头-->
+
+            <!--订单状态-->
+            <LinearLayout
+                android:id="@+id/user_order_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/user_pay_goods_fl"
+                    style="@style/fl_user_center_order">
+
+                    <TextView
+                        style="@style/text_order_type"
+                        android:drawableTop="@drawable/ic_wait_pay"
+                        android:text="@string/str_await_money" />
+
+                    <TextView
+                        android:id="@+id/user_pay_goods_count_text"
+                        style="@style/text_shape_circular_count"
+                        android:text="1" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/user_send_goods_fl"
+                    style="@style/fl_user_center_order">
+
+                    <TextView
+                        style="@style/text_order_type"
+                        android:drawableTop="@drawable/ic_wait_delivery"
+                        android:text="@string/str_await_out_goods" />
+
+                    <TextView
+                        android:id="@+id/user_send_goods_count_text"
+                        style="@style/text_shape_circular_count"
+                        android:text="11" />
+
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/user_receive_goods_fl"
+                    style="@style/fl_user_center_order">
+
+                    <TextView
+                        style="@style/text_order_type"
+                        android:drawableTop="@drawable/ic_wait_receive"
+                        android:text="@string/str_await_in_goods" />
+
+                    <TextView
+                        android:id="@+id/user_receive_goods_count_text"
+                        style="@style/text_shape_circular_count" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/user_evaluation_goods_fl"
+                    style="@style/fl_user_center_order">
+
+
+                    <TextView
+                        style="@style/text_order_type"
+                        android:drawableTop="@drawable/ic_wait_comment"
+                        android:text="@string/str_await_evaluate" />
+
+                    <TextView
+                        android:id="@+id/user_evaluation_goods_count_text"
+                        style="@style/text_shape_circular_count" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/user_over_goods_fl"
+                    style="@style/fl_user_center_order">
+
+                    <TextView
+                        style="@style/text_order_type"
+                        android:drawableTop="@drawable/ic_order_completed"
+                        android:text="@string/str_order_over" />
+
+                    <TextView
+                        style="@style/text_shape_circular_count"
+                        android:visibility="gone" />
+                </FrameLayout>
+            </LinearLayout>
+            <!--订单状态-->
+
+            <!--个人中心菜单-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/padding_and_margin_xx" />
+
+            <RelativeLayout
+                android:id="@+id/user_all_order_rl"
+                style="@style/bg_user_center_layout_button">
+
+                <ImageView
+                    android:id="@+id/ic_my_points_order"
+                    style="@style/ic_user_center_mark"
+                    android:src="@drawable/ic_all_orders" />
+
+                <TextView
+                    style="@style/tv_user_center_options"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ic_my_points_order"
+                    android:layout_toRightOf="@+id/ic_my_points_order"
+                    android:text="@string/str_user_all_order" />
+
+                <ImageView style="@style/ic_user_center_options_more" />
+
+            </RelativeLayout>
+
+            <View style="@style/default_hour_view" />
+
+            <RelativeLayout
+                android:id="@+id/user_integral_rl"
+                style="@style/bg_user_center_layout_button">
+
+                <ImageView
+                    android:id="@+id/ic_my_points"
+                    style="@style/ic_user_center_mark"
+                    android:src="@drawable/ic_my_points" />
+
+                <TextView
+                    style="@style/tv_user_center_options"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ic_my_points"
+                    android:layout_toRightOf="@+id/ic_my_points"
+                    android:text="@string/str_user_integral" />
+
+                <ImageView style="@style/ic_user_center_options_more" />
+
+            </RelativeLayout>
+
+            <View style="@style/default_hour_view" />
+
+            <RelativeLayout
+                android:id="@+id/user_wallet_rl"
+                style="@style/bg_user_center_layout_button">
+
+                <ImageView
+                    android:id="@+id/ic_my_coupons"
+                    style="@style/ic_user_center_mark"
+                    android:src="@drawable/ic_my_balance" />
+
+                <TextView
+                    style="@style/tv_user_center_options"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ic_my_coupons"
+                    android:layout_toRightOf="@+id/ic_my_coupons"
+                    android:text="@string/str_user_wallet" />
+
+                <ImageView style="@style/ic_user_center_options_more" />
+
+            </RelativeLayout>
+
+            <View style="@style/default_hour_view" />
+
+            <RelativeLayout
+                android:id="@+id/user_coupons_rl"
+                style="@style/bg_user_center_layout_button">
+
+                <ImageView
+                    android:id="@+id/ic_my_coupons_tow"
+                    style="@style/ic_user_center_mark"
+                    android:src="@drawable/ic_my_coupons" />
+
+                <TextView
+                    style="@style/tv_user_center_options"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ic_my_coupons_tow"
+                    android:layout_toRightOf="@+id/ic_my_coupons_tow"
+                    android:text="@string/str_user_coupons" />
+
+                <ImageView style="@style/ic_user_center_options_more" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/padding_and_margin_xx" />
+
+            <RelativeLayout
+                android:id="@+id/user_service_rl"
+                style="@style/bg_user_center_layout_button">
+
+                <ImageView
+                    android:id="@+id/ic_all_orders"
+                    style="@style/ic_user_center_mark"
+                    android:src="@drawable/ic_service" />
+
+                <TextView
+                    style="@style/tv_user_center_options"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ic_all_orders"
+                    android:layout_toRightOf="@+id/ic_all_orders"
+                    android:text="@string/str_after_sales_service" />
+
+                <ImageView style="@style/ic_user_center_options_more" />
+
+            </RelativeLayout>
+
+            <View style="@style/default_hour_view" />
+
+            <RelativeLayout
+                android:id="@+id/user_addres_rl"
+                style="@style/bg_user_center_layout_button">
+
+                <ImageView
+                    android:id="@+id/ic_my_delivery_address"
+                    style="@style/ic_user_center_mark"
+                    android:src="@drawable/ic_my_delivery_address" />
+
+                <TextView
+                    style="@style/tv_user_center_options"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ic_my_delivery_address"
+                    android:layout_toRightOf="@+id/ic_my_delivery_address"
+                    android:text="@string/str_shipping_address" />
+
+                <ImageView style="@style/ic_user_center_options_more" />
+
+            </RelativeLayout>
+
+            <View style="@style/default_hour_view" />
+
+            <RelativeLayout
+                android:id="@+id/user_collection_rl"
+                style="@style/bg_user_center_layout_button">
+
+                <ImageView
+                    android:id="@+id/ic_my_collection"
+                    style="@style/ic_user_center_mark"
+                    android:src="@drawable/ic_my_collection" />
+
+                <TextView
+                    style="@style/tv_user_center_options"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ic_my_collection"
+                    android:layout_toRightOf="@+id/ic_my_collection"
+                    android:text="@string/str_user_collection" />
+
+                <ImageView style="@style/ic_user_center_options_more" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/padding_and_margin_xx" />
+
+            <RelativeLayout
+                android:id="@+id/user_settings_rl"
+                style="@style/bg_user_center_layout_button">
+
+                <ImageView
+                    android:id="@+id/ic_settings"
+                    style="@style/ic_user_center_mark"
+                    android:src="@drawable/ic_settings" />
+
+                <TextView
+                    style="@style/tv_user_center_options"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ic_settings"
+                    android:layout_toRightOf="@+id/ic_settings"
+                    android:text="@string/str_settings" />
+
+                <ImageView style="@style/ic_user_center_options_more" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_width_tow_xxxxxx" />
+            <!--个人中心菜单-->
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

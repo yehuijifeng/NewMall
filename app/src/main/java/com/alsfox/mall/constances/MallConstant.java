@@ -10,6 +10,6 @@ public class MallConstant {
     public static final String SHOPINFO_SHOPID = "shopInfo.shopId";
     public static final String SHOPINFO_TYPEID = "shopInfo.typeId";
     public static final String INFORMATION_INFORMATIONID = "information.informationId";
-
+    public static final String SHOPINFO_USERID = "orderInfo.userId";
 
 }
