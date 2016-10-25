@@ -6,4 +6,5 @@
 
     <include layout="@layout/default_titleview" />
 
+    <include layout="@layout/default_listview" />
 </LinearLayout>

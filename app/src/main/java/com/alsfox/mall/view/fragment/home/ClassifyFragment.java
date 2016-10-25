@@ -10,9 +10,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.alsfox.mall.R;
-import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.adapter.BaseViewHolder;
+import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.bean.classify.ShopTypeBean;
+import com.alsfox.mall.bean.classify.ShopTypeTowBean;
+import com.alsfox.mall.db.classifydb.ClassifyDao;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.home.ClassifyPresenter;
@@ -35,6 +37,7 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
     private SearchTitleView search_title_view;
     private RadioGroup classify_one_radio_group;
     private List<ShopTypeBean> shopTypeBeens;
+    private ClassifyDao classifyDao;
 
     @Override
     protected ClassifyPresenter initPresenter() {
@@ -60,6 +63,8 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
         search_title_view.setSearchIconGone(true);//隐藏小图标
         showLoading("正在加载分类");
         getClassifyOne();
+        classifyDao = new ClassifyDao();
+
     }
 
     @Override
@@ -88,6 +93,12 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
             case GET_CLASSIFY_DATA:
                 shopTypeBeens = success.getHttpBean().getObjects();
                 setClassifyOneData(shopTypeBeens);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        classifyDao.inster(shopTypeBeens);
+                    }
+                }).start();
                 break;
         }
     }
@@ -98,6 +109,8 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
         switch (finals.getRequestAction()) {
             case GET_CLASSIFY_DATA:
                 showLongToast(finals.getErrorMessage());
+                shopTypeBeens = classifyDao.queryClassify();
+                setClassifyOneData(shopTypeBeens);
                 break;
         }
     }
@@ -146,7 +159,7 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
      *
      * @param shopTypeBeens
      */
-    private void setClassifyTowData(List<ShopTypeBean> shopTypeBeens) {
+    private void setClassifyTowData(List<ShopTypeTowBean> shopTypeBeens) {
         clearAll();
         addAll(shopTypeBeens);
         loadSuccess();
@@ -174,7 +187,7 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
     @Override
     public void getItemData(int position, BaseViewHolder baseViewHolder, int itemType) {
         ClassifyTowViewHolder viewHolder = (ClassifyTowViewHolder) baseViewHolder;
-        ShopTypeBean shopTypeBean = (ShopTypeBean) data.get(position);
+        ShopTypeTowBean shopTypeBean = (ShopTypeTowBean) data.get(position);
         viewHolder.classify_tow_text.setText(shopTypeBean.getTypeName());
         imageLoader.displayImage(shopTypeBean.getTypeIcon(), viewHolder.classify_tow_img, MallAppliaction.getInstance().defaultOptions);
     }

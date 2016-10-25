@@ -166,7 +166,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
      * 注册presenter中的RxBus
      */
     private void getPresenterOnReame() {
-        if(presenter==null)return;
+        if (presenter == null) return;
         presenter.onResume();
         presenter.subscription = presenter.observable
                 .observeOn(AndroidSchedulers.mainThread())
@@ -251,6 +251,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
     protected void showErrorLoading(String str, View.OnClickListener onClickListener) {
         if (loadingView == null) return;
+        loadingView.closeLoadingView();
         loadingView.showErrorPrompt(str);
         loadingView.setErrorClickListener(onClickListener);
     }
@@ -259,12 +260,18 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         showErrorLoading(str, null);
     }
 
-    protected void showErrorLoadingByDefaultClick(String str, View.OnClickListener onClickListener) {
-        showErrorLoading(str, onClickListener);
+    protected void showErrorLoadingByDefaultClick(String str) {
+        showErrorLoading(str, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refresh();
+            }
+        });
     }
 
     protected void showErrorBtnLoading(String str, String btnStr, View.OnClickListener onClickListener) {
         if (loadingView == null) return;
+        loadingView.closeLoadingView();
         loadingView.showErrorBtnPrompt(str);
         loadingView.setErrorBtnClickListener(btnStr, onClickListener);
     }

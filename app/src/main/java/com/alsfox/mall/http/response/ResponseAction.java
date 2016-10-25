@@ -8,11 +8,11 @@ import com.alsfox.mall.http.request.RequestAction;
  * Created by Luhao on 2016/6/24.
  * 网络请求返回参照类
  */
-public class ResponseAction {
+public class ResponseAction<T> {
     private RequestAction requestAction;//请求枚举
     private Throwable throwable;//Retrofit报错
     private String errorMessage;//错误信息
-    private HttpBean httpBean;//返回的结果，直接被Retrofit解析过了
+    private HttpBean<T> httpBean;//返回的结果，直接被Retrofit解析过了
     private int requestCode;//非服务器返回的错误码
 
     public int getRequestCode() {
@@ -23,11 +23,11 @@ public class ResponseAction {
         this.requestCode = requestCode;
     }
 
-    public HttpBean getHttpBean() {
+    public HttpBean<T> getHttpBean() {
         return httpBean;
     }
 
-    public void setHttpBean(HttpBean httpBean) {
+    public void setHttpBean(HttpBean<T> httpBean) {
         this.httpBean = httpBean;
     }
 

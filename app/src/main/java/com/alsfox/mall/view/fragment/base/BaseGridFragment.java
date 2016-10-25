@@ -331,12 +331,7 @@ public abstract class BaseGridFragment<T extends BasePresenter> extends BaseFrag
     }
 
     protected void loadTextFinal(String errorStr) {
-        showErrorLoadingByDefaultClick(errorStr, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refresh();
-            }
-        });
+        showErrorLoadingByDefaultClick(errorStr);
         if (isRefresh())
             baseGridview.closeRefreshView();
     }

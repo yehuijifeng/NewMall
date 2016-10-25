@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" android:color="#BF3130">
-    <selector>
-        <item android:state_enabled="false">
-            <shape>
-                <corners android:radius="5dp" />
-                <solid android:color="@color/mall_gray" />
-            </shape>
-        </item>
-        <item android:state_enabled="true">
-            <shape>
-                <corners android:radius="5dp" />
-                <solid android:color="@color/mall_red_tow" />
-                <stroke android:width="0.5dp" android:color="@color/mall_red" />
-            </shape>
-        </item>
-    </selector>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false">
+        <shape>
+            <corners android:radius="5dp" />
+            <solid android:color="@color/mall_red_tow" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape>
+            <corners android:radius="5dp" />
+            <solid android:color="@color/mall_red" />
+        </shape>
+    </item>
 </selector>

@@ -137,6 +137,7 @@ public abstract class BaseViewPagerActivity extends BaseActivity implements View
 
     public void setPageNumber(int pageNumber) {
         this.pageNumber = pageNumber;
+        mViewPager.setCurrentItem(getPageNumber());
     }
 
     /**

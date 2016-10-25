@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar_color_rl"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ImageView
@@ -66,11 +66,15 @@
             android:src="@drawable/ic_media_fullscreen" />
     </LinearLayout>
 
-    <View style="@style/default_hour_view" />
+    <View
+        android:id="@+id/hour_view"
+        style="@style/default_hour_view"
+        android:layout_below="@+id/toolbar_ly" />
 
     <com.alsfox.mall.view.baseview.LoadingView
         android:id="@+id/default_loading_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/hour_view" />
+</RelativeLayout>
 

@@ -35,7 +35,7 @@
     <dimen name="height_width_three_xxxx">112dp</dimen>
     <dimen name="height_width_three_xxxxx">116dp</dimen>
     <dimen name="height_width_three_xxxxxx">120dp</dimen>
-
+    <dimen name="height_width_three_xxxxxxx">140dp</dimen>
     <dimen name="button_height">40dp</dimen>
     <dimen name="button_width">70dp</dimen>
 

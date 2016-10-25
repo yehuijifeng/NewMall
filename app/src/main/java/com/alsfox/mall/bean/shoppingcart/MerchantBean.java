@@ -13,7 +13,9 @@ import java.util.Collection;
 @DatabaseTable()
 public class MerchantBean {
 
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
+    private int merchantId;//数据库用id,自增长@DatabaseField(generatedId = true)
+    @DatabaseField
     private int dianpuId;//店铺ID
     @DatabaseField()
     private String merchantName;//店铺名称

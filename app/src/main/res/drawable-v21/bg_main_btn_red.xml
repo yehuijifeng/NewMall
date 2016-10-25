@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/mall_red">
+    android:color="@color/red">
     <item>
         <selector>
-            <item android:state_enabled="false">
-                <shape>
-                    <corners android:radius="5dp" />
-                    <solid android:color="@color/mall_gray" />
-                </shape>
-            </item>
-            <item android:state_enabled="true">
+            <item android:state_pressed="false">
                 <shape>
                     <corners android:radius="5dp" />
                     <solid android:color="@color/mall_red_tow" />
-                    <stroke
-                        android:width="0.5dp"
-                        android:color="@color/mall_red" />
+                </shape>
+            </item>
+            <item android:state_pressed="true">
+                <shape>
+                    <corners android:radius="5dp" />
+                    <solid android:color="@color/mall_red" />
                 </shape>
             </item>
         </selector>

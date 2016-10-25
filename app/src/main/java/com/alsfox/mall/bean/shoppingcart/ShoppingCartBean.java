@@ -10,7 +10,10 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class ShoppingCartBean {
 
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
+    private int shoppingCartId;//数据库用id,自增长
+
+    @DatabaseField
     private int shopId;//商品ID
     @DatabaseField()
     private int userId; //
@@ -43,6 +46,14 @@ public class ShoppingCartBean {
 
     @DatabaseField(foreign = true, columnName = "dianpuid")
     private MerchantBean merchantBean;//数据库外间，不做数据考虑
+
+    public int getShoppingCartId() {
+        return shoppingCartId;
+    }
+
+    public void setShoppingCartId(int shoppingCartId) {
+        this.shoppingCartId = shoppingCartId;
+    }
 
     public int getUserId() {
         return userId;

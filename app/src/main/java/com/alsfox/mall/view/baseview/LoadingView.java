@@ -120,7 +120,7 @@ public class LoadingView extends LinearLayout implements View.OnTouchListener {
     public void getFullWindowStyle() {
         loading_ly.setBackgroundColor(getContext().getResources().getColor(android.R.color.white));
         dialog_ly.setBackgroundColor(getContext().getResources().getColor(android.R.color.transparent));
-        loading_son_ly.setOrientation(HORIZONTAL);
+        loading_son_ly.setOrientation(VERTICAL);
     }
 
     /**
@@ -129,7 +129,7 @@ public class LoadingView extends LinearLayout implements View.OnTouchListener {
      */
     public void showLoading(Drawable drawable, String loadingStr) {
         initRootView();
-        getDialogStyle();
+        getFullWindowStyle();
         error_icon_img.setVisibility(GONE);
         error_str_text.setVisibility(GONE);
         error_btn.setVisibility(GONE);
