@@ -11,7 +11,7 @@
         <item name="colorPrimary">@color/black</item>
         <!-- 状态栏颜色 -->
         <item name="colorPrimaryDark">@color/black</item>
-        <item name="colorAccent">@color/black</item>
+        <item name="colorAccent">@color/title_color_red</item>
         <!--主要风格颜色-->
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:windowIsTranslucent">true</item>
