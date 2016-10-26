@@ -39,22 +39,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
-        <activity
-            android:name="com.alsfox.mall.view.activity.HomeActivity"
-            android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <!--  注意这里，似乎对程序有影响，要加上-->
-                <data android:scheme="wx482a514725c5cf3c" />
-            </intent-filter>
-        </activity>
-
         <!--***************************友盟配置***************************-->
         <!-- 友盟AppKey -->
         <meta-data
@@ -80,6 +64,24 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!--***************************友盟配置***************************-->
 
+        <activity
+            android:name="com.alsfox.mall.view.activity.index.HomeActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <!--  注意这里，似乎对程序有影响，要加上-->
+                <data android:scheme="wx482a514725c5cf3c" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".view.activity.user.UserLoginActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

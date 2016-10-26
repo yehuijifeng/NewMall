@@ -37,10 +37,10 @@
 
                     <ImageView
                         android:id="@+id/user_icon_img"
-                        android:layout_width="@dimen/height_width_tow_xx"
-                        android:layout_height="@dimen/height_width_tow_x"
+                        android:layout_width="@dimen/height_width_tow_xxxxx"
+                        android:layout_height="@dimen/height_width_tow_xxxxx"
                         android:layout_gravity="center_horizontal"
-                        android:padding="@dimen/padding_and_margin_x"
+                        android:layout_margin="@dimen/padding_and_margin_x"
                         android:src="@drawable/ic_default_user" />
 
                     <TextView

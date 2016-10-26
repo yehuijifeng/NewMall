@@ -11,15 +11,22 @@ import android.widget.TextView;
 import com.alsfox.mall.R;
 import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.bean.order.OrderCountBean;
+import com.alsfox.mall.bean.user.UserBean;
 import com.alsfox.mall.constances.MallConstant;
+import com.alsfox.mall.function.RxBus;
 import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.home.UserContentPresenter;
+import com.alsfox.mall.view.activity.user.UserLoginActivity;
 import com.alsfox.mall.view.baseview.MyTitleView;
 import com.alsfox.mall.view.fragment.base.BaseFragment;
 import com.alsfox.mall.view.interfaces.home.IUsercontentView;
 
 import java.util.Map;
+
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by 浩 on 2016/10/25.
@@ -62,6 +69,8 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
             user_addres_rl,//收货地址
             user_collection_rl,//我的收藏
             user_settings_rl;//设置
+
+    private Subscription subscription;//用户登录的订阅
 
     @Override
     protected UserContentPresenter initPresenter() {
@@ -135,9 +144,40 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
 
     @Override
     protected void initData() {
+        //getUserOrderCount();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        subscription = RxBus.getDefault()
+                .register(UserBean.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<UserBean>() {
+                    @Override
+                    public void call(UserBean userBean) {
+                        //这里更换ui布局
+                        if (userBean != null) {
+                            user_centent_user_ly.setVisibility(View.VISIBLE); //个人中心用户view
+                            user_centent_login_ly.setVisibility(View.GONE);//个人中心登录view
+                            imageLoader.displayImage(userBean.getUserAvatar(), user_icon_img, MallAppliaction.getInstance().roundOptions);
+                            user_name_text.setText(userBean.getUserName());
+                        } else {
+                            user_centent_user_ly.setVisibility(View.GONE); //个人中心用户view
+                            user_centent_login_ly.setVisibility(View.VISIBLE);//个人中心登录view
+                        }
+                    }
+                });
         getUserOrderCount();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (subscription != null && !subscription.isUnsubscribed())
+            //如果订阅取消订阅
+            subscription.unsubscribe();
+    }
 
     private void getUserOrderCount() {
         if (MallAppliaction.getInstance().userBean == null) return;
@@ -166,6 +206,7 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
             case R.id.user_icon_img://点击头像，进入个人中心
                 break;
             case R.id.user_login_btn://登录
+                startActivity(UserLoginActivity.class);
                 break;
             case R.id.user_registered_btn://注册
                 break;

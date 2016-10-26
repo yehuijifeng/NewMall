@@ -24,6 +24,7 @@ import java.util.List;
  * 获取app自身信息的工具类
  */
 public class AppUtils {
+
     /**
      * 防止被实例化
      */

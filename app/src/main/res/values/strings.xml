@@ -78,6 +78,8 @@
     <string name="str_update_pwd">修改密码</string>
     <string name="str_send_verification_code">发送验证码</string>
     <string name="str_login">登录</string>
+    <string name="str_login_ing">正在登录中……</string>
+    <string name="str_login_error">请重新登录</string>
     <string name="str_registered">注册</string>
     <string name="str_enter_tel">请输入手机号</string>
     <string name="str_enter_pwd">请输入密码</string>
@@ -85,6 +87,11 @@
     <string name="str_confirm_pwd">请再次确认密码</string>
     <string name="str_forgot_pwd">忘记密码？</string>
     <string name="str_agreed_user_agreement">同意用户协议</string>
+    <string name="str_umeng_login">选择第三方登录平台</string>
+    <string name="str_umeng_login_qq">QQ登录</string>
+    <string name="str_umeng_login_weixin">微信登陆</string>
+    <string name="str_umeng_login_weibo">微博登陆</string>
+
 
     <string name="str_notice_list">公告列表</string>
     <string name="str_newest">最新</string>

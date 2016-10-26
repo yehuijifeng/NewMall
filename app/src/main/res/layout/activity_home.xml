@@ -4,7 +4,7 @@
     android:id="@+id/activity_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alsfox.mall.view.activity.HomeActivity">
+    tools:context="com.alsfox.mall.view.activity.index.HomeActivity">
 
     <!--如果需要将viewpager的tab页拿到下面来，位于视图的底部，则要用一下代码实现
         原因：included的视图不能设置布局属性 -->

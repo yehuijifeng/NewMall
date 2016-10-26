@@ -25,6 +25,7 @@ import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.base.BasePresenter;
 import com.alsfox.mall.utils.NetWorkUtils;
 import com.alsfox.mall.view.activity.base.BaseHelper;
+import com.alsfox.mall.view.activity.user.UserLoginActivity;
 import com.alsfox.mall.view.baseview.LoadingView;
 import com.alsfox.mall.view.baseview.MyTitleView;
 import com.nostra13.universalimageloader.core.ImageLoader;

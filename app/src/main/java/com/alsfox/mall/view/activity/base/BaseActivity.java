@@ -22,6 +22,7 @@ import com.alsfox.mall.http.response.ResponseAction;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.base.BasePresenter;
+import com.alsfox.mall.view.activity.user.UserLoginActivity;
 import com.alsfox.mall.view.baseview.LoadingView;
 import com.alsfox.mall.view.baseview.MyTitleView;
 import com.android.skin.base.BaseSkinActivity;
@@ -495,7 +496,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
     protected void onDestroy() {
         super.onDestroy();
         ActivityCollector.removeActivity(this);
-        if (presenter != null)
+        if (baseHelper != null)
             baseHelper.releaseActivity();
         baseHelper = null;
         if (presenter != null)

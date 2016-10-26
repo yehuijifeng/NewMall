@@ -7,3 +7,5 @@
 679	1152	0	../../../../build/intermediates/cmake/debug/obj/mips/libnative-lib.so	269d91dc60e4ef
 1	508	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	710d6232c4b8ec5b
 508	839	0	../../../../build/intermediates/cmake/debug/obj/mips/libnative-lib.so	269d91dc60e4ef
+2	256	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	710d6232c4b8ec5b
+256	425	0	../../../../build/intermediates/cmake/debug/obj/mips/libnative-lib.so	269d91dc60e4ef

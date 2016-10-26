@@ -214,4 +214,45 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:src">@drawable/ic_more</item>
     </style>
+
+    <!--用户登录输入框-->
+    <style name="user_center_username_exit_style" parent="layout_mw">
+        <item name="android:layout_marginTop">@dimen/padding_and_margin_x</item>
+        <item name="android:background">@drawable/shape_general_input_box</item>
+        <item name="android:paddingRight">@dimen/padding_and_margin</item>
+        <item name="android:paddingTop">@dimen/padding_and_margin</item>
+        <item name="android:paddingBottom">@dimen/padding_and_margin</item>
+        <item name="android:paddingLeft">@dimen/padding_and_margin_x</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:drawablePadding">@dimen/padding_and_margin</item>
+        <item name="android:textSize">@dimen/text_size_xxx</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <!--密码输入框-->
+    <style name="user_center_userpwd_exit_style" parent="user_center_username_exit_style">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:inputType">textPassword</item>
+    </style>
+
+    <!--登录按钮-->
+    <style name="btn_user_center_login" parent="layout_mw">
+        <item name="android:background">@drawable/bg_btn_user_center_login</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_xxx</item>
+        <item name="android:layout_marginTop">@dimen/padding_and_margin_x</item>
+    </style>
+    <!--注册-->
+    <style name="tv_general_clickable" parent="layout_ww">
+        <item name="android:textColor">@color/selector_general_text_pressed</item>
+        <item name="android:padding">@dimen/padding_and_margin_x</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_xxx</item>
+    </style>
+    <!--三方登录-->
+    <style name="user_login_oauth_style" parent="layout_ww">
+        <item name="android:background">@drawable/bg_default_click</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:padding">@dimen/padding_and_margin_xxx</item>
+    </style>
 </resources>

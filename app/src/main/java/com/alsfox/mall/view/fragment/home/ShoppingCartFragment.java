@@ -69,8 +69,10 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 
     @Override
     protected void refresh() {
-        clearAll();
-        presenter.queryShoppingCart();
+        if (presenter != null) {
+            clearAll();
+            presenter.queryShoppingCart();
+        }
     }
 
     @Override

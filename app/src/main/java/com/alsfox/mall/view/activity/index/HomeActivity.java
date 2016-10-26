@@ -1,4 +1,4 @@
-package com.alsfox.mall.view.activity;
+package com.alsfox.mall.view.activity.index;
 
 import android.view.View;
 import android.view.ViewGroup;

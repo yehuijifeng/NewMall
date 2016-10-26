@@ -33,7 +33,16 @@ public enum RequestAction {
         public void getRequest() {
             observable = RetrofitManage.getInstance().getService().getUserOderCount(params.getParams());
         }
-    },;
+    },
+    //用户登录
+    GET_USER_LOGIN(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserLogin(params.getParams());
+        }
+    },
+
+    ;
 
     public Call<ResponseBody> call;//下载文件专用，okhttp类型的回调
     public Observable observable;//普通网络请求使用，网络请求的操作实例
