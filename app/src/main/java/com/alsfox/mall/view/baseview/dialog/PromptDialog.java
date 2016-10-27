@@ -38,6 +38,7 @@ public class PromptDialog extends View implements View.OnClickListener {
         dialog = new ProgressDialog(getContext(), R.style.dialog);
         dialog.show();
         dialog.setContentView(root);
+        dialog.setCanceledOnTouchOutside(false);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class PromptDialog extends View implements View.OnClickListener {
     }
 
     public void showPromptDialog(String titleStr, String contentStr, OnPromptClickListener onPromptClickListener) {
-        showPromptDialog(null, contentStr, null, null, onPromptClickListener);
+        showPromptDialog(titleStr, contentStr, null, null, onPromptClickListener);
     }
 
     public void showPromptDialog(String titleStr, String contentStr, String btn1, String btn2, OnPromptClickListener onPromptClickListener) {

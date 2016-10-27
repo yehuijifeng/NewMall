@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.alsfox.mall.R;
 import com.alsfox.mall.adapter.BaseFragmentViewPagerAdapter;
+import com.alsfox.mall.presenter.base.BasePresenter;
 import com.alsfox.mall.utils.DisplayUtils;
 import com.alsfox.mall.view.baseview.MyViewPager;
 
@@ -21,7 +22,7 @@ import java.util.List;
  * on 2015/11/25.
  * viewpager滑动页
  */
-public abstract class BaseViewPagerActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
+public abstract class BaseViewPagerActivity<T extends BasePresenter> extends BaseActivity<T> implements ViewPager.OnPageChangeListener {
 
     /**
      * 默认viewpager
@@ -59,10 +60,12 @@ public abstract class BaseViewPagerActivity extends BaseActivity implements View
     protected void initView() {
         mViewPager = (MyViewPager) findViewById(R.id.my_viewpager_view);
         mViewpagerTab = (LinearLayout) findViewById(R.id.my_viewpager_view_tab);
-        defaultItemTabView = (LinearLayout) mViewpagerTab.findViewById(R.id.viewpager_btn_layout);
-        defaultItemImageView = (ImageView) mViewpagerTab.findViewById(R.id.viewpager_image_bar);
-        if (isShowBar())
-            currLayoutParams = (LinearLayout.LayoutParams) defaultItemImageView.getLayoutParams();//初始化游标的params
+        if (mViewpagerTab != null) {
+            defaultItemTabView = (LinearLayout) mViewpagerTab.findViewById(R.id.viewpager_btn_layout);
+            defaultItemImageView = (ImageView) mViewpagerTab.findViewById(R.id.viewpager_image_bar);
+            if (isShowBar())
+                currLayoutParams = (LinearLayout.LayoutParams) defaultItemImageView.getLayoutParams();//初始化游标的params
+        }
         mViewPager.addOnPageChangeListener(this);
         mViewList = new ArrayList<>();
         tabViewList = new ArrayList<>();
@@ -70,14 +73,15 @@ public abstract class BaseViewPagerActivity extends BaseActivity implements View
 
     @Override
     protected void initData() {
-        //mViewPager.setOffscreenPageLimit(0);
         itemSize = mViewList.size();
         fragmentPagerAdapter = new BaseFragmentViewPagerAdapter(getSupportFragmentManager(), mViewList);
         mViewPager.setAdapter(fragmentPagerAdapter);
         mViewPager.setCurrentItem(getPageNumber());
-        initTabView();
+        if (mViewpagerTab != null) {
+            initTabView();
+            tabViewList.get(getPageNumber()).setSelected(true);
+        }
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(getWindowWidth() / mViewList.size(), DisplayUtils.dip2px(this, 3));
-        tabViewList.get(getPageNumber()).setSelected(true);
         if (isShowBar()) {
             defaultItemImageView.setLayoutParams(layoutParams);
             currLayoutParams = (LinearLayout.LayoutParams) defaultItemImageView.getLayoutParams();
@@ -173,7 +177,7 @@ public abstract class BaseViewPagerActivity extends BaseActivity implements View
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (isShowBar())
             tabMove(position, positionOffsetPixels);
-        else
+        else if (defaultItemImageView != null)
             defaultItemImageView.setVisibility(View.GONE);
     }
 

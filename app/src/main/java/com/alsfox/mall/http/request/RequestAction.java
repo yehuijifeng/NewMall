@@ -42,7 +42,21 @@ public enum RequestAction {
         }
     },
 
-    ;
+    //loading页
+    GET_APP_LOADING(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getAppLoading(params.getParams());
+        }
+    },
+
+    //版本号
+    GET_APP_VERSION(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getAppVersion(params.getParams());
+        }
+    },;
 
     public Call<ResponseBody> call;//下载文件专用，okhttp类型的回调
     public Observable observable;//普通网络请求使用，网络请求的操作实例

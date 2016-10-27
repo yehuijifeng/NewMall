@@ -14,7 +14,7 @@ import com.alsfox.mall.adapter.BaseViewHolder;
 import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.bean.classify.ShopTypeBean;
 import com.alsfox.mall.bean.classify.ShopTypeTowBean;
-import com.alsfox.mall.db.classifydb.ClassifyDao;
+import com.alsfox.mall.db.classify.ClassifyDao;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.home.ClassifyPresenter;

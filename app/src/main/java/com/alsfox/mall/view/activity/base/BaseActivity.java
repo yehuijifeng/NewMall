@@ -47,14 +47,14 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
     //必须传入activity的view
     protected abstract int setContentView();
 
+    //初始化title
+    protected abstract String setTitleText();
+
     //初始化view
     protected abstract void initView();
 
     //初始化数据
     protected abstract void initData();
-
-    //初始化title
-    protected abstract String setTitleText();
 
     protected T presenter;
 

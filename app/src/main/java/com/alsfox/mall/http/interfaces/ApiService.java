@@ -1,6 +1,8 @@
 package com.alsfox.mall.http.interfaces;
 
 
+import com.alsfox.mall.bean.app.AppLoadingImgBean;
+import com.alsfox.mall.bean.app.AppVersionBean;
 import com.alsfox.mall.bean.classify.ShopTypeBean;
 import com.alsfox.mall.bean.index.IndexBean;
 import com.alsfox.mall.bean.order.OrderCountBean;
@@ -49,4 +51,12 @@ public interface ApiService {
     //用户登录
     @POST(RequestUrls.REQUEST_USER_LOGIN_URL)
     Observable<HttpBean<UserBean>> getUserLogin(@QueryMap Map<String, Object> options);
+
+    //loading页
+    @POST(RequestUrls.GET_LOADING_IMAGE_URL)
+    Observable<HttpBean<AppLoadingImgBean>> getAppLoading(@QueryMap Map<String, Object> options);
+
+    //版本号
+    @POST(RequestUrls.GET_VERSION_INFO_URL)
+    Observable<HttpBean<AppVersionBean>> getAppVersion(@QueryMap Map<String, Object> options);
 }

@@ -65,7 +65,7 @@
         <!--***************************友盟配置***************************-->
 
         <activity
-            android:name="com.alsfox.mall.view.activity.index.HomeActivity"
+            android:name="com.alsfox.mall.view.activity.index.LoadingActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -81,6 +81,14 @@
 
         <activity
             android:name=".view.activity.user.UserLoginActivity"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".view.activity.index.HomeActivity"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".view.activity.index.StartAppActivity"
             android:launchMode="singleTop" />
     </application>
 

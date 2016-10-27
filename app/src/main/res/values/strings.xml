@@ -141,5 +141,6 @@
     <string name="str_cancel_pay">取消支付！</string>
     <string name="str_unknown_error">未知错误！</string>
     <string name="str_weixin_pay_result">微信支付结果：</string>
+    <string name="str_start_app_content">立即体验</string>
 
 </resources>

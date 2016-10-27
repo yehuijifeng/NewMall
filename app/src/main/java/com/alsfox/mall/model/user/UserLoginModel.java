@@ -1,7 +1,7 @@
 package com.alsfox.mall.model.user;
 
 import com.alsfox.mall.bean.user.UserBean;
-import com.alsfox.mall.db.userdb.UserInfoDao;
+import com.alsfox.mall.db.user.UserInfoDao;
 import com.alsfox.mall.function.RxBus;
 import com.alsfox.mall.model.base.BaseModel;
 

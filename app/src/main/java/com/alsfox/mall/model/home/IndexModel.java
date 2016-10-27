@@ -13,7 +13,7 @@ import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.bean.index.IndexBean;
 import com.alsfox.mall.bean.index.IndexMokuaiBean;
 import com.alsfox.mall.bean.index.IndexMokuaiContentBean;
-import com.alsfox.mall.db.indexdb.IndexDao;
+import com.alsfox.mall.db.index.IndexDao;
 import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.http.request.RetrofitManage;
 import com.alsfox.mall.model.base.BaseModel;

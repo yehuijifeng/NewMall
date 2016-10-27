@@ -1,7 +1,7 @@
 package com.alsfox.mall.model.home;
 
 import com.alsfox.mall.bean.shoppingcart.ShoppingCartBean;
-import com.alsfox.mall.db.shoppingcartdb.ShoppingCartDao;
+import com.alsfox.mall.db.shoppingcart.ShoppingCartDao;
 import com.alsfox.mall.model.base.BaseModel;
 
 import java.util.List;
