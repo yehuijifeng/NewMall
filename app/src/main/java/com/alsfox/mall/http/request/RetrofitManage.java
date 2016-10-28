@@ -2,6 +2,8 @@ package com.alsfox.mall.http.request;
 
 import android.os.Environment;
 
+import com.alsfox.mall.R;
+import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.function.RxBus;
 import com.alsfox.mall.http.HttpBean;
 import com.alsfox.mall.http.SignUtils;
@@ -13,6 +15,7 @@ import com.alsfox.mall.http.response.ResponseAction;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.utils.LogUtils;
+import com.alsfox.mall.utils.NetWorkUtils;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -44,6 +47,7 @@ import rx.schedulers.Schedulers;
  * retrofit网络请求框架的管理类
  */
 public class RetrofitManage {
+
     private RetrofitManage() {
         initRetrofit();
     }
@@ -135,12 +139,18 @@ public class RetrofitManage {
 
                     @Override
                     public void onError(Throwable e) {
-                        //服务器异常，非服务器自身控制错误
                         ResponseFinalAction responseAction = new ResponseFinalAction();
                         responseAction.setThrowable(e);
                         responseAction.setRequestAction(requesteAction);
-                        responseAction.setErrorMessage(e.getMessage());
-                        responseAction.setRequestCode(StatusCode.SERVER_ERROR);
+                        //是否是网络错误
+                        if (!NetWorkUtils.isConnected(MallAppliaction.getInstance())) {
+                            responseAction.setErrorMessage(MallAppliaction.getInstance().getResources().getString(R.string.network_error));
+                            responseAction.setRequestCode(StatusCode.NETWORK_ERROR);
+                        } else {
+                            //服务器异常，非服务器自身控制错误
+                            responseAction.setErrorMessage(e.getMessage());
+                            responseAction.setRequestCode(StatusCode.SERVER_ERROR);
+                        }
                         RxBus.getDefault().post(responseAction);
                     }
 

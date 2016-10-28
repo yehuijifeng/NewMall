@@ -193,6 +193,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
             } else {
                 mTitleView.setTitleText(setTitleText());
             }
+        } else {
+            loadingView = (LoadingView) findViewById(R.id.default_loading_view);
         }
         imageLoader = ImageLoader.getInstance();
     }
@@ -277,8 +279,16 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
 
     protected void showErrorLoading(String str, View.OnClickListener onClickListener) {
         if (loadingView == null) return;
+        loadingView.closeLoadingView();
         loadingView.showErrorPrompt(str);
         loadingView.setErrorClickListener(onClickListener);
+    }
+
+    protected void showErrorLoadingAndBtn(String str1, String str2, View.OnClickListener onClickListener1, View.OnClickListener onClickListener2) {
+        if (loadingView == null) return;
+        loadingView.showErrorPromptAndBtn(str1, str2, onClickListener1);
+        loadingView.setErrorClickListener(onClickListener2);
+
     }
 
     protected void showErrorLoadingByNoClick(String str) {
@@ -472,8 +482,20 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
 
     protected void onRequestFinal(ResponseFinalAction finals) {
         if (finals.getRequestCode() == StatusCode.NETWORK_ERROR) {
+            closeLoading();
             //无网络链接
-            showErrorBtnLoadingByDefaultClick(finals.getErrorMessage(), getResources().getString(R.string.restart_btn));
+            showErrorLoadingAndBtn(finals.getErrorMessage() + getResources().getString(R.string.refresh_window), getResources().getString(R.string.settings_network), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toSetNetWork();//按钮是去设置网络
+                }
+            }, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showLoading();
+                    refresh();//点击空白处是刷新
+                }
+            });
         }
     }
 

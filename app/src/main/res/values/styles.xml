@@ -136,6 +136,7 @@
         <item name="android:layout_height">@dimen/default_button_height_main_red</item>
         <item name="android:background">@drawable/bg_main_btn_red</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:padding">@dimen/padding_and_margin_x</item>
         <item name="android:textSize">@dimen/default_text_size_main_red</item>
     </style>
 
@@ -254,5 +255,25 @@
         <item name="android:background">@drawable/bg_default_click</item>
         <item name="android:layout_weight">1.0</item>
         <item name="android:padding">@dimen/padding_and_margin_xxx</item>
+    </style>
+
+    <!--流布局-->
+    <declare-styleable name="FlowLayout">
+        <attr name="horizontal_spacing" format="dimension" />
+        <attr name="vertical_spacing" format="dimension" />
+    </declare-styleable>
+
+    <!--选择商品或者店铺popupwindow动画-->
+    <style name="AnimationPreviewForCommodityPop">
+        <item name="android:windowEnterAnimation">@anim/abc_slide_in_top</item>
+        <item name="android:windowExitAnimation">@anim/abc_slide_out_top</item>
+    </style>
+
+    <style name="custom_rating_bar_style" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/layer_list_custom_rating_bar</item>
+        <item name="android:numStars">5</item>
+        <item name="android:isIndicator">true</item>
+        <item name="android:maxHeight">20dp</item>
+        <item name="android:minHeight">20dp</item>
     </style>
 </resources>

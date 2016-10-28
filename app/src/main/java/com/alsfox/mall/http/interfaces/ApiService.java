@@ -5,7 +5,10 @@ import com.alsfox.mall.bean.app.AppLoadingImgBean;
 import com.alsfox.mall.bean.app.AppVersionBean;
 import com.alsfox.mall.bean.classify.ShopTypeBean;
 import com.alsfox.mall.bean.index.IndexBean;
+import com.alsfox.mall.bean.merchant.MerchantInfoBean;
 import com.alsfox.mall.bean.order.OrderCountBean;
+import com.alsfox.mall.bean.searth.HotWordBean;
+import com.alsfox.mall.bean.shop.ShopInfoBean;
 import com.alsfox.mall.bean.user.UserBean;
 import com.alsfox.mall.http.HttpBean;
 import com.alsfox.mall.http.request.RequestUrls;
@@ -59,4 +62,18 @@ public interface ApiService {
     //版本号
     @POST(RequestUrls.GET_VERSION_INFO_URL)
     Observable<HttpBean<AppVersionBean>> getAppVersion(@QueryMap Map<String, Object> options);
+
+    // 获取热门搜索关键字的URL
+    @POST(RequestUrls.GET_SEARCH_HOT_WORDS_URL)
+    Observable<HttpBean<HotWordBean>> getSearthHot(@QueryMap Map<String, Object> options);
+
+    //获取商品搜索列表
+    @POST(RequestUrls.GET_SEARCH_COMMODITY_LIST_URL)
+    Observable<HttpBean<ShopInfoBean>> getSearthGoodsList(@QueryMap Map<String, Object> options);
+
+    //获取店铺列表
+    @POST(RequestUrls.GET_VERSION_INFO_URL)
+    Observable<HttpBean<MerchantInfoBean>> getSearthMerchantList(@QueryMap Map<String, Object> options);
+
+
 }

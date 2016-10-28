@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_default_ly"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/commodity_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:background="@drawable/bg_default_mall_white"
+        android:padding="@dimen/padding_and_margin_x"
+        android:text="商品"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_xxx" />
+
+    <View style="@style/default_hour_view" />
+
+    <TextView
+        android:id="@+id/store_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:background="@drawable/bg_default_mall_white"
+        android:padding="@dimen/padding_and_margin_x"
+        android:text="商铺"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_xxx" />
+</LinearLayout>

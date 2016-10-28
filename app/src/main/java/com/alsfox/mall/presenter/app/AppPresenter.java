@@ -2,6 +2,7 @@ package com.alsfox.mall.presenter.app;
 
 import com.alsfox.mall.bean.app.AppLoadingImgBean;
 import com.alsfox.mall.bean.app.AppVersionBean;
+import com.alsfox.mall.bean.user.UserBean;
 import com.alsfox.mall.model.app.AppModel;
 import com.alsfox.mall.presenter.base.BasePresenter;
 import com.alsfox.mall.view.interfaces.app.IAppView;
@@ -32,12 +33,20 @@ public class AppPresenter extends BasePresenter<IAppView> {
         loadingModel.insertLoadingImg(appLoadingImgBean);
     }
 
+    public void insertUserInfo(UserBean userBean) {
+        loadingModel.insertUserInfo(userBean);
+    }
+
     public AppVersionBean queryVersion() {
         return loadingModel.queryVersion();
     }
 
     public AppLoadingImgBean queryLoadingImg() {
         return loadingModel.queryLoadingImg();
+    }
+
+    public UserBean queryUserInfo() {
+        return loadingModel.queryUserInfo();
     }
 
     public void isDownloadApp(AppVersionBean appVersionBean) {

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_and_margin">
+
+    <ImageView
+        android:id="@+id/searth_list_goods_img"
+        android:layout_width="@dimen/searth_image_height"
+        android:layout_height="@dimen/searth_image_height"
+        android:scaleType="center"
+        android:src="@drawable/ic_default_img" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_and_margin_x">
+
+        <TextView
+            android:id="@+id/searth_list_goods_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="商品名称"
+            android:textColor="@color/mall_text_color"
+            android:textSize="@dimen/text_size_xx" />
+
+        <TextView
+            android:id="@+id/searth_list_goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_and_margin_x"
+            android:layout_marginTop="@dimen/padding_and_margin_x"
+            android:text="￥0.00"
+            android:textColor="@color/mall_main"
+            android:textSize="@dimen/text_size_xxxx" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RatingBar
+                android:id="@+id/searth_list_goods_score"
+                style="@style/custom_rating_bar_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rating="3" />
+
+            <TextView
+                android:id="@+id/searth_list_goods_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(0)"
+                android:textColor="@color/mall_text_color"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

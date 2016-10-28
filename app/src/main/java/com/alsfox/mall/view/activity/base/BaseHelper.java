@@ -9,14 +9,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.alsfox.mall.R;
 import com.alsfox.mall.appliaction.ActivityCollector;
-import com.alsfox.mall.function.RxBus;
-import com.alsfox.mall.http.StatusCode;
 import com.alsfox.mall.http.request.RequestAction;
-import com.alsfox.mall.http.response.ResponseAction;
-import com.alsfox.mall.http.response.ResponseFinalAction;
-import com.alsfox.mall.utils.NetWorkUtils;
 import com.alsfox.mall.view.baseview.LoadingView;
 
 import java.util.ArrayList;
@@ -76,16 +70,17 @@ public class BaseHelper {
      * @param requesteAction
      */
     protected void sendRequest(RequestAction requesteAction) {
-        if (!NetWorkUtils.isConnected(activity)) {
-            //网络错误，服务器错误，等等
-            ResponseAction responseAction = new ResponseFinalAction();
-            responseAction.setRequestCode(StatusCode.NETWORK_ERROR);
-            responseAction.setRequestAction(requesteAction);
-            responseAction.setErrorMessage(activity.getResources().getString(R.string.network_error));
-            RxBus.getDefault().post(responseAction);
-        } else if (activity.presenter != null) {
-            activity.presenter.sendRequest(requesteAction);
-        }
+        activity.presenter.sendRequest(requesteAction);
+//        if (!NetWorkUtils.isConnected(activity)) {
+//            //网络错误，服务器错误，等等
+//            ResponseAction responseAction = new ResponseFinalAction();
+//            responseAction.setRequestCode(StatusCode.NETWORK_ERROR);
+//            responseAction.setRequestAction(requesteAction);
+//            responseAction.setErrorMessage(activity.getResources().getString(R.string.network_error));
+//            RxBus.getDefault().post(responseAction);
+//        } else if (activity.presenter != null) {
+//            activity.presenter.sendRequest(requesteAction);
+//        }
     }
 
     public void startActivity(Class<?> cls) {

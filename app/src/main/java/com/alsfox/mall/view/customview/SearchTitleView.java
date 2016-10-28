@@ -59,4 +59,5 @@ public class SearchTitleView extends LinearLayout {
         if (search_img == null) return;
         search_img.setVisibility(bl ? GONE : VISIBLE);
     }
+
 }

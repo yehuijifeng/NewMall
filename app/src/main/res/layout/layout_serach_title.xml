@@ -13,9 +13,9 @@
         <LinearLayout
             android:id="@+id/search_ly"
             android:layout_width="0dp"
-            android:layout_height="38dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_margin="@dimen/padding_and_margin"
+            android:layout_margin="@dimen/padding_and_margin_x"
             android:layout_weight="0.9"
             android:background="@drawable/bg_search_ly"
             android:gravity="center">
@@ -24,8 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_search"
-                android:padding="@dimen/padding_and_margin"
                 android:gravity="center"
+                android:padding="@dimen/padding_and_margin"
                 android:text="@string/str_search_goods"
                 android:textColor="@color/mall_gray"
                 android:textSize="@dimen/text_size_x" />
@@ -39,7 +39,8 @@
             android:layout_gravity="center"
             android:layout_weight="0.1"
             android:padding="@dimen/padding_and_margin"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"
+            android:visibility="gone" />
     </LinearLayout>
 
     <View style="@style/default_hour_view" />

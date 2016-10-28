@@ -9,5 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <include layout="@layout/default_loading" />
+
     <include layout="@layout/default_listview" />
 </LinearLayout>

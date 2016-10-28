@@ -28,6 +28,7 @@ import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.model.home.IndexModel;
 import com.alsfox.mall.presenter.home.IndexPresenter;
 import com.alsfox.mall.utils.DisplayUtils;
+import com.alsfox.mall.view.activity.searth.SearthActivity;
 import com.alsfox.mall.view.customview.SearchTitleView;
 import com.alsfox.mall.view.customview.index.IndexHeaderYuanView;
 import com.alsfox.mall.view.fragment.base.BaseListFragment;
@@ -146,7 +147,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
         return frameLayout;
     }
 
-    private String[] headerStrs;//圆形图标的字体名字
+    private int[] headerStrs = new int[]{R.string.str_notice, R.string.str_logistics_query, R.string.str_user_order, R.string.str_user_collect};//圆形图标的四个默认按钮
     private int[] headerIcons = new int[]{R.drawable.ic_notice, R.drawable.ic_wuliu, R.drawable.ic_my_order, R.drawable.ic_collection};//圆形图标的四个默认按钮图片资源
 
     /**
@@ -157,7 +158,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
         for (int i = 0; i < headerStrs.length; i++) {
             IndexDaohangBean indexDaohangBean = new IndexDaohangBean();
             indexDaohangBean.setIndexs(i);
-            indexDaohangBean.setNavName(headerStrs[i]);
+            indexDaohangBean.setNavName(getResources().getString(headerStrs[i]));
             indexDaohangBean.setShowImgRes(headerIcons[i]);
             indexDaohangBeans.add(indexDaohangBean);
         }
@@ -288,7 +289,7 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
     protected void initView(View parentView) {
         super.initView(parentView);
         search_title_view = (SearchTitleView) parentView.findViewById(R.id.search_title_view);
-        headerStrs = new String[]{getResources().getString(R.string.str_notice), getResources().getString(R.string.str_logistics_query), getResources().getString(R.string.str_user_order), getResources().getString(R.string.str_user_collect)};//圆形图标的四个默认按钮
+        search_title_view.setSearchIconGone(false);
 
     }
 
@@ -296,14 +297,18 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
     protected void initData() {
         showLoading("正在加载首页数据……");
         presenter.getIndexData();
-        search_title_view.setOnClickListener(this);
         getDaohangList();//默认圆形图标数据
+        search_title_view.setSearchClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(SearthActivity.class);
+            }
+        });
     }
 
 
     @Override
     protected void refresh() {
-        showLoading();
         presenter.getIndexData();
     }
 
@@ -334,11 +339,11 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
 
     @Override
     protected void onRequestFinal(ResponseFinalAction finals) {
-        super.onRequestFinal(finals);
+        //super.onRequestFinal(finals);
         switch (finals.getRequestAction()) {
             case GET_INDEX_DATA:
-                presenter.getIndexDataByDb();
                 loadSuccess();
+                presenter.getIndexDataByDb();
                 showLongToast(finals.getErrorMessage());
                 break;
         }
@@ -438,9 +443,6 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
             case R.id.index_header_qianggou://点击进入限时抢购
 
                 break;
-            case R.id.search_title_view://点击标题搜索
-
-                break;
         }
     }
 
@@ -462,14 +464,29 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
      */
     @Override
     public void getIndexDataByDb(IndexBean indexBean) {
-        if (indexBean == null) return;
-        indexData = new ArrayList<>(indexBean.getIndexMoudleList());
-        clearAll();
-        getLunFanView(new ArrayList<>(indexBean.getIndexLunfanContentList()));//轮番图
-        getHeaderDaoHangUrlList(new ArrayList<>(indexBean.getIndexNavList()));//圆形图片
-        getFlashSale(indexBean.getShopTimeOut());//限时抢购
-        addAll(indexData);
-        loadSuccess();
+        if (indexBean == null) {
+            //无网络链接
+            showErrorLoadingAndBtn(getResources().getString(R.string.refresh_window), getResources().getString(R.string.settings_network), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toSetNetWork();//按钮是去设置网络
+                }
+            }, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showLoading();
+                    refresh();//点击空白处是刷新
+                }
+            });
+        } else {
+            indexData = new ArrayList<>(indexBean.getIndexMoudleList());
+            clearAll();
+            getLunFanView(new ArrayList<>(indexBean.getIndexLunfanContentList()));//轮番图
+            getHeaderDaoHangUrlList(new ArrayList<>(indexBean.getIndexNavList()));//圆形图片
+            getFlashSale(indexBean.getShopTimeOut());//限时抢购
+            addAll(indexData);
+            loadSuccess();
+        }
     }
 
 

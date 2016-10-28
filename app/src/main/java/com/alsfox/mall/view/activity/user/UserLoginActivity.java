@@ -129,6 +129,13 @@ public class UserLoginActivity extends BaseActivity<UserLoginPresenter> implemen
     }
 
     @Override
+    protected void refresh() {
+        String userPhone = user_login_name_edit.getText().toString().trim();
+        String userPwd = user_login_pwd_edit.getText();
+        getUserLogin(userPhone, userPwd);
+    }
+
+    @Override
     protected void onRequestSuccess(ResponseSuccessAction success) {
         super.onRequestSuccess(success);
         switch (success.getRequestAction()) {

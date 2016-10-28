@@ -1,5 +1,6 @@
 package com.alsfox.mall.appliaction;
 
+import com.alsfox.mall.bean.app.BaiduMapBean;
 import com.alsfox.mall.bean.user.UserBean;
 import com.alsfox.mall.db.base.BaseDBHelper;
 
@@ -24,6 +25,7 @@ public class MallAppliaction extends MvpAppliaction {
 
     public BaseDBHelper dBHelper;//操作数据库
     public UserBean userBean;//用户信息
+    public BaiduMapBean baiduMapBean = new BaiduMapBean();//百度定位
 
     @Override
     public void onCreate() {

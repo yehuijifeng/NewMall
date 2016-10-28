@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_title_height"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/title_default_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.9"
+            android:background="@drawable/bg_title_back"
+            android:gravity="center"
+            android:padding="@dimen/padding_and_margin_x"
+            android:src="@drawable/ic_menu_back" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/padding_and_margin_x"
+            android:layout_weight="0.35"
+            android:background="@drawable/bg_search_ly"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/search_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="@dimen/padding_and_margin"
+                android:text="商品"
+                android:textColor="@color/mall_main"
+                android:textSize="@dimen/text_size_x" />
+
+            <ImageView
+                android:id="@+id/search_img"
+                android:layout_width="12dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/padding_and_margin"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_flash_go" />
+
+            <EditText
+                android:id="@+id/title_searth_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:hint="@string/str_searth_content"
+                android:padding="@dimen/padding_and_margin_x"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_xx" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/title_searth_btn"
+            style="@style/btn_main_type"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/padding_and_margin_x"
+            android:layout_weight="0.85"
+            android:gravity="center"
+            android:text="@string/str_searth" />
+    </LinearLayout>
+
+    <View style="@style/default_hour_view" />
+</LinearLayout>

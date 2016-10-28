@@ -45,7 +45,7 @@ public class ShoppingCartBean {
     private String merchant;//商品属于的商店名称
 
     @DatabaseField(foreign = true, columnName = "dianpuid")
-    private MerchantBean merchantBean;//数据库外间，不做数据考虑
+    private CartMerchantBean merchantBean;//数据库外间，不做数据考虑
 
     public int getShoppingCartId() {
         return shoppingCartId;

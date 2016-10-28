@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_searth_goods_and_shops" />
+
+    <com.alsfox.mall.view.customview.FlowLayout
+        android:layout_margin="@dimen/padding_and_margin"
+        android:id="@+id/title_flow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <include layout="@layout/default_loading" />
+
+    <include layout="@layout/default_listview" />
+</LinearLayout>

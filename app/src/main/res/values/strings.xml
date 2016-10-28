@@ -24,6 +24,9 @@
     <string name="pwd_input">请输入六位密码</string>
     <string name="default_time_type">yyyy-MM-dd-HH-mm-ss</string>
     <string name="network_error">网络不可用!</string>
+    <string name="settings_network">去设置网络</string>
+    <string name="refresh_window">  点击空白处刷新页面</string>
+
     <string name="restart_btn">请重试</string>
     <string name="refresh_btn">刷新</string>
 
@@ -142,5 +145,7 @@
     <string name="str_unknown_error">未知错误！</string>
     <string name="str_weixin_pay_result">微信支付结果：</string>
     <string name="str_start_app_content">立即体验</string>
-
+    <string name="str_searth_content">请输入关键字搜索</string>
+    <string name="str_goods">商品</string>
+    <string name="str_shops">店铺</string>
 </resources>

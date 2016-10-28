@@ -34,6 +34,7 @@ public enum RequestAction {
             observable = RetrofitManage.getInstance().getService().getUserOderCount(params.getParams());
         }
     },
+
     //用户登录
     GET_USER_LOGIN(new RequestParams()) {
         @Override
@@ -56,7 +57,33 @@ public enum RequestAction {
         public void getRequest() {
             observable = RetrofitManage.getInstance().getService().getAppVersion(params.getParams());
         }
-    },;
+    },
+
+    //获取热门搜索关键字的URL
+    GET_SEARCH_HOT_WORDS(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getSearthHot(params.getParams());
+        }
+    },
+
+    //获取商品搜索列表
+    GET_SEARCH_GOODS_LIST(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getSearthGoodsList(params.getParams());
+        }
+    },
+
+    //获取店铺列表
+    GET_SEARCH_MERCHANT_LIST(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getSearthMerchantList(params.getParams());
+        }
+    },
+
+    ;
 
     public Call<ResponseBody> call;//下载文件专用，okhttp类型的回调
     public Observable observable;//普通网络请求使用，网络请求的操作实例

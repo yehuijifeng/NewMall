@@ -18,6 +18,7 @@ import com.alsfox.mall.db.classify.ClassifyDao;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.home.ClassifyPresenter;
+import com.alsfox.mall.view.activity.searth.SearthActivity;
 import com.alsfox.mall.view.customview.SearchTitleView;
 import com.alsfox.mall.view.fragment.base.BaseGridFragment;
 import com.alsfox.mall.view.interfaces.home.IClassifyView;
@@ -54,16 +55,20 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
         super.initView(parentView);
         search_title_view = (SearchTitleView) parentView.findViewById(R.id.search_title_view);
         classify_one_radio_group = (RadioGroup) parentView.findViewById(R.id.classify_one_radio_group);
-
     }
 
     @Override
     protected void initData() {
-        search_title_view.setOnClickListener(this);
         search_title_view.setSearchIconGone(true);//隐藏小图标
         showLoading("正在加载分类……");
         getClassifyOne();
         classifyDao = new ClassifyDao();
+        search_title_view.setSearchClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(SearthActivity.class);
+            }
+        });
 
     }
 
@@ -93,6 +98,7 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
             case GET_CLASSIFY_DATA:
                 shopTypeBeens = success.getHttpBean().getObjects();
                 setClassifyOneData(shopTypeBeens);
+                closeLoading();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -105,12 +111,28 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
 
     @Override
     protected void onRequestFinal(ResponseFinalAction finals) {
-        super.onRequestFinal(finals);
         switch (finals.getRequestAction()) {
             case GET_CLASSIFY_DATA:
+                closeLoading();
                 showLongToast(finals.getErrorMessage());
                 shopTypeBeens = classifyDao.queryClassify();
-                setClassifyOneData(shopTypeBeens);
+                if (shopTypeBeens != null) {
+                    setClassifyOneData(shopTypeBeens);
+                } else {
+                    //无网络链接
+                    showErrorLoadingAndBtn(getResources().getString(R.string.refresh_window), getResources().getString(R.string.settings_network), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            toSetNetWork();//按钮是去设置网络
+                        }
+                    }, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            showLoading();
+                            refresh();//点击空白处是刷新
+                        }
+                    });
+                }
                 break;
         }
     }
@@ -168,9 +190,7 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.search_title_view://点击标题搜索
 
-                break;
         }
     }
 

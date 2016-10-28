@@ -2,6 +2,7 @@ package com.alsfox.mall.model.app;
 
 import com.alsfox.mall.bean.app.AppLoadingImgBean;
 import com.alsfox.mall.bean.app.AppVersionBean;
+import com.alsfox.mall.bean.user.UserBean;
 import com.alsfox.mall.db.app.AppDao;
 import com.alsfox.mall.model.base.BaseModel;
 import com.alsfox.mall.utils.AppUtils;
@@ -27,12 +28,20 @@ public class AppModel extends BaseModel {
         appDao.insertLoadingImg(appLoadingImgBean);
     }
 
+    public void insertUserInfo(UserBean userBean) {
+        appDao.insertUserInfo(userBean);
+    }
+
     public AppVersionBean queryVersion() {
         return appDao.queryVersion();
     }
 
     public AppLoadingImgBean queryLoadingImg() {
         return appDao.queryLoadingImg();
+    }
+
+    public UserBean queryUserInfo() {
+        return appDao.queryUserInfo();
     }
 
     public AppVersionBean isDownloadApp(AppVersionBean appVersionBean) {

@@ -90,6 +90,9 @@
         <activity
             android:name=".view.activity.index.StartAppActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.searth.SearthActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

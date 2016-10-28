@@ -7,7 +7,7 @@ import com.alsfox.mall.bean.index.IndexBean;
 import com.alsfox.mall.bean.index.IndexDaohangBean;
 import com.alsfox.mall.bean.index.IndexLunfanBean;
 import com.alsfox.mall.bean.index.IndexMokuaiBean;
-import com.alsfox.mall.bean.shoppingcart.MerchantBean;
+import com.alsfox.mall.bean.shoppingcart.CartMerchantBean;
 import com.alsfox.mall.bean.shoppingcart.ShoppingCartBean;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
@@ -75,7 +75,7 @@ public class BaseDBHelper extends OrmLiteSqliteOpenHelper {
         tables.add(IndexDaohangBean.class);
         tables.add(IndexMokuaiBean.class);
         tables.add(ShoppingCartBean.class);
-        tables.add(MerchantBean.class);
+        tables.add(CartMerchantBean.class);
         return tables;
     }
 

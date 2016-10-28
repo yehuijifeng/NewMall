@@ -29,7 +29,7 @@ public class StatusCode {
      */
     public static final int SERVER_ERROR = 500;
     /**
-     * 状态码：服务器错误
+     * 状态码：网络错误
      */
     public static final int NETWORK_ERROR = -1;
 

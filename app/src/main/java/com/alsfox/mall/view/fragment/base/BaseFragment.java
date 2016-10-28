@@ -16,14 +16,12 @@ import android.view.ViewGroup;
 
 import com.alsfox.mall.R;
 import com.alsfox.mall.appliaction.MallAppliaction;
-import com.alsfox.mall.function.RxBus;
 import com.alsfox.mall.http.StatusCode;
 import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.http.response.ResponseAction;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.base.BasePresenter;
-import com.alsfox.mall.utils.NetWorkUtils;
 import com.alsfox.mall.view.activity.base.BaseHelper;
 import com.alsfox.mall.view.activity.user.UserLoginActivity;
 import com.alsfox.mall.view.baseview.LoadingView;
@@ -203,6 +201,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
             presenter.onPause();
     }
 
+
     /**
      * 供子类调用的title,自定义toolbar
      */
@@ -234,6 +233,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
             } else {
                 mTitleView.setTitleText(setTitleText());
             }
+        } else {
+            loadingView = (LoadingView) parentView.findViewById(R.id.default_loading_view);
         }
         imageLoader = ImageLoader.getInstance();
         outMetrics = helper.outMetrics;
@@ -268,6 +269,14 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         loadingView.closeLoadingView();
         loadingView.showErrorPrompt(str);
         loadingView.setErrorClickListener(onClickListener);
+    }
+
+    protected void showErrorLoadingAndBtn(String errorStr, String btnStr, View.OnClickListener onClickListener1, View.OnClickListener onClickListener2) {
+        if (loadingView == null) return;
+        loadingView.closeLoadingView();
+        loadingView.showErrorPromptAndBtn(errorStr, btnStr, onClickListener1);
+        loadingView.setErrorClickListener(onClickListener2);
+
     }
 
     protected void showErrorLoadingByNoClick(String str) {
@@ -321,16 +330,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
      * @param requesteAction
      */
     protected void sendRequest(RequestAction requesteAction) {
-        if (!NetWorkUtils.isConnected(getActivity())) {
-            //网络错误，服务器错误，等等
-            ResponseAction responseAction = new ResponseFinalAction();
-            responseAction.setRequestCode(StatusCode.NETWORK_ERROR);
-            responseAction.setRequestAction(requesteAction);
-            responseAction.setErrorMessage(getActivity().getResources().getString(R.string.network_error));
-            RxBus.getDefault().post(responseAction);
-        } else if (presenter != null) {
-            presenter.sendRequest(requesteAction);
-        }
+        presenter.sendRequest(requesteAction);
     }
 
     /**
@@ -350,7 +350,21 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     }
 
     protected void onRequestFinal(ResponseFinalAction finals) {
-
+        if (finals.getRequestCode() == StatusCode.NETWORK_ERROR) {
+            //无网络链接
+            showErrorLoadingAndBtn(finals.getErrorMessage() + getResources().getString(R.string.refresh_window), getResources().getString(R.string.settings_network), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toSetNetWork();//按钮是去设置网络
+                }
+            }, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showLoading();
+                    refresh();//点击空白处是刷新
+                }
+            });
+        }
     }
 
 //    protected void onRequestComplete(ResponseFinalAction complete) {

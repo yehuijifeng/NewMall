@@ -75,5 +75,7 @@
 
     <dimen name="index_bottom_tab_image_width">32dp</dimen>
     <dimen name="index_bottom_tab_image_height">32dp</dimen>
+    <dimen name="searth_image_height">96dp</dimen>
+
 
 </resources>

@@ -195,6 +195,22 @@ public class LoadingView extends LinearLayout implements View.OnTouchListener {
             error_str_text.setText(errorStr);
     }
 
+    public void showErrorPromptAndBtn(String errorStr,String btnStr, OnClickListener onClickListener) {
+        if (root.getVisibility() == View.VISIBLE) return;
+        initRootView();
+        getFullWindowStyle();
+        loading_icon_img.setVisibility(GONE);
+        loading_str_text.setVisibility(GONE);
+        error_btn.setVisibility(VISIBLE);
+        error_btn.setOnClickListener(onClickListener);
+        error_btn.setText(btnStr);
+        error_icon_img.setVisibility(VISIBLE);
+        error_str_text.setVisibility(VISIBLE);
+        if (!TextUtils.isEmpty(errorStr))
+            error_str_text.setText(errorStr);
+
+    }
+
     public void showErrorPrompt(String errorStr) {
         showErrorPrompt(null, errorStr);
     }

@@ -1,6 +1,6 @@
 package com.alsfox.mall.db.shoppingcart;
 
-import com.alsfox.mall.bean.shoppingcart.MerchantBean;
+import com.alsfox.mall.bean.shoppingcart.CartMerchantBean;
 
 /**
  * Created by 浩 on 2016/10/24.
@@ -18,7 +18,7 @@ public class MerchantDao {
 
     }
 
-    public int insert(MerchantBean merchantBean) {
+    public int insert(CartMerchantBean merchantBean) {
         return 0;
     }
 }

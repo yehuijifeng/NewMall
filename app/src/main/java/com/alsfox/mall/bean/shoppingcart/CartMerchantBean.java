@@ -11,7 +11,7 @@ import java.util.Collection;
  * 商铺
  */
 @DatabaseTable()
-public class MerchantBean {
+public class CartMerchantBean {
 
     @DatabaseField(generatedId = true)
     private int merchantId;//数据库用id,自增长@DatabaseField(generatedId = true)

@@ -15,6 +15,7 @@ import com.alsfox.mall.bean.user.UserBean;
 import com.alsfox.mall.constances.MallConstant;
 import com.alsfox.mall.function.RxBus;
 import com.alsfox.mall.http.request.RequestAction;
+import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.home.UserContentPresenter;
 import com.alsfox.mall.view.activity.user.UserLoginActivity;
@@ -144,7 +145,13 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
 
     @Override
     protected void initData() {
-        //getUserOrderCount();
+
+    }
+
+    @Override
+    protected void onVisible() {
+        super.onVisible();
+        showUserInfoView(MallAppliaction.getInstance().userBean);
     }
 
     @Override
@@ -156,19 +163,24 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
                 .subscribe(new Action1<UserBean>() {
                     @Override
                     public void call(UserBean userBean) {
-                        //这里更换ui布局
-                        if (userBean != null) {
-                            user_centent_user_ly.setVisibility(View.VISIBLE); //个人中心用户view
-                            user_centent_login_ly.setVisibility(View.GONE);//个人中心登录view
-                            imageLoader.displayImage(userBean.getUserAvatar(), user_icon_img, MallAppliaction.getInstance().roundOptions);
-                            user_name_text.setText(userBean.getUserName());
-                        } else {
-                            user_centent_user_ly.setVisibility(View.GONE); //个人中心用户view
-                            user_centent_login_ly.setVisibility(View.VISIBLE);//个人中心登录view
-                        }
+                        showUserInfoView(userBean);
                     }
                 });
+
         getUserOrderCount();
+    }
+
+    private void showUserInfoView(UserBean userBean) {
+        //这里更换ui布局
+        if (userBean != null) {
+            user_centent_user_ly.setVisibility(View.VISIBLE); //个人中心用户view
+            user_centent_login_ly.setVisibility(View.GONE);//个人中心登录view
+            imageLoader.displayImage(userBean.getUserAvatar(), user_icon_img, MallAppliaction.getInstance().roundOptions);
+            user_name_text.setText(userBean.getUserName());
+        } else {
+            user_centent_user_ly.setVisibility(View.GONE); //个人中心用户view
+            user_centent_login_ly.setVisibility(View.VISIBLE);//个人中心登录view
+        }
     }
 
     @Override
@@ -199,6 +211,10 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
         }
     }
 
+    @Override
+    protected void onRequestFinal(ResponseFinalAction finals) {
+
+    }
 
     @Override
     public void onClick(View v) {
