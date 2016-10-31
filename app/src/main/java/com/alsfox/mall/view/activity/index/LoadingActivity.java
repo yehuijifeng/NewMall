@@ -1,5 +1,6 @@
 package com.alsfox.mall.view.activity.index;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.widget.ImageView;
 
@@ -13,6 +14,7 @@ import com.alsfox.mall.constances.MallConstant;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.app.AppPresenter;
+import com.alsfox.mall.service.download.DownApkService;
 import com.alsfox.mall.utils.AppUtils;
 import com.alsfox.mall.utils.MD5Util;
 import com.alsfox.mall.view.activity.base.BaseActivity;
@@ -160,6 +162,11 @@ public class LoadingActivity extends BaseActivity<AppPresenter> implements IAppV
                 public void onDetermine() {
                     //下载新包
                     presenter.insertVersion(appVersionBean);
+                    Intent updateService = new Intent(LoadingActivity.this, DownApkService.class);
+                    updateService.putExtra(DownApkService.APK_URL, appVersionBean.getDownUrl());
+                    updateService.setPackage(LoadingActivity.this.getPackageName());
+                    LoadingActivity.this.startService(updateService);
+                    showLongToast("正在后台下载……");
                 }
 
                 @Override

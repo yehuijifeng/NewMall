@@ -14,6 +14,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!--wifi状态-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--震动许可-->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <!--友盟所需权限-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -63,6 +65,8 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!--***************************友盟配置***************************-->
+        <!-- 下载apk的服务-->
+        <service android:name=".service.download.DownApkService" />
 
         <activity
             android:name="com.alsfox.mall.view.activity.index.LoadingActivity"

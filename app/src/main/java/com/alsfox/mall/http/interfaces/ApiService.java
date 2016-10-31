@@ -15,8 +15,12 @@ import com.alsfox.mall.http.request.RequestUrls;
 
 import java.util.Map;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -75,5 +79,8 @@ public interface ApiService {
     @POST(RequestUrls.GET_VERSION_INFO_URL)
     Observable<HttpBean<MerchantInfoBean>> getSearthMerchantList(@QueryMap Map<String, Object> options);
 
+    //下载通用对象
+    @GET
+    Call<ResponseBody> getDownApk(@Url String fileUrl);
 
 }

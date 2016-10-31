@@ -20,20 +20,24 @@ public class SignUtils {
 
     public static final String KEY_SIGN = "sign";
 
-    public static final String KEY_PRIVATE = "key";
+    private static final String KEY_PRIVATE = "key";
 
-    public static final String KEY_TIMESTAMP = "timestamp";
+    private static final String KEY_TIMESTAMP = "timestamp";
+
+    private static final String KEY_CONTENT = "alsfoxShop_plat";
 
     public static String getSign(Map<String, Object> param) {
         Collection<String> keySet = param.keySet();
         List<String> list = new ArrayList<>(keySet);
-
+        list.add(KEY_PRIVATE);
         //对key键值按字典升序排序
         Collections.sort(list);
         String paramStr = "";
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).equals(KEY_SIGN)) continue;
-            paramStr += list.get(i) + "=" + param.get(list.get(i)) + "&";
+            if (list.get(i).equals(KEY_PRIVATE)) paramStr += list.get(i) + "=" + KEY_CONTENT + "&";
+            else
+                paramStr += list.get(i) + "=" + param.get(list.get(i)) + "&";
         }
         if (!TextUtils.isEmpty(paramStr))
             paramStr = paramStr.substring(0, paramStr.length() - 1);
@@ -42,7 +46,6 @@ public class SignUtils {
 
     public static Map<String, Object> getParameters() {
         Map<String, Object> params = new HashMap<>();
-        params.put(KEY_PRIVATE, "alsfoxShop_plat");
         params.put(KEY_TIMESTAMP, System.currentTimeMillis());
         return params;
     }

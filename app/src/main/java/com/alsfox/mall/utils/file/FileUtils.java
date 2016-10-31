@@ -22,7 +22,7 @@ public class FileUtils {
     /**
      * 判断SDCard是否可用
      */
-    public boolean isSDCardEnable() {
+    public static boolean isSDCardEnable() {
         return Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED);
 

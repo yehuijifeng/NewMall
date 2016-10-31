@@ -7,7 +7,7 @@ android {
         applicationId "com.alsfox.mall"
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 35
+        versionCode 34
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {

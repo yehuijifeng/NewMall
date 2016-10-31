@@ -64,6 +64,11 @@ public class AppConstant {
     public final static String FILES_PATH = APP_PATH + "Files/";
 
     /**
+     * app下载的apk包存放路径
+     */
+    public final static String APK_PATH = APP_PATH + "Download/";
+
+    /**
      * 键值对存储标识,整个app的唯一标识
      */
     public final static String APP_SHARE = "app_share_preferences";

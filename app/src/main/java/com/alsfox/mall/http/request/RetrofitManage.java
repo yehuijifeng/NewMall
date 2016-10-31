@@ -1,7 +1,5 @@
 package com.alsfox.mall.http.request;
 
-import android.os.Environment;
-
 import com.alsfox.mall.R;
 import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.function.RxBus;
@@ -191,19 +189,19 @@ public class RetrofitManage {
     /**
      * 下载文件
      */
-    public void downloadFile(final String filename, final RequestAction requestAction, OnProgressListener progressListener) {
+    public void downloadFile(final String filename, String fileUrl, OnProgressListener progressListener) {
 
         onProgressListener = progressListener;
-        //预备发送请求，将参数生成Observable
-        requestAction.getRequest();
-        requestAction.call.enqueue(new Callback<ResponseBody>() {
+        //这个下载的枚举对象是通用的
+        Call<ResponseBody> call = getService().getDownApk(fileUrl);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 ResponseAction responseAction = null;
                 try {
                     if (response.isSuccessful()) {
                         InputStream is = response.body().byteStream();
-                        File file = new File(Environment.getExternalStorageDirectory(), filename);
+                        File file = new File(filename);
                         FileOutputStream fos = new FileOutputStream(file);
                         BufferedInputStream bis = new BufferedInputStream(is);
                         byte[] buffer = new byte[1024];
@@ -217,19 +215,19 @@ public class RetrofitManage {
                         is.close();
                         responseAction = new ResponseSuccessAction();
                         responseAction.setRequestCode(StatusCode.REQUEST_SUCCESS);
-                        responseAction.setRequestAction(requestAction);
+                        responseAction.setRequestAction(RequestAction.GET_DOWN_APK);
                         responseAction.setErrorMessage("文件下载成功!");
                     } else {
                         responseAction = new ResponseFinalAction();
                         responseAction.setRequestCode(StatusCode.SERVER_BUSY);
-                        responseAction.setRequestAction(requestAction);
+                        responseAction.setRequestAction(RequestAction.GET_DOWN_APK);
                         responseAction.setErrorMessage("服务器繁忙!");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                     responseAction = new ResponseFinalAction();
                     responseAction.setRequestCode(StatusCode.SERVER_BUSY);
-                    responseAction.setRequestAction(requestAction);
+                    responseAction.setRequestAction(RequestAction.GET_DOWN_APK);
                     responseAction.setErrorMessage("文件解析错误!");
                 } finally {
                     RxBus.getDefault().post(responseAction);
@@ -239,9 +237,14 @@ public class RetrofitManage {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable e) {
                 ResponseAction responseAction = new ResponseFinalAction();
-                responseAction.setRequestCode(StatusCode.SERVER_ERROR);
-                responseAction.setRequestAction(requestAction);
-                responseAction.setErrorMessage(e.getMessage());
+                if (NetWorkUtils.isConnected(MallAppliaction.getInstance())) {
+                    responseAction.setErrorMessage(e.getMessage());
+                    responseAction.setRequestCode(StatusCode.SERVER_ERROR);
+                } else {
+                    responseAction.setErrorMessage("网络连接已断开");
+                    responseAction.setRequestCode(StatusCode.NETWORK_ERROR);
+                }
+                responseAction.setRequestAction(RequestAction.GET_DOWN_APK);
                 responseAction.setThrowable(e);
                 RxBus.getDefault().post(responseAction);
             }
