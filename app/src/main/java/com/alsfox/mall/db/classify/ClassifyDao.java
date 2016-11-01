@@ -29,9 +29,10 @@ public class ClassifyDao {
         for (ShopTypeBean shopTypeBean1 : shopTypeBeans) {
             chassifyOneDao.insertOrUpdate(shopTypeBean1);
             Collection<ShopTypeTowBean> shopTypeBeanList = shopTypeBean1.getSonShopTypeList();
-            for (ShopTypeTowBean shopTypeBean2 : shopTypeBeanList) {
-                chassifyTowDao.insertOrUpdate(shopTypeBean2);
-            }
+            if (shopTypeBeanList != null && shopTypeBeanList.size() > 0)
+                for (ShopTypeTowBean shopTypeBean2 : shopTypeBeanList) {
+                    chassifyTowDao.insertOrUpdate(shopTypeBean2);
+                }
         }
     }
 

@@ -15,10 +15,13 @@ import com.alsfox.mall.http.request.RequestUrls;
 
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 import rx.Observable;
@@ -83,4 +86,8 @@ public interface ApiService {
     @GET
     Call<ResponseBody> getDownApk(@Url String fileUrl);
 
+    //更换用户头像
+    @Multipart
+    @POST(RequestUrls.REQUEST_MODIFY_USER_HEAD_IMG_URL)
+    Call<ResponseBody> getUpdateUserIcon(@PartMap Map<String, RequestBody> params,@QueryMap Map<String, Object> options);
 }

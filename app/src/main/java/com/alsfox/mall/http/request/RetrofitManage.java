@@ -14,6 +14,7 @@ import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.utils.LogUtils;
 import com.alsfox.mall.utils.NetWorkUtils;
+import com.google.gson.Gson;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -64,6 +65,7 @@ public class RetrofitManage {
     private Retrofit retrofit;
     private ApiService service;
     private OnProgressListener onProgressListener;
+    private Gson gson;
 
     public ApiService getService() {
         return service;
@@ -93,6 +95,7 @@ public class RetrofitManage {
                 .addConverterFactory(GsonConverterFactory.create())// 使用Gson作为数据转换器
                 .build();
         service = retrofit.create(ApiService.class);
+        gson = new Gson();
     }
 
     /**
@@ -253,21 +256,21 @@ public class RetrofitManage {
 
 
     public void uploadFile(final RequestAction requestAction, File[] files, OnProgressListener progressListener) {
-
         final Map<String, RequestBody> photos = new HashMap<>();
         for (File file : files) {
-            RequestBody photo = RequestBody.create(MediaType.parse("image/jpg"), file);
+            RequestBody photo = RequestBody.create(MediaType.parse("image/png"), file);
             //例如:"photos\"; filename=\"icon.png",前面的photos就是与服务器对应的key，后面filename是服务器得到的文件名
             photos.put("file\"; filename=\"" + file.getName(), photo);
         }
+        String sign = SignUtils.getSign(requestAction.params.getParams());
+        requestAction.params.getParams().put(SignUtils.KEY_SIGN, sign);
         onProgressListener = progressListener;
         Observable
                 .create(new Observable.OnSubscribe<Response<ResponseBody>>() {
                     @Override
                     public void call(Subscriber<? super Response<ResponseBody>> subscriber) {
                         try {
-                            //Call<ResponseBody> call = service.getUploadFile(photos, requestAction.params.getParams());
-                            Call<ResponseBody> call = null;
+                            Call<ResponseBody> call = service.getUpdateUserIcon(photos, requestAction.params.getParams());
                             Response<ResponseBody> response = call.execute();
                             subscriber.onNext(response);
                         } catch (IOException e) {
@@ -298,10 +301,21 @@ public class RetrofitManage {
                     public void onNext(Response<ResponseBody> responseBodyResponse) {
                         ResponseAction responseAction;
                         if (responseBodyResponse.isSuccessful()) {
-                            responseAction = new ResponseSuccessAction();
-                            responseAction.setRequestCode(StatusCode.REQUEST_SUCCESS);
-                            responseAction.setRequestAction(requestAction);
-                            responseAction.setErrorMessage("上传成功!");
+                            try {
+                                String json = new String(responseBodyResponse.body().bytes());
+                                HttpBean httpBean = gson.fromJson(json, HttpBean.class);
+                                responseAction = new ResponseSuccessAction();
+                                responseAction.setHttpBean(httpBean);
+                                responseAction.setRequestCode(StatusCode.REQUEST_SUCCESS);
+                                responseAction.setRequestAction(requestAction);
+                                responseAction.setErrorMessage(json);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                responseAction = new ResponseFinalAction();
+                                responseAction.setRequestCode(StatusCode.SERVER_BUSY);
+                                responseAction.setRequestAction(requestAction);
+                                responseAction.setErrorMessage("上传失败!");
+                            }
                         } else {
                             responseAction = new ResponseFinalAction();
                             responseAction.setRequestCode(StatusCode.SERVER_BUSY);

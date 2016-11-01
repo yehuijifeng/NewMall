@@ -95,6 +95,16 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
      */
     private boolean isPullWindow;
 
+    protected boolean isDefaultRxBus=true;//是否使用默认的RxBus生命周期
+
+    public boolean isDefaultRxBus() {
+        return isDefaultRxBus;
+    }
+
+    public void setDefaultRxBus(boolean defaultRxBus) {
+        isDefaultRxBus = defaultRxBus;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +156,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
     @Override
     protected void onResume() {
         super.onResume();
-        if (presenter != null) {
+        if (presenter != null && isDefaultRxBus()) {
             presenter.onResume();
             presenter.subscription = presenter.observable
                     .observeOn(AndroidSchedulers.mainThread())
@@ -166,7 +176,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
     @Override
     protected void onPause() {
         super.onPause();
-        if (presenter != null) {
+        if (presenter != null && isDefaultRxBus()) {
             presenter.onPause();
         }
     }

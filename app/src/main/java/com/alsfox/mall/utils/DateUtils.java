@@ -83,6 +83,10 @@ public final class DateUtils {
 		return (returnValue);
 	}
 
+	public static String format(long date, String format) {
+		return format(new Date(date), format);
+	}
+
 	/**
 	 * 使用预设格式提取字符串日期
 	 * 

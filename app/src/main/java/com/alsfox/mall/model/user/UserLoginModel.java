@@ -1,5 +1,6 @@
 package com.alsfox.mall.model.user;
 
+import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.bean.user.UserBean;
 import com.alsfox.mall.db.user.UserInfoDao;
 import com.alsfox.mall.function.RxBus;
@@ -23,6 +24,7 @@ public class UserLoginModel extends BaseModel {
      * @param userBean
      */
     public void userInfoCache(final UserBean userBean) {
+        MallAppliaction.getInstance().userBean = userBean;
         RxBus.getDefault().post(userBean);
         new Thread(new Runnable() {
             @Override

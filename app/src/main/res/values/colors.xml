@@ -20,8 +20,8 @@
     <color name="default_gray">#C2C5CD</color>
     <color name="viewpager_tab_text_color_selected">@color/mall_main</color>
     <color name="viewpager_tab_text_color">@color/black_gray</color>
-    <color name="dialog_ok_color">#3F51B5</color>
-    <color name="dialog_cancel_color">#FF4081</color>
+    <color name="dialog_ok_color">#3687f1</color>
+    <color name="dialog_cancel_color">#3687f1</color>
     <color name="viewpager_image_bar_color">#FF4081</color>
 
     <color name="black_gray">#636363</color>

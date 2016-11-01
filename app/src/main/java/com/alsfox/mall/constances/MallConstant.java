@@ -14,4 +14,5 @@ public class MallConstant {
     public static final String SHOPINFO_USERID = "orderInfo.userId";
     public static final String USERINFO_NAME = "userInfo.userName";
     public static final String USERINFO_PWD = "userInfo.userPwd";
+    public static final String USERINFO_ID = "userInfo.userId";
 }

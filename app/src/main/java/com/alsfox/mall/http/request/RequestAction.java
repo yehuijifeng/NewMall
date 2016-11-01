@@ -87,7 +87,15 @@ public enum RequestAction {
         @Override
         public void getRequest() {
         }
-    },;
+    },
+
+    GET_UPDATE_USER_ICON(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            //observable = RetrofitManage.getInstance().getService().getUpdateUserIcon(params.getParams());
+        }
+    },
+    ;
     public Call<ResponseBody> call;//下载文件专用，okhttp类型的回调
     public Observable observable;//普通网络请求使用，网络请求的操作实例
     public RequestParams params;//请求参数实例

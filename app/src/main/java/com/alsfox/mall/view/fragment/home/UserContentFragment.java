@@ -1,6 +1,7 @@
 package com.alsfox.mall.view.fragment.home;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.home.UserContentPresenter;
+import com.alsfox.mall.view.activity.user.UserInfoActivity;
 import com.alsfox.mall.view.activity.user.UserLoginActivity;
 import com.alsfox.mall.view.baseview.MyTitleView;
 import com.alsfox.mall.view.fragment.base.BaseFragment;
@@ -92,6 +94,9 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
             @Override
             public void onClick(View v) {
                 //到个人中心
+                if (isLoginTo()) {
+                    startActivity(UserInfoActivity.class);
+                }
             }
         });
         initContentView(parentView);
@@ -145,13 +150,16 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
 
     @Override
     protected void initData() {
-
+        ViewGroup.LayoutParams layoutParams = user_centent_header_ly.getLayoutParams();
+        layoutParams.height = (int) (getWindowWidth() / 2.28);
+        user_centent_header_ly.setLayoutParams(layoutParams);
+        showUserInfoView(MallAppliaction.getInstance().userBean);
     }
 
     @Override
     protected void onVisible() {
         super.onVisible();
-        showUserInfoView(MallAppliaction.getInstance().userBean);
+
     }
 
     @Override
@@ -166,7 +174,6 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
                         showUserInfoView(userBean);
                     }
                 });
-
         getUserOrderCount();
     }
 
@@ -203,10 +210,30 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
         switch (success.getRequestAction()) {
             case GET_USER_ORDER_COUNT:
                 OrderCountBean orderCountBean = (OrderCountBean) success.getHttpBean().getObject();
-                user_pay_goods_count_text.setText(orderCountBean.getWaitPayNum());//待付款
-                user_send_goods_count_text.setText(orderCountBean.getWaitSendNum());//待发货
-                user_receive_goods_count_text.setText(orderCountBean.getWaitTakeNum());//待收货
-                user_evaluation_goods_count_text.setText(orderCountBean.getWaitCommentNum());//待评价
+                if (orderCountBean.getWaitPayNum() > 0) {
+                    user_pay_goods_count_text.setVisibility(View.VISIBLE);
+                    user_pay_goods_count_text.setText(orderCountBean.getWaitPayNum());//待付款
+                } else {
+                    user_pay_goods_count_text.setVisibility(View.INVISIBLE);
+                }
+                if (orderCountBean.getWaitSendNum() > 0) {
+                    user_send_goods_count_text.setVisibility(View.VISIBLE);
+                    user_send_goods_count_text.setText(orderCountBean.getWaitSendNum());//待发货
+                } else {
+                    user_send_goods_count_text.setVisibility(View.INVISIBLE);
+                }
+                if (orderCountBean.getWaitTakeNum() > 0) {
+                    user_receive_goods_count_text.setVisibility(View.VISIBLE);
+                    user_receive_goods_count_text.setText(orderCountBean.getWaitTakeNum());//待收货
+                } else {
+                    user_receive_goods_count_text.setVisibility(View.INVISIBLE);
+                }
+                if (orderCountBean.getWaitCommentNum() > 0) {
+                    user_evaluation_goods_count_text.setVisibility(View.VISIBLE);
+                    user_evaluation_goods_count_text.setText(orderCountBean.getWaitCommentNum());//待评价
+                } else {
+                    user_evaluation_goods_count_text.setVisibility(View.INVISIBLE);
+                }
                 break;
         }
     }
@@ -220,6 +247,9 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.user_icon_img://点击头像，进入个人中心
+                if (isLoginTo()) {
+                    startActivity(UserInfoActivity.class);
+                }
                 break;
             case R.id.user_login_btn://登录
                 startActivity(UserLoginActivity.class);

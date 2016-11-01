@@ -96,8 +96,7 @@
 
                     <TextView
                         android:id="@+id/user_pay_goods_count_text"
-                        style="@style/text_shape_circular_count"
-                        android:text="1" />
+                        style="@style/text_shape_circular_count" />
                 </FrameLayout>
 
                 <FrameLayout

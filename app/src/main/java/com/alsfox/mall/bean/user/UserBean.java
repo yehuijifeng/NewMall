@@ -3,6 +3,7 @@ package com.alsfox.mall.bean.user;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.alsfox.mall.http.request.RequestUrls;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -56,7 +57,7 @@ public class UserBean implements Parcelable {
     }
 
     public String getUserAvatar() {
-        return userAvatar;
+        return RequestUrls.ROOT_URL+userAvatar;
     }
 
     public void setUserAvatar(String userAvatar) {

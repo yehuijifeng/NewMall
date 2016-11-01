@@ -51,20 +51,26 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static int imageResource=0x7f010004;
     }
     public static final class color {
-        public static int black_translucent=0x7f040000;
+        public static int black_translucent=0x7f050000;
+    }
+    public static final class drawable {
+        public static int bg_crop_btn=0x7f020000;
+        public static int bg_crop_btn_save=0x7f020001;
+        public static int bg_title_back=0x7f020002;
+        public static int ic_menu_back=0x7f020003;
     }
     public static final class id {
-        public static int CropOverlayView=0x7f060004;
-        public static int ImageView_image=0x7f060003;
-        public static int off=0x7f060000;
-        public static int on=0x7f060001;
-        public static int onTouch=0x7f060002;
+        public static int CropOverlayView=0x7f070004;
+        public static int ImageView_image=0x7f070003;
+        public static int off=0x7f070000;
+        public static int on=0x7f070001;
+        public static int onTouch=0x7f070002;
     }
     public static final class layout {
-        public static int crop_image_view=0x7f020000;
+        public static int crop_image_view=0x7f030000;
     }
     public static final class string {
-        public static int app_name=0x7f050000;
+        public static int app_name=0x7f060000;
     }
     public static final class style {
         /**  API 11 theme customizations can go here. 
@@ -75,10 +81,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             backward-compatibility can go here.
         
          */
-        public static int AppBaseTheme=0x7f030000;
+        public static int AppBaseTheme=0x7f040000;
         /**  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static int AppTheme=0x7f030001;
+        public static int AppTheme=0x7f040001;
     }
     public static final class styleable {
         /** Attributes that can be used with a CropImageView.

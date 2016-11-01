@@ -69,7 +69,6 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
                 startActivity(SearthActivity.class);
             }
         });
-
     }
 
     @Override
@@ -167,7 +166,12 @@ public class ClassifyFragment extends BaseGridFragment<ClassifyPresenter> implem
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             if (shopTypeBeens == null || shopTypeBeens.isEmpty()) return;
             ShopTypeBean shopTypeBean = shopTypeBeens.get(checkedId);
-            setClassifyTowData(new ArrayList<>(shopTypeBean.getSonShopTypeList()));
+            if (shopTypeBean != null && shopTypeBean.getSonShopTypeList() != null)
+                setClassifyTowData(new ArrayList<>(shopTypeBean.getSonShopTypeList()));
+            else {
+                clearAll();
+                notifyDataChange();
+            }
         }
     }
 

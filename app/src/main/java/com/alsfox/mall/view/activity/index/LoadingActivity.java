@@ -11,17 +11,20 @@ import com.alsfox.mall.bean.app.AppLoadingImgBean;
 import com.alsfox.mall.bean.app.AppVersionBean;
 import com.alsfox.mall.bean.user.UserBean;
 import com.alsfox.mall.constances.MallConstant;
+import com.alsfox.mall.http.response.ResponseAction;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.app.AppPresenter;
 import com.alsfox.mall.service.download.DownApkService;
 import com.alsfox.mall.utils.AppUtils;
-import com.alsfox.mall.utils.MD5Util;
 import com.alsfox.mall.view.activity.base.BaseActivity;
 import com.alsfox.mall.view.baseview.dialog.PromptDialog;
 import com.alsfox.mall.view.interfaces.app.IAppView;
 
 import java.util.Map;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 import static com.alsfox.mall.http.request.RequestAction.GET_APP_LOADING;
 import static com.alsfox.mall.http.request.RequestAction.GET_APP_VERSION;
@@ -53,9 +56,29 @@ public class LoadingActivity extends BaseActivity<AppPresenter> implements IAppV
     }
 
     @Override
+    public boolean isDefaultRxBus() {
+        return false;//不使用默认生命周期，否则进不去app
+    }
+
+    @Override
     protected void initView() {
         app_loading_img = (ImageView) findViewById(R.id.app_loading_img);
         promptDialog = new PromptDialog(this);
+        if (presenter != null) {
+            presenter.onResume();
+            presenter.subscription = presenter.observable
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<ResponseAction>() {
+                        @Override
+                        public void call(ResponseAction responseAction) {
+                            if (responseAction instanceof ResponseSuccessAction) {
+                                onRequestSuccess((ResponseSuccessAction) responseAction);
+                            } else if (responseAction instanceof ResponseFinalAction) {
+                                onRequestFinal((ResponseFinalAction) responseAction);
+                            }
+                        }
+                    });
+        }
     }
 
     @Override
@@ -133,10 +156,10 @@ public class LoadingActivity extends BaseActivity<AppPresenter> implements IAppV
     private void getUserInfo() {
         UserBean userBean = presenter.queryUserInfo();
         if (userBean == null) return;
-        String pwd = MD5Util.MD5(userBean.getUserPwd());
+        //String pwd = MD5Util.MD5(userBean.getUserPwd());
         Map<String, Object> params = GET_USER_LOGIN.params.getParams();
         params.put(MallConstant.USERINFO_NAME, userBean.getUserName());
-        params.put(MallConstant.USERINFO_PWD, pwd);
+        params.put(MallConstant.USERINFO_PWD, userBean.getUserPwd());
         sendRequest(GET_USER_LOGIN);
     }
 
@@ -181,7 +204,15 @@ public class LoadingActivity extends BaseActivity<AppPresenter> implements IAppV
                     startActivity(HomeActivity.class);
                     finish();
                 }
-            }, 2000);
+            }, 1000);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (presenter != null && isDefaultRxBus()) {
+            presenter.onPause();
         }
     }
 }

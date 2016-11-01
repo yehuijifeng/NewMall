@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <include
+        android:id="@+id/default_title_view"
+        layout="@layout/default_titleview" />
+
+    <com.edmodo.cropper.CropImageView
+        android:id="@+id/mCropImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_crop_bottom"
+        android:layout_below="@+id/default_title_view" />
+
+    <LinearLayout
+        android:id="@+id/ll_crop_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_crop_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/padding_and_margin"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_crop_btn_save"
+            android:text="保存"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_crop_rotate"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/padding_and_margin"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_crop_btn"
+            android:text="旋转"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+</RelativeLayout>

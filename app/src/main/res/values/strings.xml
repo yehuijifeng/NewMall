@@ -148,4 +148,15 @@
     <string name="str_searth_content">请输入关键字搜索</string>
     <string name="str_goods">商品</string>
     <string name="str_shops">店铺</string>
+    <string name="str_phone">手机号</string>
+    <string name="str_update_user_icon">更换用户头像</string>
+    <string name="str_img_crop">图片剪裁</string>
+
+
+    <string-array name="select_icon_type">
+        <item>相册</item>
+        <item>拍照</item>
+    </string-array>
+
+
 </resources>

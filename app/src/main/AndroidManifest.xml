@@ -97,6 +97,12 @@
         <activity
             android:name=".view.activity.searth.SearthActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.user.UserInfoActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.function.ImageCropActivity"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

@@ -171,10 +171,12 @@
         <item name="android:padding">@dimen/padding_and_margin</item>
     </style>
 
+    <!--订单字体-->
     <style name="text_order_type" parent="layout_ww">
         <item name="android:textSize">@dimen/text_size_xx</item>
         <item name="android:drawablePadding">3dp</item>
         <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="text_shape_circular_count" parent="layout_ww">
