@@ -22,4 +22,8 @@ public class UserInfoPresenter extends BasePresenter<IUserInfoView> {
         super(mView);
         userInfoModel = new UserInfoModel();
     }
+
+    public void insertUserIcon(String imgUrl) {
+        userInfoModel.insert(imgUrl);
+    }
 }

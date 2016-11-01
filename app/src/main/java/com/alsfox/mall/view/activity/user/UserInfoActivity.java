@@ -12,7 +12,6 @@ import com.alsfox.mall.R;
 import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.constances.AppConstant;
 import com.alsfox.mall.constances.MallConstant;
-import com.alsfox.mall.function.RxBus;
 import com.alsfox.mall.http.download.OnProgressListener;
 import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.http.request.RetrofitManage;
@@ -164,9 +163,8 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
         switch (success.getRequestAction()) {
             case GET_UPDATE_USER_ICON:
                 String imgUrl = success.getHttpBean().getObject().toString().replace("%2F", "/");
-                MallAppliaction.getInstance().userBean.setUserAvatar(imgUrl);
                 imageLoader.displayImage(MallAppliaction.getInstance().userBean.getUserAvatar(), user_info_icon_img, MallAppliaction.getInstance().roundOptions);
-                RxBus.getDefault().post(MallAppliaction.getInstance().userBean);
+                presenter.insertUserIcon(imgUrl);
                 break;
 
         }
