@@ -83,18 +83,43 @@ public enum RequestAction {
         }
     },
 
+    //通用下载文件
     GET_DOWN_APK(new RequestParams()) {
         @Override
         public void getRequest() {
         }
     },
 
+    //上传用户头像
     GET_UPDATE_USER_ICON(new RequestParams()) {
         @Override
         public void getRequest() {
-            //observable = RetrofitManage.getInstance().getService().getUpdateUserIcon(params.getParams());
         }
     },
+    //获得验证码
+    GET_USER_REGISTER_CODE(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserRegisterCode(params.getParams());
+        }
+    },
+
+    //用户注册
+    GET_USER_REGISTER(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserRegister(params.getParams());
+        }
+    },
+
+    //商品列表
+    GET_GOODS_LIST(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getGoodsList(params.getParams());
+        }
+    },
+
     ;
     public Call<ResponseBody> call;//下载文件专用，okhttp类型的回调
     public Observable observable;//普通网络请求使用，网络请求的操作实例

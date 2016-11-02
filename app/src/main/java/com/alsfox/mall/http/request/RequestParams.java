@@ -2,7 +2,6 @@ package com.alsfox.mall.http.request;
 
 import com.alsfox.mall.http.SignUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,7 +16,7 @@ public class RequestParams {
         return params;
     }
 
-    public void setParams(HashMap<String, Object> params) {
+    public void setParams(Map<String, Object> params) {
         this.params = params;
     }
 

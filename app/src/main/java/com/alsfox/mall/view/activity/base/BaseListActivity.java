@@ -132,6 +132,7 @@ public abstract class BaseListActivity<T extends BasePresenter> extends BaseActi
 
     @Override
     protected void onRequestFinal(ResponseFinalAction finals) {
+        super.onRequestFinal(finals);
         if (finals.getRequestCode() == StatusCode.NOT_MORE_DATA) {
             baseListView.footView.onFootViewAll();
         }

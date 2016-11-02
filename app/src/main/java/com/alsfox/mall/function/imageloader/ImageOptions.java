@@ -97,16 +97,19 @@ public class ImageOptions {
      */
     public static DisplayImageOptions roundOptions() {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.ic_default_user)//加载的时候显示的图片
-                .showImageForEmptyUri(R.drawable.ic_default_user)  // empty空或者错误的情况下URI时显示的图片
-                .showImageOnFail(R.drawable.ic_default_user)// 不是图片文件或者解码错误情况下的图片
-                .resetViewBeforeLoading(true)  //设置图片在下载前是否重置，复位
+                .showImageOnLoading(R.drawable.ic_default_img)//加载的时候显示的图片
+                .showImageForEmptyUri(R.drawable.ic_default_img)  // empty空或者错误的情况下URI时显示的图片
+                .showImageOnFail(R.drawable.ic_default_img)// 不是图片文件或者解码错误情况下的图片
+                .resetViewBeforeLoading(false)  //设置图片在下载前是否重置，复位
                 .delayBeforeLoading(0)//加载前延迟：1s
-                .considerExifParams(true) //考虑Exif参数
                 .cacheInMemory(true)// 设置下载的图片是否缓存在内存中,default 不缓存至内存
-                .cacheOnDisk(true)//缓存到sd卡,mnt/sdcard/Android/data/your project/下
+                .considerExifParams(true) //考虑Exif参数
+                .cacheOnDisk(true)//缓存到sd卡
+                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)//图片比例尺类型：平铺
                 .bitmapConfig(Bitmap.Config.ARGB_4444)//设置图片的解码类型,default防止内存溢出
+                .resetViewBeforeLoading(true)//在加载前重置视图
                 .displayer(new CircleBitmapDisplayer())
+                .handler(new Handler())// default
                 .build();
         return options;
     }

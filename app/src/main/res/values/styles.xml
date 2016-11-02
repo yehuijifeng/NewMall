@@ -231,6 +231,13 @@
         <item name="android:textSize">@dimen/text_size_xxx</item>
         <item name="android:singleLine">true</item>
     </style>
+    <!--验证码输入框-->
+    <style name="et_user_center_general_tel" parent="user_center_username_exit_style">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:drawablePadding">@dimen/padding_and_margin</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">12</item>
+    </style>
     <!--密码输入框-->
     <style name="user_center_userpwd_exit_style" parent="user_center_username_exit_style">
         <item name="android:layout_marginTop">0dp</item>
@@ -271,6 +278,7 @@
         <item name="android:windowExitAnimation">@anim/abc_slide_out_top</item>
     </style>
 
+    <!--星级评价-->
     <style name="custom_rating_bar_style" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/layer_list_custom_rating_bar</item>
         <item name="android:numStars">5</item>
@@ -278,4 +286,22 @@
         <item name="android:maxHeight">20dp</item>
         <item name="android:minHeight">20dp</item>
     </style>
+
+    <!---->
+    <style name="general_tab_text_style" parent="layout_wm">
+        <item name="android:padding">@dimen/padding_and_margin_xx</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:textColor">@color/bg_goods_tab_text</item>
+        <item name="android:textSize">@dimen/text_size_xx</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+    </style>
+
+    <style name="general_tab_text_style2" parent="layout_ww">
+        <item name="android:textColor">@color/bg_goods_tab_text</item>
+        <item name="android:textSize">@dimen/text_size_xx</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
 </resources>

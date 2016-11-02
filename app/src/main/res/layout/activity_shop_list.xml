@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_goods_list_title" />
+
+    <RadioGroup
+        android:id="@+id/goods_tab_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/goods_classification_color"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/goods_list_new_text"
+            style="@style/general_tab_text_style"
+            android:text="@string/str_tab_newest" />
+
+        <RadioButton
+            android:id="@+id/goods_list_number_text"
+            style="@style/general_tab_text_style"
+            android:text="@string/str_tab_sales_volume" />
+
+        <RadioButton
+            android:id="@+id/goods_list_price_text"
+            style="@style/general_tab_text_style"
+            android:drawableRight="@drawable/bg_goods_tab_img"
+            android:text="@string/str_tab_price" />
+
+        <RadioButton
+            android:id="@+id/goods_list_comments_text"
+            style="@style/general_tab_text_style"
+            android:text="@string/str_tab_comment" />
+
+    </RadioGroup>
+
+    <include layout="@layout/default_loading" />
+
+    <include layout="@layout/default_listview" />
+
+</LinearLayout>

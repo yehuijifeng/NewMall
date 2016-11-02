@@ -75,6 +75,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -89,7 +90,8 @@
 
         <activity
             android:name=".view.activity.index.HomeActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:theme="@style/AppThemeForRedMain" />
 
         <activity
             android:name=".view.activity.index.StartAppActivity"
@@ -103,6 +105,15 @@
         <activity
             android:name=".view.activity.function.ImageCropActivity"
             android:launchMode="singleTask" />
+        <activity
+            android:name=".view.activity.user.UserRegisterActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.user.UserAgreementActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.goods.GoodsListActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

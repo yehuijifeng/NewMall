@@ -44,7 +44,7 @@
 
     <color name="user_content_btn_color">#DD2E2D</color>
     <color name="user_content_btn_color_v21">#C94012</color>
-
+    <color name="goods_classification_color">#f9f9f9</color>
     <!--退换货进度条-->
     <color name="goods_jindu">#66c896</color>
     <color name="goods_bg">#989898</color>

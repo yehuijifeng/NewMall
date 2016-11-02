@@ -21,6 +21,7 @@ import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.home.UserContentPresenter;
 import com.alsfox.mall.view.activity.user.UserInfoActivity;
 import com.alsfox.mall.view.activity.user.UserLoginActivity;
+import com.alsfox.mall.view.activity.user.UserRegisterActivity;
 import com.alsfox.mall.view.baseview.MyTitleView;
 import com.alsfox.mall.view.fragment.base.BaseFragment;
 import com.alsfox.mall.view.interfaces.home.IUsercontentView;
@@ -255,6 +256,7 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
                 startActivity(UserLoginActivity.class);
                 break;
             case R.id.user_registered_btn://注册
+                startActivity(UserRegisterActivity.class);
                 break;
             case R.id.user_pay_goods_fl://待支付
                 break;

@@ -5,6 +5,7 @@ import com.alsfox.mall.function.RxBus;
 import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.http.request.RetrofitManage;
 import com.alsfox.mall.http.response.ResponseAction;
+import com.alsfox.mall.model.base.BaseModel;
 import com.alsfox.mall.view.interfaces.base.IBaseView;
 
 import rx.Observable;
@@ -16,6 +17,7 @@ import rx.Subscription;
  */
 public abstract class BasePresenter<T extends IBaseView> {
     public T mView;//view 层实例
+    public BaseModel mModel;
     public Subscription subscription;//rx的观察者
     public Observable observable;//RxBus 实例
 
@@ -26,6 +28,7 @@ public abstract class BasePresenter<T extends IBaseView> {
      */
     public BasePresenter(T mView) {
         this.mView = mView;
+
     }
 
     /**
@@ -58,5 +61,6 @@ public abstract class BasePresenter<T extends IBaseView> {
      */
     public void onDestory() {
         mView = null;
+        mModel = null;
     }
 }

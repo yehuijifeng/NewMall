@@ -90,4 +90,17 @@ public interface ApiService {
     @Multipart
     @POST(RequestUrls.REQUEST_MODIFY_USER_HEAD_IMG_URL)
     Call<ResponseBody> getUpdateUserIcon(@PartMap Map<String, RequestBody> params,@QueryMap Map<String, Object> options);
+
+    //获取注册验证码
+    @POST(RequestUrls.GET_REGISTER_ID_CODE_URL)
+    Observable<HttpBean<String>> getUserRegisterCode(@QueryMap Map<String, Object> options);
+
+    //用户注册
+    @POST(RequestUrls.REQUEST_USER_REGISTER_URL)
+    Observable<HttpBean<String>> getUserRegister(@QueryMap Map<String, Object> options);
+
+    //商品列表
+    @POST(RequestUrls.GET_COMMODITY_LIST_URL)
+    Observable<HttpBean<ShopInfoBean>> getGoodsList(@QueryMap Map<String, Object> options);
+
 }

@@ -22,7 +22,7 @@ public class SignUtils {
 
     private static final String KEY_PRIVATE = "key";
 
-    private static final String KEY_TIMESTAMP = "timestamp";
+    public static final String KEY_TIMESTAMP = "timestamp";
 
     private static final String KEY_CONTENT = "alsfoxShop_plat";
 

@@ -25,6 +25,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.string.no;
+
 
 /**
  * Created by 浩 on 2016/8/30.
@@ -102,8 +104,6 @@ public class TakeTurnsView extends LinearLayout {
             getImageViews();
         }
 
-        //take_turns_view_pager.removeAllViews();
-
         //适配器在有了数据以后才创建
         if (pagerAdapter == null) {
             pagerAdapter = new MyAdapter();
@@ -113,8 +113,7 @@ public class TakeTurnsView extends LinearLayout {
         } else
             //更新适配器数据
             pagerAdapter.setmImageViews(imageViews);
-        //更新
-        //pagerAdapter.notifyDataSetChanged();
+
         //设置当前点点的位置
         tips[take_turns_view_pager.getCurrentItem() < imageDataUrls.size() ? take_turns_view_pager.getCurrentItem() : (take_turns_view_pager.getCurrentItem() % imageDataUrls.size()) == 0 ? (take_turns_view_pager.getCurrentItem() % imageDataUrls.size()) : (take_turns_view_pager.getCurrentItem() % imageDataUrls.size()) - 1].setChecked(true);
     }
@@ -167,7 +166,7 @@ public class TakeTurnsView extends LinearLayout {
                 imageView.setLayoutParams(imageLayoutParams);
                 imageViews.add(imageView);
             }
-            take_turns_view_pager.setNoScroll(true);
+            take_turns_view_pager.setNoScroll(true);//当只有一张轮番图的时候，拦截ontouch时间，让viewpager不能轮番
         } else if (imageDataUrls.size() == 2 || imageDataUrls.size() == 3) {
 
             for (int i = 0; i < imageDataUrls.size() * 2; i++) {
@@ -328,45 +327,9 @@ public class TakeTurnsView extends LinearLayout {
 
 
     private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
-        /**
-         * Indicates that the pager is in an idle, settled state. The current
-         * page is fully in view and no animation is in progress.
-         */
-        public static final int SCROLL_STATE_IDLE = 0;
-
-        /**
-         * Indicates that the pager is currently being dragged by the user.
-         */
-
-        public static final int SCROLL_STATE_DRAGGING = 1;
-
-        /**
-         * Indicates that the pager is in the process of settling to a final
-         * position.
-         */
-        public static final int SCROLL_STATE_SETTLING = 2;
 
         @Override
         public void onPageScrollStateChanged(int state) {
-            switch (state) {
-                case SCROLL_STATE_IDLE:
-                    // System.out
-                    // .println("===========>>>"
-                    // + " onPageScrollStateChanged --->>> SCROLL_STATE_IDLE");
-                    break;
-
-                case SCROLL_STATE_DRAGGING:
-                    // System.out
-                    // .println("===========>>>"
-                    // + " onPageScrollStateChanged --->>> SCROLL_STATE_DRAGGING");
-                    break;
-                case SCROLL_STATE_SETTLING:
-                    // System.out
-                    // .println("===========>>>"
-                    // + " onPageScrollStateChanged --->>> SCROLL_STATE_SETTLING");
-                    break;
-            }
-
         }
 
         @Override
@@ -376,10 +339,10 @@ public class TakeTurnsView extends LinearLayout {
         @Override
         public void onPageSelected(int position) {
             if (imageViews.size() < 1) return;
-            int j = setImageBackground(position % imageViews.size());
+            int i = position % imageViews.size();
+            int j = setImageBackground(i);
             if (getUpdateUI() != null)
-                getUpdateUI().onUpdateUI(j, imageViews.get(j), imageDataUrls.get(j));
-            //imageLoader.displayImage(imageDataUrls.get(j), imageViews.get(j), displayImageOptions);
+                getUpdateUI().onUpdateUI(j, imageViews.get(i), imageDataUrls.get(j));
         }
 
 

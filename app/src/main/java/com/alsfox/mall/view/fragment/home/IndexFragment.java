@@ -28,6 +28,7 @@ import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.model.home.IndexModel;
 import com.alsfox.mall.presenter.home.IndexPresenter;
 import com.alsfox.mall.utils.DisplayUtils;
+import com.alsfox.mall.view.activity.goods.GoodsListActivity;
 import com.alsfox.mall.view.activity.searth.SearthActivity;
 import com.alsfox.mall.view.customview.SearchTitleView;
 import com.alsfox.mall.view.customview.index.IndexHeaderYuanView;
@@ -205,15 +206,15 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
      *
      * @param indexDaohangInfoBeans
      */
-    private void getHeaderDaoHangUrlList(List<IndexDaohangBean> indexDaohangInfoBeans) {
+    private void getHeaderDaoHangUrlList(final List<IndexDaohangBean> indexDaohangInfoBeans) {
         if (index_header_ly_tow == null) return;
         index_header_ly_tow.setOnHeaderViewClick(new IndexHeaderYuanView.OnHeaderViewClick() {
             @Override
             public void onItemClickData(int position) {
-//                        IndexDaohangBean indexDaohangInfoBean = indexDaohangInfoBeans.get(position);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putInt(MallConstant.SHOPINFO_TYPEID, indexDaohangInfoBean.getShopTypeId());
-//                        startActivity(CommodityListActivity.class, bundle);
+                IndexDaohangBean indexDaohangInfoBean = indexDaohangInfoBeans.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putInt(MallConstant.SHOPTYPEID, indexDaohangInfoBean.getShopTypeId());
+                startActivity(GoodsListActivity.class, bundle);
             }
         });
         index_header_ly_tow.getUrlDataList(indexDaohangInfoBeans);
