@@ -9,9 +9,8 @@ import com.alsfox.mall.view.interfaces.home.IUsercontentView;
  * 个人中心
  */
 
-public class UserContentPresenter extends BasePresenter<IUsercontentView> {
+public class UserContentPresenter extends BasePresenter<IUsercontentView, UserContentModel> {
 
-    private UserContentModel userContentModel;
 
     /**
      * 每个继承基类的presenter都要去实现构造方法，并传入view层
@@ -20,6 +19,6 @@ public class UserContentPresenter extends BasePresenter<IUsercontentView> {
      */
     public UserContentPresenter(IUsercontentView mView) {
         super(mView);
-        userContentModel = new UserContentModel();
+        mModel = new UserContentModel();
     }
 }

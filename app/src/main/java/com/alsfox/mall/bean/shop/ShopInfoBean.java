@@ -1,5 +1,7 @@
 package com.alsfox.mall.bean.shop;
 
+import android.text.TextUtils;
+
 import com.alsfox.mall.bean.merchant.MerchantInfoBean;
 import com.alsfox.mall.http.request.RequestUrls;
 
@@ -23,7 +25,7 @@ public class ShopInfoBean {
     private String shopName;           // 商品名称
     private String shopIcon;           // 商品图片地址
     private int isGuige;           // 0使用，-1不使用，默认0
-    private int isTimeout = -1;//是否是限时抢购商品,-1,不是，0，是；
+    private int isTimeout = -1;    //是否是限时抢购商品,-1,不是，0，是；
     private double shopPrice;          // 商品价格，如果使用规格，该值无效
     private int shopStock;         // 商品库存，如果使用规格，该值无效
     private double dikouPrice;         // 可抵扣金额，如果使用规格，该值无效
@@ -185,6 +187,8 @@ public class ShopInfoBean {
     }
 
     public String getShopIntr() {
+        if (TextUtils.isEmpty(shopIntr))
+            shopIntr = "暂无商品简介";
         return shopIntr;
     }
 

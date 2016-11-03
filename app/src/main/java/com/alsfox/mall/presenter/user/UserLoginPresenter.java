@@ -10,8 +10,7 @@ import com.alsfox.mall.view.interfaces.user.IUserLoginView;
  * 用户登录
  */
 
-public class UserLoginPresenter extends BasePresenter<IUserLoginView> {
-    private UserLoginModel userLoginModel;
+public class UserLoginPresenter extends BasePresenter<IUserLoginView,UserLoginModel> {
 
     /**
      * 每个继承基类的presenter都要去实现构造方法，并传入view层
@@ -20,7 +19,7 @@ public class UserLoginPresenter extends BasePresenter<IUserLoginView> {
      */
     public UserLoginPresenter(IUserLoginView mView) {
         super(mView);
-        userLoginModel = new UserLoginModel();
+        mModel = new UserLoginModel();
     }
 
     /**
@@ -29,7 +28,7 @@ public class UserLoginPresenter extends BasePresenter<IUserLoginView> {
      * @param userBean
      */
     public void userInfoCache(UserBean userBean) {
-        userLoginModel.userInfoCache(userBean);
+        mModel.userInfoCache(userBean);
     }
 
     /**
@@ -38,6 +37,6 @@ public class UserLoginPresenter extends BasePresenter<IUserLoginView> {
      * @return
      */
     public UserBean queryUserInfo() {
-        return userLoginModel.queryUserInfo();
+        return mModel.queryUserInfo();
     }
 }

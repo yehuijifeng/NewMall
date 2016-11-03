@@ -9,9 +9,8 @@ import com.alsfox.mall.view.interfaces.home.IShoppingCartvView;
  * Created by 浩 on 2016/10/25.
  */
 
-public class ShoppingCartPresenter extends BasePresenter<IShoppingCartvView> {
+public class ShoppingCartPresenter extends BasePresenter<IShoppingCartvView,ShoppingCartModel> {
 
-    private ShoppingCartModel shoppingCartModel;
 
     /**
      * 每个继承基类的presenter都要去实现构造方法，并传入view层
@@ -20,23 +19,23 @@ public class ShoppingCartPresenter extends BasePresenter<IShoppingCartvView> {
      */
     public ShoppingCartPresenter(IShoppingCartvView mView) {
         super(mView);
-        shoppingCartModel = new ShoppingCartModel();
+        mModel = new ShoppingCartModel();
     }
 
     public void queryShoppingCart() {
-        mView.queryShoppingCart(shoppingCartModel.queryShoppingCart());
+        mView.queryShoppingCart(mModel.queryShoppingCart());
     }
 
     public void deleteShoppingCart(int shopId) {
-        mView.deleteShoppingCart(shoppingCartModel.deleteShoppingCart(shopId));
+        mView.deleteShoppingCart(mModel.deleteShoppingCart(shopId));
     }
 
     public void updateShoppingCart(ShoppingCartBean shoppingCartBean) {
-        mView.updateShoppingCart(shoppingCartModel.updateShoppingCart(shoppingCartBean));
+        mView.updateShoppingCart(mModel.updateShoppingCart(shoppingCartBean));
     }
 
     public void insterShoppingCart(ShoppingCartBean shoppingCartBean) {
-        mView.insterShoppingCart(shoppingCartModel.insterShoppingCart(shoppingCartBean));
+        mView.insterShoppingCart(mModel.insterShoppingCart(shoppingCartBean));
     }
 
 }

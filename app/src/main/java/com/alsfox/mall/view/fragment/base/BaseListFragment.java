@@ -91,6 +91,7 @@ public abstract class BaseListFragment<T extends BasePresenter> extends BaseFrag
         }
         baseListAdapter = new BaseListAdapter(data, new OnAdapterStatus());
         listView.setAdapter(baseListAdapter);
+        //baseListAdapter.setCount(getCount());
         listView.setOnItemClickListener(this);
         listView.addFooterView(baseListView.footView, null, getIsFootViewClick());
         baseListView.setRefresh(isRefresh());
@@ -124,6 +125,11 @@ public abstract class BaseListFragment<T extends BasePresenter> extends BaseFrag
         @Override
         public int getViewTypeCounts() {
             return getViewTypeCount();
+        }
+
+        @Override
+        public int getcount() {
+            return getCount();
         }
     }
 
@@ -222,7 +228,12 @@ public abstract class BaseListFragment<T extends BasePresenter> extends BaseFrag
         if (data == null) return;
         data.clear();
     }
-
+    /**
+     * 重写listview中adapter所带的数据个数
+     */
+    public int getCount() {
+        return data.size();
+    }
     /**
      * 是否加载更多
      */

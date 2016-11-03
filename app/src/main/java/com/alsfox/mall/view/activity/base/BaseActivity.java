@@ -95,7 +95,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
      */
     private boolean isPullWindow;
 
-    protected boolean isDefaultRxBus=true;//是否使用默认的RxBus生命周期
+    protected boolean isDefaultRxBus = true;//是否使用默认的RxBus生命周期
 
     public boolean isDefaultRxBus() {
         return isDefaultRxBus;
@@ -294,13 +294,24 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
         loadingView.setErrorClickListener(onClickListener);
     }
 
-    protected void showErrorLoadingAndBtn(String str1, String str2, View.OnClickListener onClickListener1, View.OnClickListener onClickListener2) {
+    /**显示错误信息，并且显示按钮
+     * @param errorStr
+     * @param btnStr
+     * @param btnclick
+     * @param errorclick
+     */
+    protected void showErrorLoadingAndBtn(String errorStr, String btnStr, View.OnClickListener btnclick, View.OnClickListener errorclick) {
         if (loadingView == null) return;
-        loadingView.showErrorPromptAndBtn(str1, str2, onClickListener1);
-        loadingView.setErrorClickListener(onClickListener2);
+        loadingView.showErrorPromptAndBtn(errorStr, btnStr, btnclick);
+        loadingView.setErrorClickListener(errorclick);
 
     }
 
+    /**
+     * 显示错误信息+图片，无点击事件
+     *
+     * @param str
+     */
     protected void showErrorLoadingByNoClick(String str) {
         showErrorLoading(str, null);
     }
@@ -314,6 +325,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
         });
     }
 
+    /**显示错误按钮+信息
+     * @param str
+     * @param btnStr
+     * @param onClickListener
+     */
     protected void showErrorBtnLoading(String str, String btnStr, View.OnClickListener onClickListener) {
         if (loadingView == null) return;
         loadingView.showErrorBtnPrompt(str);

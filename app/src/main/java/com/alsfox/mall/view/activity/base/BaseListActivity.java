@@ -92,7 +92,7 @@ public abstract class BaseListActivity<T extends BasePresenter> extends BaseActi
         defaultLoadMore();
     }
 
-    private class OnAdapterStatus implements BaseListAdapter.OnAdapterStatus {
+    public class OnAdapterStatus implements BaseListAdapter.OnAdapterStatus {
 
         @Override
         public BaseViewHolder getViewHolders(View itemView, int position, int type) {
@@ -101,7 +101,7 @@ public abstract class BaseListActivity<T extends BasePresenter> extends BaseActi
 
         @Override
         public View getItemViews(int position, int type, ViewGroup parent) {
-            return inflater.inflate(getItemView(position, type), null,false);
+            return inflater.inflate(getItemView(position, type), null, false);
         }
 
         @Override
@@ -117,6 +117,11 @@ public abstract class BaseListActivity<T extends BasePresenter> extends BaseActi
         @Override
         public int getViewTypeCounts() {
             return getViewTypeCount();
+        }
+
+        @Override
+        public int getcount() {
+            return getCount();
         }
     }
 
@@ -178,6 +183,12 @@ public abstract class BaseListActivity<T extends BasePresenter> extends BaseActi
         return data;
     }
 
+    /**
+     * 重写listview中adapter所带的数据个数
+     */
+    public int getCount() {
+        return data.size();
+    }
 
     /**
      * 加载更多的事件，子类可以重写

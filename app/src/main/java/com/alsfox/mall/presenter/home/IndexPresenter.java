@@ -15,9 +15,8 @@ import com.alsfox.mall.view.interfaces.home.IIndexView;
  * 首页presenter
  */
 
-public class IndexPresenter extends BasePresenter<IIndexView> {
+public class IndexPresenter extends BasePresenter<IIndexView,IndexModel> {
 
-    private IndexModel indexModel;
 
     /**
      * 每个继承基类的presenter都要去实现构造方法，并传入view层
@@ -26,14 +25,14 @@ public class IndexPresenter extends BasePresenter<IIndexView> {
      */
     public IndexPresenter(IIndexView mView, int windowWidth) {
         super(mView);
-        indexModel = new IndexModel(windowWidth);
+        mModel = new IndexModel(windowWidth);
     }
 
     /**
      * 加载首页数据
      */
     public void getIndexData() {
-        indexModel.getIndexData();
+        mModel.getIndexData();
     }
 
     /**
@@ -43,7 +42,7 @@ public class IndexPresenter extends BasePresenter<IIndexView> {
      * @return
      */
     public int setIndexDataByDb(IndexBean indexData) {
-        return indexModel.setIndexDataByDb(indexData);
+        return mModel.setIndexDataByDb(indexData);
     }
 
     /**
@@ -52,7 +51,7 @@ public class IndexPresenter extends BasePresenter<IIndexView> {
      * @return
      */
     public void getIndexDataByDb() {
-        mView.getIndexDataByDb(indexModel.getIndexDataByDb());
+        mView.getIndexDataByDb(mModel.getIndexDataByDb());
     }
 
     /**
@@ -64,42 +63,42 @@ public class IndexPresenter extends BasePresenter<IIndexView> {
      * @param indexMokuaiInfoBean
      */
     public void getItemData(int position, BaseViewHolder baseViewHolder, int itemType, IndexMokuaiBean indexMokuaiInfoBean) {
-        indexModel.setOnItemImgClickInterface(new IndexModel.OnItemImgClickInterface() {
+        mModel.setOnItemImgClickInterface(new IndexModel.OnItemImgClickInterface() {
             @Override
             public void onItemImgClick(View v, IndexMokuaiContentBean moduleContent) {
                 mView.onItemImgClick(v, moduleContent);
             }
 
         });
-        indexModel.getItemData(position, baseViewHolder, itemType, indexMokuaiInfoBean);
+        mModel.getItemData(position, baseViewHolder, itemType, indexMokuaiInfoBean);
 
     }
 
     public BaseViewHolder getOneViewHolder(View itemView) {
-        return indexModel.getOneViewHolder(itemView);
+        return mModel.getOneViewHolder(itemView);
     }
 
     public BaseViewHolder getTowViewHolder(View itemView) {
-        return indexModel.getTowViewHolder(itemView);
+        return mModel.getTowViewHolder(itemView);
     }
 
     public BaseViewHolder getThreeViewHolder(View itemView) {
-        return indexModel.getThreeViewHolder(itemView);
+        return mModel.getThreeViewHolder(itemView);
     }
 
     public BaseViewHolder getFourViewHolder(View itemView) {
-        return indexModel.getFourViewHolder(itemView);
+        return mModel.getFourViewHolder(itemView);
     }
 
     public BaseViewHolder getFiveViewHolder(View itemView) {
-        return indexModel.getFiveViewHolder(itemView);
+        return mModel.getFiveViewHolder(itemView);
     }
 
     public BaseViewHolder getSexViewHolder(View itemView) {
-        return indexModel.getSexViewHolder(itemView);
+        return mModel.getSexViewHolder(itemView);
     }
 
     public BaseViewHolder getSevenViewHolder(View itemView) {
-        return indexModel.getSevenViewHolder(itemView);
+        return mModel.getSevenViewHolder(itemView);
     }
 }

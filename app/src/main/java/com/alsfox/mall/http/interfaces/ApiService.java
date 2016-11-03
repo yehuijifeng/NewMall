@@ -103,4 +103,7 @@ public interface ApiService {
     @POST(RequestUrls.GET_COMMODITY_LIST_URL)
     Observable<HttpBean<ShopInfoBean>> getGoodsList(@QueryMap Map<String, Object> options);
 
+    //商品列表
+    @POST(RequestUrls.GET_COMMODITY_DETAILS_URL)
+    Observable<HttpBean<ShopInfoBean>> getGoodsContent(@QueryMap Map<String, Object> options);
 }

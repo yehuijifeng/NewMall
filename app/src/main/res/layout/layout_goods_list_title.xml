@@ -50,7 +50,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="0.8"
-            android:background="@drawable/bg_title_edit"
             android:button="@drawable/bg_shop_list_check"
             android:checked="false"
             android:gravity="center_vertical"

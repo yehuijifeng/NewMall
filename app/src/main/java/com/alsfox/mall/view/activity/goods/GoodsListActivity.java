@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.alsfox.mall.R;
+import com.alsfox.mall.adapter.BaseListAdapter;
 import com.alsfox.mall.adapter.BaseViewHolder;
 import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.bean.shop.ShopInfoBean;
@@ -18,27 +20,26 @@ import com.alsfox.mall.constances.MallConstant;
 import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
-import com.alsfox.mall.presenter.goods.ShopListPresenter;
+import com.alsfox.mall.presenter.goods.GoodsListPresenter;
 import com.alsfox.mall.view.activity.base.BaseListActivity;
 import com.alsfox.mall.view.activity.searth.SearthActivity;
-import com.alsfox.mall.view.customview.shop.ItemShopListView;
-import com.alsfox.mall.view.interfaces.goods.IShopListView;
+import com.alsfox.mall.view.customview.goods.ItemGoodsListView;
+import com.alsfox.mall.view.interfaces.goods.IGoodsListView;
 
-import java.util.List;
 import java.util.Map;
+
 
 /**
  * Created by 浩 on 2016/11/2.
  * 商品列表
  */
 
-public class GoodsListActivity extends BaseListActivity<ShopListPresenter> implements IShopListView, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class GoodsListActivity extends BaseListActivity<GoodsListPresenter> implements IGoodsListView, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     private ImageView title_default_back;
     private CheckBox title_default_right_check;
     private LinearLayout search_ly;
     private RadioButton goods_list_new_text, goods_list_number_text, goods_list_comments_text, goods_list_price_text;
-    //private TintableImageView goods_list_price_img;
     private RadioGroup goods_tab_rg;
 
     private int showType;//当前排列方式,默认列表，0；方块，1；
@@ -81,8 +82,8 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
     private int shopTypeId;//商品分类id
 
     @Override
-    protected ShopListPresenter initPresenter() {
-        return new ShopListPresenter(this);
+    protected GoodsListPresenter initPresenter() {
+        return new GoodsListPresenter(this);
     }
 
     @Override
@@ -106,14 +107,11 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
         goods_list_number_text = (RadioButton) findViewById(R.id.goods_list_number_text);
         goods_list_comments_text = (RadioButton) findViewById(R.id.goods_list_comments_text);
         goods_list_price_text = (RadioButton) findViewById(R.id.goods_list_price_text);
-        //goods_list_price_img = (TintableImageView) findViewById(R.id.goods_list_price_img);
         title_default_back.setOnClickListener(this);
         search_ly.setOnClickListener(this);
         goods_list_new_text.setChecked(true);
         goods_tab_rg.setOnCheckedChangeListener(this);
-        goods_list_new_text.setOnClickListener(this);
-        goods_list_number_text.setOnClickListener(this);
-        goods_list_comments_text.setOnClickListener(this);
+        goods_list_price_text.setOnClickListener(this);
     }
 
     @Override
@@ -124,6 +122,8 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 showType = isChecked ? 1 : 0;
+                baseListAdapter = new BaseListAdapter(data, new OnAdapterStatus());
+                listView.setAdapter(baseListAdapter);
                 notifyDataChange();
             }
         });
@@ -136,8 +136,7 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
         if (showType == 0) {//列表
             return new GoodsListViewHolder(itemView);
         } else if (showType == 1) {//方块
-            return null;
-            //return R.layout.layout_searth_merchant;
+            return new GoodsListTowViewHolder(itemView);
         } else {
             return null;
         }
@@ -148,8 +147,7 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
         if (showType == 0) {//列表
             return R.layout.layout_searth_list;
         } else if (showType == 1) {//方块
-            return 0;
-            //return R.layout.layout_searth_merchant;
+            return R.layout.item_goods_list;
         } else {
             return 0;
         }
@@ -161,9 +159,24 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
     }
 
     @Override
+    public int getCount() {
+        int count = data.size();
+        if (showType == 0) {
+            return count;
+        } else {
+            if (data.size() % 2 != 0) {
+                count = data.size() / 2 + 1;
+            } else {
+                count = data.size() / 2;
+            }
+        }
+        return count;
+    }
+
+    @Override
     public void getItemData(int position, BaseViewHolder baseViewHolder, int itemType) {
-        ShopInfoBean shopInfoBean = (ShopInfoBean) data.get(position);
         if (showType == 0) {//列表
+            ShopInfoBean shopInfoBean = (ShopInfoBean) data.get(position);
             GoodsListViewHolder goodsViewHolder = (GoodsListViewHolder) baseViewHolder;
             imageLoader.displayImage(shopInfoBean.getShopIcon(), goodsViewHolder.itemShopListView.searth_list_goods_img, MallAppliaction.getInstance().defaultOptions);
             goodsViewHolder.itemShopListView.searth_list_goods_name.setText(shopInfoBean.getShopName());
@@ -171,13 +184,50 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
             goodsViewHolder.itemShopListView.searth_list_goods_num.setText("(" + shopInfoBean.getShopPjNum() + ")");
             goodsViewHolder.itemShopListView.searth_list_goods_score.setRating(shopInfoBean.getShopZhPj());
         } else if (showType == 1) {//方格
-
+            GoodsListTowViewHolder goodsViewTowHolder = (GoodsListTowViewHolder) baseViewHolder;
+            final ShopInfoBean shopInfoBean = (ShopInfoBean) data.get(position * 2);
+            imageLoader.displayImage(shopInfoBean.getShopIcon(), goodsViewTowHolder.goods_list_left_icon_img, MallAppliaction.getInstance().defaultOptions);
+            goodsViewTowHolder.goods_list_left_name_text.setText(shopInfoBean.getShopName());
+            goodsViewTowHolder.goods_list_left_price_text.setText("￥" + shopInfoBean.getShowPrice());
+            goodsViewTowHolder.goods_list_left_ly.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getGoodsData(shopInfoBean.getShopId());
+                }
+            });
+            if (position * 2 + 1 <= data.size() - 1) {
+                goodsViewTowHolder.goods_list_right_ly.setVisibility(View.VISIBLE);
+                final ShopInfoBean shopInfoBeanTow = (ShopInfoBean) data.get(position * 2 + 1);
+                imageLoader.displayImage(shopInfoBeanTow.getShopIcon(), goodsViewTowHolder.goods_list_right_icon_img, MallAppliaction.getInstance().defaultOptions);
+                goodsViewTowHolder.goods_list_right_name_text.setText(shopInfoBeanTow.getShopName());
+                goodsViewTowHolder.goods_list_right_price_text.setText("￥" + shopInfoBeanTow.getShowPrice());
+                goodsViewTowHolder.goods_list_right_ly.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getGoodsData(shopInfoBeanTow.getShopId());
+                    }
+                });
+            } else {
+                goodsViewTowHolder.goods_list_right_ly.setVisibility(View.GONE);
+            }
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //跳转商品详情
+        if (showType == 0) {
+            getGoodsData(((ShopInfoBean) data.get(position)).getShopId());
+        }
+    }
+
+    /**
+     * 跳转商品详情
+     *
+     * @param shopId
+     */
+    private void getGoodsData(int shopId) {
+        //
     }
 
     @Override
@@ -189,7 +239,6 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
 
     @Override
     public void loadMore() {
-        super.loadMore();
         pageNum++;
         getGoodsList();
     }
@@ -203,6 +252,15 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
             case R.id.search_ly://搜索
                 startActivity(SearthActivity.class);
                 break;
+            case R.id.goods_list_price_text:
+                if (!SORT_COMMODITY_PRICE_ASC.equals(currentSort)) {
+                    currentSort = SORT_COMMODITY_PRICE_ASC;
+                    goods_list_price_text.setSelected(true);
+                } else {
+                    currentSort = SORT_COMMODITY_PRICE_DESC;
+                    goods_list_price_text.setSelected(false);
+                }
+                getGoodsListRefesh();
         }
     }
 
@@ -211,10 +269,11 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
         super.onRequestSuccess(success);
         switch (success.getRequestAction()) {
             case GET_GOODS_LIST://商品列表
-                if (pageNum == 1)
+                if (pageNum == 1) {
                     clearAll();
-                List<ShopInfoBean> shopInfoBeans = success.getHttpBean().getObjects();
-                addAll(shopInfoBeans);
+
+                }
+                addAll(success.getHttpBean().getObjects());
                 loadSuccess();
                 break;
 
@@ -255,14 +314,7 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.goods_list_price_text://根据价格排序
-                if (!SORT_COMMODITY_PRICE_ASC.equals(currentSort)) {
-                    currentSort = SORT_COMMODITY_PRICE_ASC;
-                    //goods_list_price_img.setImageResource(R.drawable.ic_sort_asc);
-                } else {
-                    currentSort = SORT_COMMODITY_PRICE_DESC;
-                    //goods_list_price_img.setImageResource(R.drawable.ic_sort_desc);
-                }
-                getGoodsListRefesh();
+                //这里交给点击事件去处理
                 break;
             case R.id.goods_list_new_text://根据最新排序
                 currentSort = SORT_COMMODITY_PUB;
@@ -283,7 +335,7 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
      * 商品item
      */
     private class GoodsListViewHolder extends BaseViewHolder {
-        private ItemShopListView itemShopListView;
+        private ItemGoodsListView itemShopListView;
 
         GoodsListViewHolder(View itemView) {
             super(itemView);
@@ -291,7 +343,30 @@ public class GoodsListActivity extends BaseListActivity<ShopListPresenter> imple
 
         @Override
         public void initItemView(View itemView) {
-            itemShopListView = new ItemShopListView(itemView);
+            itemShopListView = new ItemGoodsListView(itemView);
         }
     }
+
+    private class GoodsListTowViewHolder extends BaseViewHolder {
+        private ImageView goods_list_left_icon_img, goods_list_right_icon_img;
+        private TextView goods_list_left_name_text, goods_list_left_price_text, goods_list_right_name_text, goods_list_right_price_text;
+        private LinearLayout goods_list_left_ly, goods_list_right_ly;
+
+        GoodsListTowViewHolder(View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        public void initItemView(View itemView) {
+            goods_list_left_icon_img = (ImageView) itemView.findViewById(R.id.goods_list_left_icon_img);
+            goods_list_right_icon_img = (ImageView) itemView.findViewById(R.id.goods_list_right_icon_img);
+            goods_list_left_name_text = (TextView) itemView.findViewById(R.id.goods_list_left_name_text);
+            goods_list_left_price_text = (TextView) itemView.findViewById(R.id.goods_list_left_price_text);
+            goods_list_right_name_text = (TextView) itemView.findViewById(R.id.goods_list_right_name_text);
+            goods_list_right_price_text = (TextView) itemView.findViewById(R.id.goods_list_right_price_text);
+            goods_list_left_ly = (LinearLayout) itemView.findViewById(R.id.goods_list_left_ly);
+            goods_list_right_ly = (LinearLayout) itemView.findViewById(R.id.goods_list_right_ly);
+        }
+    }
+
 }

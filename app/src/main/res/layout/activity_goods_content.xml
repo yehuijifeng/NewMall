@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/default_title_view"
+        layout="@layout/default_titleview"  />
+
+    <com.alsfox.mall.view.customview.goods.ScrollViewContainer
+        android:id="@+id/goods_content_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/goods_content_bottom_ly"
+        android:scrollbars="none"
+        android:layout_below="@+id/default_title_view">
+
+        <com.alsfox.mall.view.customview.goods.MyScrollView
+            android:id="@+id/goods_content_scroll_one"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.take.turns.view.TakeTurnsView
+                    android:id="@+id/goods_content_img_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/padding_and_margin">
+
+                        <TextView
+                            android:id="@+id/goods_content_name_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.85"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/padding_and_margin_x"
+                            android:text="商品信息"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_xx" />
+
+                        <View
+                            style="@style/default_ver_view"
+                            android:layout_width="2dp" />
+
+                        <ImageView
+                            android:id="@+id/goods_content_share_img"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.15"
+                            android:background="@drawable/bg_main_btn_white"
+                            android:gravity="center"
+                            android:src="@drawable/ic_share" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/goods_content_price_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:text="￥0.00"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_size_xxx" />
+
+                        <TextView
+                            android:id="@+id/goods_content_lod_price_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/padding_and_margin"
+                            android:layout_toEndOf="@+id/goods_content_price_text"
+                            android:layout_toRightOf="@+id/goods_content_price_text"
+                            android:text="0.00"
+                            android:textColor="@color/goods_content_text_color"
+                            android:textSize="@dimen/text_size_xx" />
+
+                        <TextView
+                            android:id="@+id/goods_content_buy_number_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:drawableLeft="@drawable/ic_user_count"
+                            android:drawablePadding="1dp"
+                            android:gravity="center_vertical"
+                            android:text="0人购买"
+                            android:textColor="@color/goods_content_text_color"
+                            android:textSize="@dimen/text_size_x" />
+
+                        <TextView
+                            android:id="@+id/goods_content_integral_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/goods_content_buy_number_text"
+                            android:layout_marginTop="@dimen/padding_and_margin"
+                            android:gravity="center_vertical"
+                            android:text="可获得0~0积分"
+                            android:textColor="@color/goods_content_text_color"
+                            android:textSize="@dimen/text_size_x" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/goods_content_introduce_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_and_margin_x"
+                        android:text="商品简介"
+                        android:textColor="@color/black_gray"
+                        android:textSize="@dimen/text_size_xx" />
+
+                    <TextView
+                        android:id="@+id/goods_content_evaluate_number_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(0)人评价"
+                        android:textColor="@color/black_gray"
+                        android:textSize="@dimen/text_size_xx" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/goods_content_zhpf_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:text="综合评分：5.0"
+                            android:textColor="@color/black_gray"
+                            android:textSize="@dimen/text_size_xx" />
+
+                        <RatingBar
+                            android:id="@+id/goods_content_zhpf_bar"
+                            style="@style/custom_rating_bar_style"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:rating="5" />
+
+                    </LinearLayout>
+
+                    <View style="@style/default_hour_view" />
+
+                    <LinearLayout
+                        android:id="@+id/goods_content_evaluation_ly"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_and_margin">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/padding_and_margin"
+                            android:paddingTop="@dimen/padding_and_margin">
+
+                            <RatingBar
+                                android:id="@+id/goods_content_one_user_bar"
+                                style="@style/custom_rating_bar_style"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:rating="5" />
+
+                            <TextView
+                                android:id="@+id/goods_content_one_user_time_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="用户名 时间"
+                                android:textColor="@color/black_gray"
+                                android:textSize="@dimen/text_size_x"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/goods_content_evaluation_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/padding_and_margin"
+                            android:text="用户评价内容"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_xx" />
+
+                    </LinearLayout>
+
+                    <View style="@style/default_hour_view" />
+
+                    <TextView
+                        android:id="@+id/goods_content_more_evaluate_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_main_btn_white"
+                        android:gravity="center"
+                        android:padding="@dimen/padding_and_margin_xx"
+                        android:text="查看更多评论"
+                        android:textColor="@color/mall_text_color" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/default_gray"
+                        android:gravity="center"
+                        android:padding="@dimen/padding_and_margin_xxx"
+                        android:text="下拉查看图文详情"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.alsfox.mall.view.customview.goods.MyScrollView>
+
+        <com.alsfox.mall.view.customview.goods.YsnowScrollView
+            android:id="@+id/goods_content_scroll_tow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.alsfox.mall.view.customview.goods.YsnowWebView
+                android:id="@+id/goods_content_web"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.alsfox.mall.view.customview.goods.YsnowScrollView>
+
+    </com.alsfox.mall.view.customview.goods.ScrollViewContainer>
+
+    <LinearLayout
+        android:id="@+id/goods_content_bottom_ly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/goods_content_go_cart_ly"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:background="@drawable/bg_main_btn_white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/cart" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/cart"
+                android:gravity="center"
+                android:paddingBottom="@dimen/padding_and_margin"
+                android:paddingTop="@dimen/padding_and_margin"
+                android:text="@string/str_shopping_cart" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/goods_content_collection_ly"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:background="@drawable/bg_main_btn_white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/goods_content_collection_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/selector_cb_commodity_collection" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_collection" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_commodity_add_shopping_cart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:background="@drawable/selector_btn_add_shopping_cart"
+            android:text="@string/str_shopping_cart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_xx" />
+
+        <Button
+            android:id="@+id/btn_commodity_purchase_immediately"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:background="@drawable/selector_btn_commodity_detail_buy"
+            android:text="@string/str_immediately_buy"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_xx" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/goods_content_to_top_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/goods_content_bottom_ly"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/padding_and_margin_x"
+        android:src="@drawable/selector_btn_to_top"
+        android:visibility="gone" />
+
+</RelativeLayout>

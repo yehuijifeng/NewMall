@@ -49,5 +49,5 @@
     <color name="goods_jindu">#66c896</color>
     <color name="goods_bg">#989898</color>
     <color name="transparent_flash">#70000000</color>
-
+    <color name="goods_content_text_color">#BEC4C7</color>
 </resources>

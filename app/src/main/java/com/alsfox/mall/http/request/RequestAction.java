@@ -120,6 +120,14 @@ public enum RequestAction {
         }
     },
 
+    //商品详情
+    GET_GOODS_CONTENT(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getGoodsContent(params.getParams());
+        }
+    },
+
     ;
     public Call<ResponseBody> call;//下载文件专用，okhttp类型的回调
     public Observable observable;//普通网络请求使用，网络请求的操作实例

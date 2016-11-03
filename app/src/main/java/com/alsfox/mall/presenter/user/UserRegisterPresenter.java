@@ -9,7 +9,7 @@ import com.alsfox.mall.view.interfaces.user.IUserRegisterView;
  * 用户注册
  */
 
-public class UserRegisterPresenter extends BasePresenter<IUserRegisterView> {
+public class UserRegisterPresenter extends BasePresenter<IUserRegisterView,UserRegisterModel> {
 
 
     /**

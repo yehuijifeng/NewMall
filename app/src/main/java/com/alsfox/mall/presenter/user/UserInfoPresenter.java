@@ -9,9 +9,8 @@ import com.alsfox.mall.view.interfaces.user.IUserInfoView;
  * 个人中心
  */
 
-public class UserInfoPresenter extends BasePresenter<IUserInfoView> {
+public class UserInfoPresenter extends BasePresenter<IUserInfoView,UserInfoModel> {
 
-    private UserInfoModel userInfoModel;
 
     /**
      * 每个继承基类的presenter都要去实现构造方法，并传入view层
@@ -20,10 +19,10 @@ public class UserInfoPresenter extends BasePresenter<IUserInfoView> {
      */
     public UserInfoPresenter(IUserInfoView mView) {
         super(mView);
-        userInfoModel = new UserInfoModel();
+        mModel = new UserInfoModel();
     }
 
     public void insertUserIcon(String imgUrl) {
-        userInfoModel.insert(imgUrl);
+        mModel.insert(imgUrl);
     }
 }

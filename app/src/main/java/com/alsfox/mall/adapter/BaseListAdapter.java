@@ -17,6 +17,7 @@ public class BaseListAdapter extends BaseCollectionAdapter {
 
     }
 
+
     private OnAdapterStatus onAdapterStatus;
 
     public OnAdapterStatus getOnAdapterStatus() {
@@ -34,6 +35,8 @@ public class BaseListAdapter extends BaseCollectionAdapter {
         int getItemViewTypes(int position);
 
         int getViewTypeCounts();
+
+        int getcount();
     }
 
 
@@ -70,5 +73,12 @@ public class BaseListAdapter extends BaseCollectionAdapter {
     @Override
     public int getViewTypeCount() {
         return getOnAdapterStatus().getViewTypeCounts() + 1;
+    }
+
+    @Override
+    public int getCount() {
+        if (onAdapterStatus != null)
+            return onAdapterStatus.getcount();
+        return super.getCount();
     }
 }

@@ -15,9 +15,9 @@ import rx.Subscription;
  * Created by 浩 on 2016/7/20.
  * presenter层的基类
  */
-public abstract class BasePresenter<T extends IBaseView> {
+public abstract class BasePresenter<T extends IBaseView, E extends BaseModel> {
     public T mView;//view 层实例
-    public BaseModel mModel;
+    public E mModel;
     public Subscription subscription;//rx的观察者
     public Observable observable;//RxBus 实例
 
@@ -28,7 +28,6 @@ public abstract class BasePresenter<T extends IBaseView> {
      */
     public BasePresenter(T mView) {
         this.mView = mView;
-
     }
 
     /**

@@ -25,7 +25,7 @@ import com.alsfox.mall.presenter.searth.SearthPresenter;
 import com.alsfox.mall.utils.DisplayUtils;
 import com.alsfox.mall.view.activity.base.BaseListActivity;
 import com.alsfox.mall.view.customview.FlowLayout;
-import com.alsfox.mall.view.customview.shop.ItemShopListView;
+import com.alsfox.mall.view.customview.goods.ItemGoodsListView;
 import com.alsfox.mall.view.interfaces.searth.ISearthView;
 
 import java.util.List;
@@ -308,7 +308,7 @@ public class SearthActivity extends BaseListActivity<SearthPresenter> implements
      * 商品item
      */
     private class GoodsViewHolder extends BaseViewHolder {
-        private ItemShopListView itemShopListView;
+        private ItemGoodsListView itemShopListView;
 
         public GoodsViewHolder(View itemView) {
             super(itemView);
@@ -316,7 +316,7 @@ public class SearthActivity extends BaseListActivity<SearthPresenter> implements
 
         @Override
         public void initItemView(View itemView) {
-            itemShopListView = new ItemShopListView(itemView);
+            itemShopListView = new ItemGoodsListView(itemView);
         }
     }
 

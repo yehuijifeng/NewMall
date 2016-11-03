@@ -202,7 +202,7 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
     private void getUserOrderCount() {
         if (MallAppliaction.getInstance().userBean == null) return;
         Map<String, Object> params = RequestAction.GET_USER_ORDER_COUNT.params.getParams();
-        params.put(MallConstant.SHOPINFO_USERID, MallAppliaction.getInstance().userBean.getUserId());
+        params.put(MallConstant.ORDERINFO_USERID, MallAppliaction.getInstance().userBean.getUserId());
         sendRequest(RequestAction.GET_USER_ORDER_COUNT);
     }
 
