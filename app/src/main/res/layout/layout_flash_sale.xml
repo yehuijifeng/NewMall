@@ -72,56 +72,7 @@
                 android:gravity="center_horizontal"
                 android:textColor="@color/white" />
 
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/flash_frame_mid"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/padding_and_margin"
-            android:layout_weight="1.0">
-
-            <ImageView
-                android:id="@+id/flash_img_tow"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY" />
-
-            <TextView
-                android:id="@+id/flash_price_tow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@color/transparent_flash"
-                android:gravity="center_horizontal"
-                android:textColor="@color/white" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/flash_frame_right"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0">
-
-            <ImageView
-                android:id="@+id/flash_img_three"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY" />
-
-            <TextView
-                android:id="@+id/flash_price_three"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@color/transparent_flash"
-                android:gravity="center_horizontal"
-                android:textColor="@color/white" />
-        </FrameLayout>-->
+        </FrameLayout> -->
     </LinearLayout>
 
     <RelativeLayout

@@ -2,6 +2,7 @@ package com.alsfox.mall.view.fragment.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.model.home.IndexModel;
 import com.alsfox.mall.presenter.home.IndexPresenter;
 import com.alsfox.mall.utils.DisplayUtils;
+import com.alsfox.mall.utils.TimeThreadUtil;
 import com.alsfox.mall.view.activity.goods.GoodsListActivity;
 import com.alsfox.mall.view.activity.searth.SearthActivity;
 import com.alsfox.mall.view.customview.SearchTitleView;
@@ -56,7 +58,11 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
     private IndexHeaderYuanView index_header_ly, index_header_ly_tow;
     //限时抢购view
     private LinearLayout index_header_qianggou, flash_frame_ly;
-    private TextView flash_text_d, flash_text_h, flash_text_m;
+    private TextView flash_text_d, flash_text_h, flash_text_m, flash_text_s;//天，时分秒
+    private TextView flash_go_text;//更多
+    private TextView after_day_text;//天数
+    private MyCountDownTimer myCountDownTimer;//计时器
+    private List<IndexFlashShopBean> indexQianggouInfoBeanCache = new ArrayList<>();
 
     @Override
     protected IndexPresenter initPresenter() {
@@ -83,10 +89,12 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
         flash_text_d = (TextView) view.findViewById(R.id.flash_text_d);
         flash_text_h = (TextView) view.findViewById(R.id.flash_text_h);
         flash_text_m = (TextView) view.findViewById(R.id.flash_text_m);
+        flash_text_s = (TextView) view.findViewById(R.id.flash_text_s);
+        flash_go_text = (TextView) view.findViewById(R.id.flash_go_text);
+        after_day_text = (TextView) view.findViewById(R.id.after_day_text);
         index_header_qianggou.setOnClickListener(this);
+        flash_go_text.setOnClickListener(this);
     }
-
-    private List<IndexFlashShopBean> indexQianggouInfoBeanCache;
 
     /**
      * 添加限时抢购数据
@@ -94,23 +102,60 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
      * @param indexQianggouInfoBean
      */
     private void getFlashSale(IndexQianggouBean indexQianggouInfoBean) {
+        //判断是否有限时抢购，没有则隐藏
         if (indexQianggouInfoBean == null || indexQianggouInfoBean.getShopInfoList().isEmpty()) {
             index_header_qianggou.setVisibility(View.GONE);
             return;
         } else {
             index_header_qianggou.setVisibility(View.VISIBLE);
         }
-        if (indexQianggouInfoBean.getShopInfoList().containsAll(indexQianggouInfoBeanCache)) return;
-        else
-            indexQianggouInfoBeanCache = indexQianggouInfoBean.getShopInfoList();
+        if (myCountDownTimer == null) {
+            myCountDownTimer = new MyCountDownTimer(TimeThreadUtil.timeMS(indexQianggouInfoBean.getEndTime(), indexQianggouInfoBean.getNowTime()), 1000);
+            myCountDownTimer.start();
+        }
+        //判断限时抢购数据缓存是否为null
+        if (indexQianggouInfoBeanCache.size() < 1)
+            indexQianggouInfoBeanCache.addAll(indexQianggouInfoBean.getShopInfoList());
+        else if (!compare(indexQianggouInfoBean.getShopInfoList(), indexQianggouInfoBeanCache))
+            return;
+        else {
+            indexQianggouInfoBeanCache.clear();
+            indexQianggouInfoBeanCache.addAll(indexQianggouInfoBean.getShopInfoList());
+            myCountDownTimer.cancel();
+            myCountDownTimer = new MyCountDownTimer(TimeThreadUtil.timeMS(indexQianggouInfoBean.getEndTime(), indexQianggouInfoBean.getNowTime()), 1000);
+            myCountDownTimer.start();
+        }
+        flash_frame_ly.removeAllViews();
         for (IndexFlashShopBean indexFlashShopInfoBean : indexQianggouInfoBean.getShopInfoList()) {
+
             flash_frame_ly.addView(getFlashSaleView(indexFlashShopInfoBean.getShopIcon(), "￥" + indexFlashShopInfoBean.getShowPrice()));
         }
         if (indexQianggouInfoBean.getShopInfoList().size() < 3) {
             ViewGroup.LayoutParams layoutParams = flash_frame_ly.getLayoutParams();
             layoutParams.height = (int) (getWindowWidth() / 2);
             flash_frame_ly.setLayoutParams(layoutParams);
+        } else {
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            flash_frame_ly.setLayoutParams(layoutParams);
         }
+
+    }
+
+    /**
+     * 队列比较
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    public static boolean compare(List a, List b) {
+        if (a.size() != b.size())
+            return false;
+        for (int i = 0; i < a.size(); i++) {
+            if (!a.get(i).equals(b.get(i)))
+                return false;
+        }
+        return true;
     }
 
     /**
@@ -146,6 +191,52 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
         frameLayout.addView(imageView);
         frameLayout.addView(textView);
         return frameLayout;
+    }
+
+    /**
+     * 计时器
+     * 继承 CountDownTimer 防范
+     * <p>
+     * 重写 父类的方法 onTick() 、 onFinish()
+     */
+
+    private class MyCountDownTimer extends CountDownTimer {
+        /**
+         * @param millisInFuture    表示以毫秒为单位 倒计时的总数
+         *                          <p>
+         *                          例如 millisInFuture=1000 表示1秒
+         * @param countDownInterval 表示 间隔 多少微秒 调用一次 onTick 方法
+         *                          <p>
+         *                          例如: countDownInterval =1000 ; 表示每1000毫秒调用一次onTick()
+         */
+        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {
+            flash_text_d.setText("00");
+            flash_text_h.setText("00");
+            flash_text_m.setText("00");
+            flash_text_s.setText("00");
+            refresh();
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            long time[] = TimeThreadUtil.timeDown(millisUntilFinished);
+            if (time[0] == 0) {
+                after_day_text.setVisibility(View.GONE);
+                flash_text_d.setVisibility(View.GONE);
+            } else {
+                after_day_text.setVisibility(View.VISIBLE);
+                flash_text_d.setVisibility(View.VISIBLE);
+                flash_text_d.setText(TimeThreadUtil.integerByStr(time[0]));
+            }
+            flash_text_h.setText(TimeThreadUtil.integerByStr(time[1]));
+            flash_text_m.setText(TimeThreadUtil.integerByStr(time[2]));
+            flash_text_s.setText(TimeThreadUtil.integerByStr(time[3]));
+        }
     }
 
     private int[] headerStrs = new int[]{R.string.str_notice, R.string.str_logistics_query, R.string.str_user_order, R.string.str_user_collect};//圆形图标的四个默认按钮
@@ -314,6 +405,15 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (myCountDownTimer != null) {
+            myCountDownTimer.cancel();
+            myCountDownTimer = null;
+        }
+    }
+
+    @Override
     protected void onRequestSuccess(ResponseSuccessAction success) {
         super.onRequestSuccess(success);
         switch (success.getRequestAction()) {
@@ -442,6 +542,9 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.index_header_qianggou://点击进入限时抢购
+
+                break;
+            case R.id.flash_go_text://点击进入限时抢购
 
                 break;
         }
