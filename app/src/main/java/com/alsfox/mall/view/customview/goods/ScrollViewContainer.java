@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-
+import com.alsfox.mall.R;
 import com.alsfox.mall.utils.DisplayUtils;
 
 import java.util.Timer;
@@ -65,6 +65,7 @@ public class ScrollViewContainer extends RelativeLayout {
      * 记录当前展示的是哪个view，0是topView，1是bottomView
      */
     private int mCurrentViewIndex = 0;
+
     /**
      * 手滑动距离，这个是控制布局的主要变量
      */
@@ -261,12 +262,10 @@ public class ScrollViewContainer extends RelativeLayout {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        topView.layout(0, (int) mMoveLen, mViewWidth,
-                topView.getMeasuredHeight() + (int) mMoveLen);
+        topView.layout(0, (int) mMoveLen, mViewWidth, topView.getMeasuredHeight() + (int) mMoveLen);
         if (outMetrics == null || ll_commodity_detail_bottom == null) return;
-        bottomView.layout(0, topView.getMeasuredHeight() + (int) mMoveLen + (int) (outMetrics.heightPixels * 0.1),
-                mViewWidth, topView.getMeasuredHeight() + (int) mMoveLen
-                        + outMetrics.heightPixels - ll_commodity_detail_bottom.getMeasuredHeight() - DisplayUtils.dip2px(getContext(), 10));
+        bottomView.layout(0, topView.getMeasuredHeight() + (int) mMoveLen + (int) (outMetrics.heightPixels * 0.1) + (int) getResources().getDimension(R.dimen.dialog_button_height), mViewWidth, topView.getMeasuredHeight() + (int) mMoveLen
+                + outMetrics.heightPixels - ll_commodity_detail_bottom.getMeasuredHeight() - DisplayUtils.dip2px(getContext(), -20));
     }
 
     @Override

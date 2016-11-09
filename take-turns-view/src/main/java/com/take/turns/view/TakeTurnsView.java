@@ -76,7 +76,7 @@ public class TakeTurnsView extends LinearLayout {
     public void setUpdateUI(UpdateUI updateUI) {
         this.updateUI = updateUI;
         if (imageDataUrls != null)
-            updateUI.onUpdateUI(0, imageViews.get(0), imageDataUrls.get(0));
+            getUpdateUI().onUpdateUI(0, imageViews.get(0), imageDataUrls.get(0));
     }
 
     public List<String> getImageUrls() {
@@ -386,6 +386,9 @@ public class TakeTurnsView extends LinearLayout {
         }
     }
 
+    /**当前视图高度
+     * @param height
+     */
     public void setTakeTurnsHeight(int height) {
         ViewGroup.LayoutParams layoutParams = root.getLayoutParams();
         layoutParams.height = height;

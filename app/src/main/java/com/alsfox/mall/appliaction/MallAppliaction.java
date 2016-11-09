@@ -27,6 +27,16 @@ public class MallAppliaction extends MvpAppliaction {
     public UserBean userBean;//用户信息
     public BaiduMapBean baiduMapBean = new BaiduMapBean();//百度定位
 
+    public static final int APP_MALL = 0;
+    public static final int APP_MALL_CAN = APP_MALL + 1;
+    public static final int APP_MALL_MERCHANT = APP_MALL_CAN + 1;
+    /**
+     * app类型：0，标准版；1，餐饮版，2，轻装版
+     */
+    public static final int APP_TYPE = APP_MALL;
+    //public static final int APP_TYPE=APP_MALL_CAN;
+    //public static final int APP_TYPE=APP_MALL_MERCHANT;
+
     @Override
     public void onCreate() {
         super.onCreate();

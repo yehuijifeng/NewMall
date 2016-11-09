@@ -3,17 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <include
         android:id="@+id/default_title_view"
-        layout="@layout/default_titleview"  />
+        layout="@layout/default_titleview" />
 
     <com.alsfox.mall.view.customview.goods.ScrollViewContainer
         android:id="@+id/goods_content_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/goods_content_bottom_ly"
-        android:scrollbars="none"
-        android:layout_below="@+id/default_title_view">
+        android:layout_below="@+id/default_title_view"
+        android:scrollbars="none">
 
         <com.alsfox.mall.view.customview.goods.MyScrollView
             android:id="@+id/goods_content_scroll_one"
@@ -28,7 +29,8 @@
                 <com.take.turns.view.TakeTurnsView
                     android:id="@+id/goods_content_img_view"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="@dimen/padding_and_margin" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,14 +56,14 @@
 
                         <View
                             style="@style/default_ver_view"
-                            android:layout_width="2dp" />
+                            android:layout_width="1dp" />
 
                         <ImageView
                             android:id="@+id/goods_content_share_img"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.15"
-                            android:background="@drawable/bg_main_btn_white"
+                            android:background="@drawable/bg_default_btn"
                             android:gravity="center"
                             android:src="@drawable/ic_share" />
                     </LinearLayout>
@@ -132,6 +134,7 @@
                         android:id="@+id/goods_content_evaluate_number_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_and_margin"
                         android:text="(0)人评价"
                         android:textColor="@color/black_gray"
                         android:textSize="@dimen/text_size_xx" />
@@ -139,7 +142,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="@dimen/padding_and_margin">
 
                         <TextView
                             android:id="@+id/goods_content_zhpf_text"
@@ -191,12 +195,12 @@
                                 android:id="@+id/goods_content_one_user_time_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
                                 android:text="用户名 时间"
                                 android:textColor="@color/black_gray"
-                                android:textSize="@dimen/text_size_x"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignParentEnd="true" />
+                                android:textSize="@dimen/text_size_x" />
 
                         </RelativeLayout>
 
@@ -217,11 +221,12 @@
                         android:id="@+id/goods_content_more_evaluate_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_main_btn_white"
+                        android:background="@drawable/bg_default_btn"
                         android:gravity="center"
                         android:padding="@dimen/padding_and_margin_xx"
                         android:text="查看更多评论"
-                        android:textColor="@color/mall_text_color" />
+                        android:textColor="@color/mall_text_color"
+                        android:textSize="@dimen/text_size_xx" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -253,8 +258,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -262,7 +265,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/bg_main_btn_white"
+            android:background="@drawable/bg_default_ly"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -288,7 +291,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/bg_main_btn_white"
+            android:background="@drawable/bg_default_ly"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -326,14 +329,14 @@
             android:textSize="@dimen/text_size_xx" />
     </LinearLayout>
 
+
     <ImageView
         android:id="@+id/goods_content_to_top_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/goods_content_bottom_ly"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/padding_and_margin_x"
+        android:padding="@dimen/padding_and_margin_xx"
         android:src="@drawable/selector_btn_to_top"
         android:visibility="gone" />
-
 </RelativeLayout>

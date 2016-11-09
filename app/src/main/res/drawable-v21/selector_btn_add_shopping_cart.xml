@@ -4,10 +4,10 @@
     <item>
         <selector>
             <item android:state_enabled="false">
-                <color android:color="@color/dark_gray" />
+                <color android:color="@color/mall_main" />
             </item>
             <item>
-                <color android:color="@color/mall_main" />
+                <color android:color="@color/mall_red" />
             </item>
         </selector>
     </item>

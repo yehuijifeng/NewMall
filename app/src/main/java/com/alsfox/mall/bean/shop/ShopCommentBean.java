@@ -48,7 +48,7 @@ public class ShopCommentBean {
     }
 
     public String getUserAvatar() {
-        return RequestUrls.ROOT_URL + userAvatar;
+        return RequestUrls.IP + userAvatar;
     }
 
     public void setUserAvatar(String userAvatar) {

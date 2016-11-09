@@ -284,13 +284,14 @@ public class SearthActivity extends BaseListActivity<SearthPresenter> implements
      */
     private void initSearchHotWords(List<HotWordBean> hotWordBeeans) {
         if (hotWordBeeans == null || hotWordBeeans.size() < 1) return;
+        int padding = DisplayUtils.dip2px(this, 5);
         for (HotWordBean hotWord : hotWordBeeans) {
             final TextView tv_hot_word = new TextView(this);
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tv_hot_word.setLayoutParams(layoutParams);
             tv_hot_word.setBackgroundResource(R.drawable.bg_search_ly);
-            tv_hot_word.setPadding(DisplayUtils.dip2px(this, 5), DisplayUtils.dip2px(this, 5), DisplayUtils.dip2px(this, 5), DisplayUtils.dip2px(this, 5));
-            tv_hot_word.setTextSize(DisplayUtils.sp2px(this, 5));
+            tv_hot_word.setPadding(padding, padding, padding, padding);
+            tv_hot_word.setTextSize(getResources().getInteger(R.integer.searth_text_size));
             tv_hot_word.setText(hotWord.getHotName());
             tv_hot_word.setOnClickListener(new View.OnClickListener() {
                 @Override

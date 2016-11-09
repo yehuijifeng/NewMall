@@ -110,8 +110,7 @@ public class MvpAppliaction extends Application {
         //自定义配置
         ImageLoaderConfiguration config = new ImageLoaderConfiguration
                 .Builder(context)
-                //720/1280
-                .memoryCacheExtraOptions(320, 880)//额外的内存缓存选项, 即保存的每个缓存文件的最大长宽
+                .memoryCacheExtraOptions(720, 1280)//额外的内存缓存选项, 即保存的每个缓存文件的最大长宽
                 .threadPoolSize(5)//线程池的并发数大小
                 .threadPriority(Thread.NORM_PRIORITY - 1)//线程池的优先级，标准优先级
                 .tasksProcessingOrder(QueueProcessingType.LIFO)//任务处理订单，队列处理类型.FIFO:先进先出 LIFO:先进后出

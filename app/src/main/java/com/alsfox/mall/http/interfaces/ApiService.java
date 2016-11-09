@@ -106,4 +106,13 @@ public interface ApiService {
     //商品列表
     @POST(RequestUrls.GET_COMMODITY_DETAILS_URL)
     Observable<HttpBean<ShopInfoBean>> getGoodsContent(@QueryMap Map<String, Object> options);
+
+    //添加商品收藏
+    @POST(RequestUrls.ADD_COMMODITY_COLLECT_URL)
+    Observable<HttpBean<String>> getAddCollectionGoods(@QueryMap Map<String, Object> options);
+
+    //删除商品收藏
+    @POST(RequestUrls.DEL_COMMODITY_COLLECT_URL)
+    Observable<HttpBean<String>> getDeleteCollectionGoods(@QueryMap Map<String, Object> options);
+
 }

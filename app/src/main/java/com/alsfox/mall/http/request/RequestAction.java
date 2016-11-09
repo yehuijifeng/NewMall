@@ -128,6 +128,23 @@ public enum RequestAction {
         }
     },
 
+    //添加商品收藏
+    GET_ADD_GOODS_COMMODITY(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getAddCollectionGoods(params.getParams());
+        }
+    },
+
+    //删除商品收藏
+    GET_DEL_GOODS_COMMODITY(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getDeleteCollectionGoods(params.getParams());
+        }
+    },
+
+
     ;
     public Call<ResponseBody> call;//下载文件专用，okhttp类型的回调
     public Observable observable;//普通网络请求使用，网络请求的操作实例

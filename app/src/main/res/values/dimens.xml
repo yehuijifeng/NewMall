@@ -77,5 +77,7 @@
     <dimen name="index_bottom_tab_image_height">32dp</dimen>
     <dimen name="searth_image_height">96dp</dimen>
 
+    <dimen name="count_edit_view_height">0.5dp</dimen>
 
+    <dimen name="count_edit_text_height">40dp</dimen>
 </resources>

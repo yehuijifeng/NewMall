@@ -26,6 +26,12 @@ public class SignUtils {
 
     private static final String KEY_CONTENT = "alsfoxShop_plat";
 
+    /**
+     * 生成sign签名
+     *
+     * @param param
+     * @return
+     */
     public static String getSign(Map<String, Object> param) {
         Collection<String> keySet = param.keySet();
         List<String> list = new ArrayList<>(keySet);
@@ -44,6 +50,32 @@ public class SignUtils {
         return MD5Util.MD5(paramStr);
     }
 
+    /**
+     * get请求默认拼接参数
+     *
+     * @param param
+     * @return
+     */
+    public static String createGetParams(Map<String, Object> param) {
+        Collection<String> keySet = param.keySet();
+        List<String> list = new ArrayList<>(keySet);
+
+        //对key键值按字典升序排序
+        Collections.sort(list);
+        String paramStr = "";
+        for (int i = 0; i < list.size(); i++) {
+            paramStr += list.get(i) + "=" + param.get(list.get(i)) + "&";
+        }
+        String sign = KEY_SIGN + "=" + getSign(param);
+
+        return "?" + paramStr + sign;
+    }
+
+    /**
+     * 默认配置
+     *
+     * @return
+     */
     public static Map<String, Object> getParameters() {
         Map<String, Object> params = new HashMap<>();
         params.put(KEY_TIMESTAMP, System.currentTimeMillis());

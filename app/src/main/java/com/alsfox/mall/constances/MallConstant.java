@@ -26,4 +26,8 @@ public class MallConstant {
     public static final String SHOPTYPEID = "shopTypeId";
     public static final String GOODSID = "goodsId";
 
+    public static final String GOODS_CONTENT_USERID = "shopCollection.userId";
+
+    public static final String GOODS_CONTENT_SHOPID = "shopCollection.shopId";
+
 }

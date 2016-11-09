@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_popupwindow_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B0000000">
+
+    <RelativeLayout
+        android:id="@+id/rl_popupwindow_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/line_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_and_margin_x">
+
+            <TextView
+                android:id="@+id/tv_goods_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:text="￥00.00"
+                android:textColor="@color/red"
+                android:textSize="@dimen/text_size_xx" />
+
+            <TextView
+                android:id="@+id/tv_goods_stock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="@dimen/padding_and_margin"
+                android:text="库存0件"
+                android:textSize="@dimen/text_size_x" />
+
+            <TextView
+                android:id="@+id/tv_goods_integral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="@dimen/padding_and_margin"
+                android:text="可获得0积分"
+                android:textSize="@dimen/text_size_x" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_three"
+            style="@style/default_hour_view"
+            android:layout_below="@+id/line_three" />
+
+        <RelativeLayout
+            android:id="@+id/line_tow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_three"
+            android:padding="@dimen/padding_and_margin_x">
+
+            <com.alsfox.mall.view.customview.FlowLayout
+                android:id="@+id/flow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_tow"
+            style="@style/default_hour_view"
+            android:layout_below="@+id/line_tow" />
+
+
+        <LinearLayout
+            android:id="@+id/line_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/view_tow"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_and_margin_x">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="更改数量"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_x" />
+
+            <com.alsfox.mall.view.customview.CountEditText
+                android:id="@+id/count_edit_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_and_margin_x" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_one"
+            style="@style/default_hour_view"
+            android:layout_below="@+id/line_one" />
+
+        <Button
+            android:id="@+id/btn_goods_commit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_title_height"
+            android:layout_below="@+id/view_one"
+            android:layout_marginTop="@dimen/padding_and_margin_xx"
+            android:background="@drawable/selector_btn_commodity_detail_buy"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_xx" />
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_goods_icon"
+        android:layout_width="@dimen/searth_image_height"
+        android:layout_height="@dimen/searth_image_height"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="@dimen/padding_and_margin_x" />
+
+</FrameLayout>

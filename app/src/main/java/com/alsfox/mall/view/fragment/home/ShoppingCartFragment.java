@@ -8,6 +8,7 @@ import com.alsfox.mall.adapter.BaseViewHolder;
 import com.alsfox.mall.bean.shoppingcart.ShoppingCartBean;
 import com.alsfox.mall.presenter.home.ShoppingCartPresenter;
 import com.alsfox.mall.view.activity.base.BaseViewPagerActivity;
+import com.alsfox.mall.view.activity.index.HomeActivity;
 import com.alsfox.mall.view.baseview.MyTitleView;
 import com.alsfox.mall.view.fragment.base.BaseListFragment;
 import com.alsfox.mall.view.interfaces.home.IShoppingCartvView;
@@ -20,6 +21,14 @@ import java.util.List;
  */
 
 public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter> implements IShoppingCartvView {
+
+    public static final String KEY_SHOPPING_CART_TYPE = "shopping_cart_type";
+
+    public static final int SHOPPING_CART_BY_ACTIVITY = 1000;
+
+    public static final int SHOPPING_CART_BY_FRAGMENT = 1001;
+
+    private int shopCartType;
 
     private List<ShoppingCartBean> shoppingCartBeens;
 
@@ -51,8 +60,14 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     @Override
     protected void initView(View parentView) {
         super.initView(parentView);
-        mTitleView.setTitleMode(MyTitleView.TitleMode.NO_BACK_NORMAL);
         mTitleView.setTitleText(getResources().getString(R.string.str_shopping_cart));
+        shopCartType = getInt(KEY_SHOPPING_CART_TYPE, SHOPPING_CART_BY_FRAGMENT);
+        if (shopCartType == SHOPPING_CART_BY_ACTIVITY) {
+            mTitleView.setTitleMode(MyTitleView.TitleMode.NORMAL);
+            initData();
+        } else {
+            mTitleView.setTitleMode(MyTitleView.TitleMode.NO_BACK_NORMAL);
+        }
     }
 
     @Override
@@ -81,7 +96,12 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
             showErrorBtnLoading(getResources().getString(R.string.str_shoping_card_empty), getResources().getString(R.string.str_guangguang), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseViewPagerActivity) getActivity()).setPageNumber(0);
+                    if (shopCartType == SHOPPING_CART_BY_ACTIVITY) {
+                        startActivity(HomeActivity.class);
+                    } else {
+                        ((BaseViewPagerActivity) getActivity()).setPageNumber(0);
+                    }
+
                 }
             });
         } else {

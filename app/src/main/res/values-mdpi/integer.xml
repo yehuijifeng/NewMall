@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="searth_text_size" type="integer">14</item>
+    <item name="goods_spec_text_size" type="integer">13</item>
+</resources>

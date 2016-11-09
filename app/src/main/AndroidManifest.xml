@@ -90,7 +90,7 @@
 
         <activity
             android:name=".view.activity.index.HomeActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:theme="@style/AppThemeForRedMain" />
 
         <activity
@@ -113,6 +113,15 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".view.activity.goods.GoodsListActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.goods.GoodsContentActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.shoppingcart.ShoppingCartActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.goods.LookImageActivity"
             android:launchMode="singleTop" />
     </application>
 

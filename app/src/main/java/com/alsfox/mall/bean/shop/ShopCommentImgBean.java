@@ -28,7 +28,7 @@ public class ShopCommentImgBean {
     }
 
     public String getImgUrl() {
-        return RequestUrls.ROOT_URL + imgUrl;
+        return RequestUrls.IP + imgUrl;
     }
 
     public void setImgUrl(String imgUrl) {

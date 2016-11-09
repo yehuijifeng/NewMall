@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -294,7 +295,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
         loadingView.setErrorClickListener(onClickListener);
     }
 
-    /**显示错误信息，并且显示按钮
+    /**
+     * 显示错误信息，并且显示按钮
+     *
      * @param errorStr
      * @param btnStr
      * @param btnclick
@@ -325,7 +328,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
         });
     }
 
-    /**显示错误按钮+信息
+    /**
+     * 显示错误按钮+信息
+     *
      * @param str
      * @param btnStr
      * @param onClickListener
@@ -348,6 +353,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
     protected void closeLoading() {
         if (loadingView == null) return;
         loadingView.closeLoadingView();
+    }
+
+    /**
+     * 获取屏幕尺寸的对象
+     *
+     * @return
+     */
+    protected DisplayMetrics getDisplayMerics() {
+        if (baseHelper != null)
+            return baseHelper.outMetrics;
+        return null;
     }
 
     /**

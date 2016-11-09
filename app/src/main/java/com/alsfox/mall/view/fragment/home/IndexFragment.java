@@ -30,6 +30,7 @@ import com.alsfox.mall.model.home.IndexModel;
 import com.alsfox.mall.presenter.home.IndexPresenter;
 import com.alsfox.mall.utils.DisplayUtils;
 import com.alsfox.mall.utils.TimeThreadUtil;
+import com.alsfox.mall.view.activity.goods.GoodsContentActivity;
 import com.alsfox.mall.view.activity.goods.GoodsListActivity;
 import com.alsfox.mall.view.activity.searth.SearthActivity;
 import com.alsfox.mall.view.customview.SearchTitleView;
@@ -605,9 +606,8 @@ public class IndexFragment extends BaseListFragment<IndexPresenter> implements I
         Intent intent = null;
         switch (type) {
             case 0://商品信息
-                bundle.putInt(MallConstant.SHOPINFO_SHOPID, fkId);
-                //intent = new Intent(getActivity(), CommodityDetailActivity.class);
-                showShortToast("商品信息");
+                bundle.putInt(MallConstant.GOODSID, fkId);
+                intent = new Intent(getActivity(), GoodsContentActivity.class);
                 break;
             case 1://商品分类
                 bundle.putInt(MallConstant.SHOPINFO_TYPEID, fkId);

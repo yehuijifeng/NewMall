@@ -1,5 +1,8 @@
 package com.alsfox.mall.bean.shoppingcart;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -8,7 +11,7 @@ import com.j256.ormlite.table.DatabaseTable;
  * 购物车
  */
 @DatabaseTable
-public class ShoppingCartBean {
+public class ShoppingCartBean implements Parcelable{
 
     @DatabaseField(generatedId = true)
     private int shoppingCartId;//数据库用id,自增长
@@ -43,9 +46,18 @@ public class ShoppingCartBean {
     private int merchantId;//商品属于的商店id
     @DatabaseField()
     private String merchant;//商品属于的商店名称
-
+    @DatabaseField()
+    private int shopTypeId;//商品属于的类型，-2属于报销商品
     @DatabaseField(foreign = true, columnName = "dianpuid")
     private CartMerchantBean merchantBean;//数据库外间，不做数据考虑
+
+    public int getShopType() {
+        return shopTypeId;
+    }
+
+    public void setShopType(int shopType) {
+        this.shopTypeId = shopType;
+    }
 
     public int getShoppingCartId() {
         return shoppingCartId;
@@ -174,4 +186,64 @@ public class ShoppingCartBean {
     public void setMerchant(String merchant) {
         this.merchant = merchant;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.shoppingCartId);
+        dest.writeInt(this.shopId);
+        dest.writeInt(this.userId);
+        dest.writeString(this.shopIcon);
+        dest.writeString(this.shopName);
+        dest.writeString(this.specName);
+        dest.writeInt(this.isSpec);
+        dest.writeInt(this.specId);
+        dest.writeInt(this.shopNum);
+        dest.writeDouble(this.price);
+        dest.writeDouble(this.diKouPrice);
+        dest.writeInt(this.shopStock);
+        dest.writeByte(isChecked ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.isTimeout);
+        dest.writeInt(this.merchantId);
+        dest.writeString(this.merchant);
+        dest.writeParcelable(this.merchantBean, flags);
+    }
+
+    public ShoppingCartBean() {
+    }
+
+    private ShoppingCartBean(Parcel in) {
+        this.shoppingCartId = in.readInt();
+        this.shopId = in.readInt();
+        this.userId = in.readInt();
+        this.shopIcon = in.readString();
+        this.shopName = in.readString();
+        this.specName = in.readString();
+        this.isSpec = in.readInt();
+        this.specId = in.readInt();
+        this.shopNum = in.readInt();
+        this.price = in.readDouble();
+        this.diKouPrice = in.readDouble();
+        this.shopStock = in.readInt();
+        this.isChecked = in.readByte() != 0;
+        this.isTimeout = in.readInt();
+        this.merchantId = in.readInt();
+        this.merchant = in.readString();
+        this.merchantBean = in.readParcelable(CartMerchantBean.class.getClassLoader());
+    }
+
+    public static final Creator<ShoppingCartBean> CREATOR = new Creator<ShoppingCartBean>() {
+        public ShoppingCartBean createFromParcel(Parcel source) {
+            return new ShoppingCartBean(source);
+        }
+
+        public ShoppingCartBean[] newArray(int size) {
+            return new ShoppingCartBean[size];
+        }
+    };
 }

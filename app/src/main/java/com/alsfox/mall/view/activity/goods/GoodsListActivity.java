@@ -1,6 +1,7 @@
 package com.alsfox.mall.view.activity.goods;
 
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -227,7 +228,9 @@ public class GoodsListActivity extends BaseListActivity<GoodsListPresenter> impl
      * @param shopId
      */
     private void getGoodsData(int shopId) {
-        //
+        Bundle bundle = new Bundle();
+        bundle.putInt(MallConstant.GOODSID, shopId);
+        startActivity(GoodsContentActivity.class, bundle);
     }
 
     @Override

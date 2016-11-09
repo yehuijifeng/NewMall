@@ -5,10 +5,10 @@
     <item>
         <selector>
             <item android:state_enabled="false">
-                <color android:color="@color/dark_gray"/>
+                <color android:color="@color/mall_red"/>
             </item>
             <item>
-                <color android:color="@color/mall_red"/>
+                <color android:color="@color/mall_main"/>
             </item>
         </selector>
     </item>
