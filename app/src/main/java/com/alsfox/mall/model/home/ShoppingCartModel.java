@@ -26,7 +26,9 @@ public class ShoppingCartModel extends BaseModel {
     public int deleteShoppingCart(int shopId) {
         return shoppingCartDao.delete(shopId);
     }
-
+    public int deleteShoppingCart(ShoppingCartBean shoppingCartBean) {
+        return shoppingCartDao.delete(shoppingCartBean);
+    }
     public int updateShoppingCart(ShoppingCartBean shoppingCartBean) {
         return shoppingCartDao.update(shoppingCartBean);
     }

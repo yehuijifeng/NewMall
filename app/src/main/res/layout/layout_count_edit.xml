@@ -22,11 +22,11 @@
         android:layout_gravity="center_vertical"
         android:background="@null"
         android:digits="0123456789"
-        android:gravity="center_vertical|left"
+        android:gravity="center"
         android:inputType="number"
-        android:minEms="1"
+        android:minEms="2"
         android:padding="@dimen/padding_and_margin_x"
-        android:text="0" />
+        android:text="1" />
 
     <com.alsfox.mall.view.customview.tow_d_view.AddView
         android:id="@+id/add_view"

@@ -79,5 +79,12 @@
 
     <dimen name="count_edit_view_height">0.5dp</dimen>
 
-    <dimen name="count_edit_text_height">40dp</dimen>
+    <dimen name="count_edit_text_height">30dp</dimen>
+    <dimen name="count_edit_text_by_window_height">40dp</dimen>
+
+    <dimen name="image_width_small">30dp</dimen>
+
+    <dimen name="image_width_xxlarge">84dp</dimen>
+    <dimen name="image_height_xxlarge">84dp</dimen>
+
 </resources>

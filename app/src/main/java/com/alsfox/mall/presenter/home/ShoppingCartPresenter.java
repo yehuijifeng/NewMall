@@ -29,7 +29,9 @@ public class ShoppingCartPresenter extends BasePresenter<IShoppingCartvView,Shop
     public void deleteShoppingCart(int shopId) {
         mView.deleteShoppingCart(mModel.deleteShoppingCart(shopId));
     }
-
+    public void deleteShoppingCart(ShoppingCartBean shopId) {
+        mView.deleteShoppingCart(mModel.deleteShoppingCart(shopId));
+    }
     public void updateShoppingCart(ShoppingCartBean shoppingCartBean) {
         mView.updateShoppingCart(mModel.updateShoppingCart(shoppingCartBean));
     }

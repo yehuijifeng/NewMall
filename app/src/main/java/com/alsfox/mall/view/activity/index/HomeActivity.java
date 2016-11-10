@@ -1,11 +1,13 @@
 package com.alsfox.mall.view.activity.index;
 
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alsfox.mall.R;
+import com.alsfox.mall.appliaction.ActivityCollector;
 import com.alsfox.mall.presenter.base.BasePresenter;
 import com.alsfox.mall.view.activity.base.BaseViewPagerActivity;
 import com.alsfox.mall.view.fragment.home.ClassifyFragment;
@@ -75,5 +77,25 @@ public class HomeActivity extends BaseViewPagerActivity {
                 break;
         }
         return view;
+    }
+
+    private long exitTime = 0;
+
+    /**
+     * @see android.support.v4.app.FragmentActivity#onKeyDown(int, android.view.KeyEvent)
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                showShortToast("再按一次退出应用");
+                exitTime = System.currentTimeMillis();
+            } else {
+                ActivityCollector.finishAll();
+                System.exit(0);
+            }
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

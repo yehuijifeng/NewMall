@@ -30,7 +30,7 @@ import com.alsfox.mall.utils.DisplayUtils;
 import com.alsfox.mall.utils.SpecUtils;
 import com.alsfox.mall.view.activity.shoppingcart.ShoppingCartActivity;
 import com.alsfox.mall.view.activity.user.UserLoginActivity;
-import com.alsfox.mall.view.customview.CountEditText;
+import com.alsfox.mall.view.customview.CountEditByWindowText;
 import com.alsfox.mall.view.customview.FlowLayout;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -59,7 +59,7 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
     private TextView tv_goods_stock;//库存
     private TextView tv_goods_integral;//可获得积分
     private FlowLayout flow_layout;//规格最外层view
-    private CountEditText count_edit_view;//数量的加减
+    private CountEditByWindowText count_edit_view;//数量的加减
     private Button btn_goods_commit;//确定
     private ImageView iv_goods_icon;//商品图片
 
@@ -79,7 +79,7 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
         tv_goods_stock = (TextView) popView.findViewById(R.id.tv_goods_stock);
         tv_goods_integral = (TextView) popView.findViewById(R.id.tv_goods_integral);
         flow_layout = (FlowLayout) popView.findViewById(R.id.flow_layout);
-        count_edit_view = (CountEditText) popView.findViewById(R.id.count_edit_view);
+        count_edit_view = (CountEditByWindowText) popView.findViewById(R.id.count_edit_view);
         count_edit_view.setEditContentLengh(2);
         btn_goods_commit = (Button) popView.findViewById(R.id.btn_goods_commit);
         iv_goods_icon = (ImageView) popView.findViewById(R.id.iv_goods_icon);
@@ -91,7 +91,7 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
 
 
     private void initSpec() {
-        count_edit_view.setOnChangeEditText(new CountEditText.OnChangeEditText() {
+        count_edit_view.setOnChangeEditText(new CountEditByWindowText.OnChangeEditText() {
             @Override
             public void onChangeEdit(int count) {
 //                    if (count >= shopInfo.getTodayBuyMaxMun())
@@ -185,6 +185,7 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
                 tv_goods_integral.setText(SpecUtils.getIntegralInterval(shopSpecBean));
                 tv_goods_stock.setText("库存" + shopSpecBean.getSpecNum());
                 count_edit_view.setMaxCount(shopSpecBean.getSpecNum());
+                currentShopSpec = shopSpecBean;
             }
             flow_layout.addView(specItemText);
             flow_layout.setHorizontalSpacing(padding);
@@ -230,7 +231,6 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
                 iv_goods_icon.setLayoutParams(params);
             }
         }, 10);
-        count_edit_view.setEditViewHeight(DisplayUtils.dip2px(context, 100));
     }
 
     public void showAtLocation(View parent, int gravity, int x, int y, int action) {
@@ -296,8 +296,10 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
             shoppingCart.setUserId(MallAppliaction.getInstance().userBean.getUserId());
         }
         shoppingCart.setShopType(shopInfo.getTypeId());
-        shoppingCart.setMerchant(shopInfo.getDianpuInfo().getDianpuName());
-        shoppingCart.setMerchantId(shopInfo.getDianpuInfo().getDianpuId());
+        if (shopInfo.getDianpuInfo() != null) {
+            shoppingCart.setMerchant(shopInfo.getDianpuInfo().getDianpuName());
+            shoppingCart.setMerchantId(shopInfo.getDianpuInfo().getDianpuId());
+        }
         shoppingCart.setShopId(shopInfo.getShopId());
         shoppingCart.setShopIcon(shopInfo.getShopIcon());
         shoppingCart.setShopNum(count_edit_view.getCount());

@@ -213,6 +213,7 @@ public class LoadingActivity extends BaseActivity<AppPresenter> implements IAppV
         super.onDestroy();
         if (presenter != null && isDefaultRxBus()) {
             presenter.onPause();
+            presenter=null;
         }
     }
 }

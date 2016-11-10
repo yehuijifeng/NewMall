@@ -94,7 +94,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_x" />
 
-            <com.alsfox.mall.view.customview.CountEditText
+            <com.alsfox.mall.view.customview.CountEditByWindowText
                 android:id="@+id/count_edit_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

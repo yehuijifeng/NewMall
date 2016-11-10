@@ -25,7 +25,7 @@ public class CountEditText extends LinearLayout implements View.OnClickListener,
     private RemoveView remove_view;
     private EditText count_edit;
     private int maxCount = Integer.MAX_VALUE;//最大范围
-    private int count;//当前数值
+    private int count = 1;//当前数值
 
     public int getCount() {
         return count;
@@ -33,6 +33,7 @@ public class CountEditText extends LinearLayout implements View.OnClickListener,
 
     public void setCount(int count) {
         this.count = count;
+        count_edit.setText(count + "");
     }
 
     private OnChangeEditText onChangeEditText;
@@ -56,19 +57,14 @@ public class CountEditText extends LinearLayout implements View.OnClickListener,
      * @param bl
      */
     public void setInputBoxEnable(boolean bl) {
-        if (bl)
+        if (bl) {
             maxCount = 0;
+            count_edit.setText(0 + "");
+        }
     }
 
-    /**
-     * 设置加减号大小
-     */
-    public void setEditViewHeight(int height) {
-        add_view.setWidth(height);
-        remove_view.setWidth(height);
-    }
 
-    public void setEditContentLengh(int i){
+    public void setEditContentLengh(int i) {
         count_edit.setMinEms(i);
     }
 
@@ -111,7 +107,7 @@ public class CountEditText extends LinearLayout implements View.OnClickListener,
                 count--;
                 break;
         }
-        if (count < 0) count = 0;
+        if (count < 1) count = 1;
         count_edit.setText(count + "");
     }
 
@@ -157,9 +153,12 @@ public class CountEditText extends LinearLayout implements View.OnClickListener,
     @Override
     public void afterTextChanged(Editable s) {
         String countStr = count_edit.getText().toString();
-        if (TextUtils.isEmpty(countStr)) countStr = 1 + "";
+        if (TextUtils.isEmpty(countStr)) {
+            countStr = 1 + "";
+            count_edit.setText(countStr);
+        }
         count = Integer.parseInt(countStr);
-        if (count < 0) count = 0;
+        if (count < 1) count = 1;
         if (count > maxCount) count = maxCount;
         if (getOnChangeEditText() != null)
             getOnChangeEditText().onChangeEdit(count);
