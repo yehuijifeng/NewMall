@@ -116,19 +116,21 @@ public class RetrofitManage {
      * @return
      */
     public Subscription sendRequest(final RequestAction requesteAction) {
+        requesteAction.params.getParams().put(SignUtils.KEY_TIMESTAMP, System.currentTimeMillis());
+        requesteAction.params.getParams().put(SignUtils.KEY_SIGN, SignUtils.getSign(requesteAction.params.getParams()));
+
+        for (Map.Entry entry : requesteAction.params.getParams().entrySet()) {
+            String key = entry.getKey().toString();
+            Object value = entry.getValue();
+            if (value instanceof String) {
+                value = SignUtils.getKeyParams(value.toString());
+                requesteAction.params.getParams().put(key, value);
+            }
+            LogUtils.i("key=" + key + " ==> value=" + value + "\n");
+        }
+
         //预备发送请求，将参数生成Observable
         requesteAction.getRequest();
-        requesteAction.params.getParams().put(SignUtils.KEY_SIGN, SignUtils.getSign(requesteAction.params.getParams()));
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (Map.Entry entry : requesteAction.params.getParams().entrySet()) {
-                    String key = entry.getKey().toString();
-                    String value = entry.getValue().toString();
-                    LogUtils.i("key=" + key + " ==> value=" + value + "\n");
-                }
-            }
-        }).start();
         return requesteAction.observable
                 .subscribeOn(Schedulers.newThread())//网络请求必须在子线程中进行
                 .observeOn(Schedulers.newThread())

@@ -3,6 +3,8 @@
  */
 package com.alsfox.mall.utils;
 
+import com.alsfox.mall.http.SignUtils;
+
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 
@@ -14,7 +16,7 @@ public class MD5Util {
     public static String MD5(String sourceStr) {
         String s = null;
         try {
-            sourceStr = sourceStr.replace("+", "%2B").replace(" ", "%20");
+            sourceStr = SignUtils.getKeyParams(sourceStr);
             sourceStr = URLEncoder.encode(sourceStr, "utf-8").replace("*", "%2A");
             sourceStr = new String(sourceStr.getBytes("ISO-8859-1"), "UTF-8");
             byte[] source = sourceStr.getBytes();

@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ import com.alsfox.mall.bean.shoppingcart.ShoppingCartBean;
 import com.alsfox.mall.db.shoppingcart.ShoppingCartDao;
 import com.alsfox.mall.utils.DisplayUtils;
 import com.alsfox.mall.utils.SpecUtils;
-import com.alsfox.mall.view.activity.shoppingcart.ShoppingCartActivity;
+import com.alsfox.mall.view.activity.order.OrderConfirmActivity;
 import com.alsfox.mall.view.activity.user.UserLoginActivity;
 import com.alsfox.mall.view.customview.CountEditByWindowText;
 import com.alsfox.mall.view.customview.FlowLayout;
@@ -246,7 +245,6 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
      */
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.fl_popupwindow_root:
                 dismiss();
@@ -277,11 +275,12 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
      */
     private ShoppingCartBean newShoppingCart() {
         ShoppingCartBean shoppingCart = new ShoppingCartBean();
-        if (shopSpecs != null && shopSpecs.size() > 0 && shopInfo.getIsGuige() == 0) {
+        if (currentShopSpec != null && shopSpecs.size() > 0 && shopInfo.getIsGuige() == 0) {
             shoppingCart.setSpecId(currentShopSpec.getSpecId());
             shoppingCart.setIsSpec(0);
             shoppingCart.setDiKouPrice(currentShopSpec.getDikouPrice());
             shoppingCart.setShopStock(currentShopSpec.getSpecNum());
+            shoppingCart.setSpecName(currentShopSpec.getSpecName());
             if (shopInfo.getTypeId() != -2)//报销商品
                 shoppingCart.setPrice(currentShopSpec.getSpecPrice());
             else
@@ -300,6 +299,7 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
             shoppingCart.setMerchant(shopInfo.getDianpuInfo().getDianpuName());
             shoppingCart.setMerchantId(shopInfo.getDianpuInfo().getDianpuId());
         }
+        shoppingCart.setIsTimeout(shopInfo.getIsTimeout());
         shoppingCart.setShopId(shopInfo.getShopId());
         shoppingCart.setShopIcon(shopInfo.getShopIcon());
         shoppingCart.setShopNum(count_edit_view.getCount());
@@ -313,16 +313,19 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
         if (i < 1) {
             Toast.makeText(context, "商品添加购物车失败！", Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (MallAppliaction.getInstance().APP_TYPE != MallAppliaction.getInstance().APP_MALL_CAN) {
-            Toast.makeText(context, "商品已添加到购物车", Toast.LENGTH_SHORT).show();
-            //ShowShoppingNumberUtil.showNumber();
         } else {
-            Intent intent = new Intent(ACTION_SHOPPING_BACK_PARCELABLE);
-            intent.putExtra("newShoppingCart", newShoppingCart());
-            LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context);
-            localBroadcastManager.sendBroadcast(intent);
+            Toast.makeText(context, "商品已添加购物车！", Toast.LENGTH_SHORT).show();
+            return;
         }
+//        if (MallAppliaction.getInstance().APP_TYPE != MallAppliaction.getInstance().APP_MALL_CAN) {
+//            Toast.makeText(context, "商品已添加到购物车", Toast.LENGTH_SHORT).show();
+//            //ShowShoppingNumberUtil.showNumber();
+//        } else {
+//            Intent intent = new Intent(ACTION_SHOPPING_BACK_PARCELABLE);
+//            intent.putExtra("newShoppingCart", newShoppingCart());
+//            LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context);
+//            localBroadcastManager.sendBroadcast(intent);
+//        }
 
     }
 
@@ -333,10 +336,8 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
         ArrayList<ShoppingCartBean> shoppingCarts = new ArrayList<>();
         shoppingCarts.add(shoppingCart);
         Bundle bundle = new Bundle();
-        bundle.putInt("OrderByIsBaoxiao", shopInfo.getTypeId());
-        bundle.putInt("OrderByIsTimeOut", shopInfo.getIsTimeout());
-        bundle.putParcelableArrayList("shoppingCarts", shoppingCarts);
-        Intent intent = new Intent(context, ShoppingCartActivity.class);
+        bundle.putParcelableArrayList(OrderConfirmActivity.SHOPPING_CART_CONTENT, shoppingCarts);
+        Intent intent = new Intent(context, OrderConfirmActivity.class);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
@@ -368,7 +369,6 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
                 count_edit_view.setCount(1);
             }
             if (specNum < 1) {
-
                 btn_goods_commit.setEnabled(false);
                 btn_goods_commit.setText("库存不足");
             } else {

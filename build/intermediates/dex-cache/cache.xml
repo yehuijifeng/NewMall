@@ -102,12 +102,30 @@
     </item>
     <item
         is-multidex="false"
+        jar="E:\GitHub\NewMall\app\build\intermediates\exploded-aar\com.bigkoo\pickerview\1.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="084f34529bdb1086e83ffff498065fb4c4ec7047">
+        <dex dex="E:\GitHub\NewMall\app\build\intermediates\pre-dexed\debug\com.bigkoo-pickerview-1.0.0_5c2d64da197d06a56b4015e4b7bc5c7919187b7f.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="E:\GitHub\NewMall\app\build\intermediates\exploded-aar\NewMall\umeng\unspecified\jars\libs\SocialSDK_Sina.jar"
         jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="c8dee537d8eb483145da9e62cdbd069c03b94fec">
         <dex dex="E:\GitHub\NewMall\app\build\intermediates\pre-dexed\debug\SocialSDK_Sina_680e2ce00fded09ddb4e55857babc2bfcece8ecd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\GitHub\NewMall\app\build\intermediates\exploded-aar\NewMall\umeng\unspecified\jars\libs\SocialSDK_tencentWB_3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b029f9e54d8639614528d0c55ca403f4431d7515">
+        <dex dex="E:\GitHub\NewMall\app\build\intermediates\pre-dexed\debug\SocialSDK_tencentWB_3_39d206fd8167c94b0d19e8594d4000c273eb8945.jar" />
     </item>
     <item
         is-multidex="false"
@@ -120,12 +138,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="E:\GitHub\NewMall\app\build\intermediates\exploded-aar\NewMall\umeng\unspecified\jars\libs\SocialSDK_tencentWB_3.jar"
+        jar="E:\GitHub\NewMall\app\src\main\jniLibs\jg_filter_sdk_1.1.jar"
         jumboMode="false"
         optimize="true"
         revision="24.0.3"
-        sha1="b029f9e54d8639614528d0c55ca403f4431d7515">
-        <dex dex="E:\GitHub\NewMall\app\build\intermediates\pre-dexed\debug\SocialSDK_tencentWB_3_39d206fd8167c94b0d19e8594d4000c273eb8945.jar" />
+        sha1="ebfc3cde0309ff27e9568757784eefefc71407a2">
+        <dex dex="E:\GitHub\NewMall\app\build\intermediates\pre-dexed\debug\jg_filter_sdk_1.1_eed02220c3cd32720bfa6e95b29b52143339a9b4.jar" />
     </item>
     <item
         is-multidex="false"
@@ -291,6 +309,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="E:\GitHub\NewMall\app\src\main\jniLibs\wup-1.0.0.E-SNAPSHOT.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d5a0917f8418b3726f89ae120182dfb6b884740d">
+        <dex dex="E:\GitHub\NewMall\app\build\intermediates\pre-dexed\debug\wup-1.0.0.E-SNAPSHOT_c4542ed1f4466434b0b17a5637affe7f19c6ed6c.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="E:\GitHub\NewMall\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
         jumboMode="false"
         optimize="true"
@@ -342,6 +369,15 @@
         revision="24.0.3"
         sha1="0bb25d0e3e4015045501a5d90a2a72d39bcb000d">
         <dex dex="E:\GitHub\NewMall\app\build\intermediates\pre-dexed\debug\SocialSDK_WeiXin_2_b333d23e67fa00e76296cdc47bb6c0ba55545f6c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\GitHub\NewMall\app\src\main\jniLibs\Xg_sdk_v2.47_20161026_0936.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="bf805014c23dd47a70909310a7fc3acdfab4ac1b">
+        <dex dex="E:\GitHub\NewMall\app\build\intermediates\pre-dexed\debug\Xg_sdk_v2.47_20161026_0936_2b2fe58cd54dd4a84ca2ad549b632c7c59ea5ebf.jar" />
     </item>
     <item
         is-multidex="false"

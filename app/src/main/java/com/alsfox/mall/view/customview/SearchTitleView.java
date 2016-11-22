@@ -33,7 +33,6 @@ public class SearchTitleView extends LinearLayout {
         super(context, attrs, defStyleAttr);
         initView();
     }
-
     private void initView() {
         root = LayoutInflater.from(getContext()).inflate(R.layout.layout_serach_title, this);
         search_ly = (LinearLayout) root.findViewById(R.id.search_ly);

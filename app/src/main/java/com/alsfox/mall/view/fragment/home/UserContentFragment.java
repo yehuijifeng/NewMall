@@ -19,6 +19,7 @@ import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.home.UserContentPresenter;
+import com.alsfox.mall.view.activity.index.HomeActivity;
 import com.alsfox.mall.view.activity.user.UserInfoActivity;
 import com.alsfox.mall.view.activity.user.UserLoginActivity;
 import com.alsfox.mall.view.activity.user.UserRegisterActivity;
@@ -172,6 +173,7 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
                 .subscribe(new Action1<UserBean>() {
                     @Override
                     public void call(UserBean userBean) {
+                        ((HomeActivity) getActivity()).getXG();
                         showUserInfoView(userBean);
                     }
                 });

@@ -201,7 +201,7 @@ public class GoodsContentActivity extends BaseActivity<GoodsContentPresenter> im
             if (isFirstLoad) {
                 Map<String, Object> parameters = SignUtils.getParameters();
                 parameters.put(MallConstant.SHOPINFO_SHOPID, goodsId);
-                goods_content_web.loadUrl(RequestUrls.GET_COMMODITY_IMG_AND_TEXT_URL + SignUtils.createGetParams(parameters));
+                goods_content_web.loadUrl(RequestUrls.GET_COMMODITY_IMG_AND_TEXT_URL + SignUtils.getParams(parameters));
                 isFirstLoad = false;
             }
             goods_content_to_top_img.setVisibility(View.VISIBLE);

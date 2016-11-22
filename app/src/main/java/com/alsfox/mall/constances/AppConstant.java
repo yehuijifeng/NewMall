@@ -31,7 +31,7 @@ public class AppConstant {
     /**
      * 日志标识
      */
-    public static final String TAG = "mall";
+    public static final String TAG = "json";
 
     /**
      * app图片缓存路径

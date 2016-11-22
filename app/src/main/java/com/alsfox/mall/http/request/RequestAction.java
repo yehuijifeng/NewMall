@@ -144,8 +144,37 @@ public enum RequestAction {
         }
     },
 
+    //注册信鸽
+    GET_IS_LOGOUT(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getIsLoginOut(params.getParams());
+        }
+    },
 
-    ;
+    //获取确认订单信息
+    GET_ORDER_CONFIRM_INFO(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getOrderConfirm(params.getParams());
+        }
+    },
+
+    //获取服务器时间
+    GET_SERVER_TIME(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getServiceTime(params.getParams());
+        }
+    },
+
+    //获取用户优惠券张数
+    GET_USER_COUPONS(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserCoupons(params.getParams());
+        }
+    },;
     public Call<ResponseBody> call;//下载文件专用，okhttp类型的回调
     public Observable observable;//普通网络请求使用，网络请求的操作实例
     public RequestParams params;//请求参数实例

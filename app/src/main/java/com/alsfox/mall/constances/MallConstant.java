@@ -27,7 +27,15 @@ public class MallConstant {
     public static final String GOODSID = "goodsId";
 
     public static final String GOODS_CONTENT_USERID = "shopCollection.userId";
-
     public static final String GOODS_CONTENT_SHOPID = "shopCollection.shopId";
 
+    public static final String PARAM_KEY_ORDER_CONFIRM_JSON = "confirmShopParmJson";
+
+    public static final String PARAM_KEY_COUPONS_RECORD_INFO_USER_ID = "couponsRecordInfo.userId";
+    public static final String PARAM_KEY_COUPONS_RECORD_INFO_COUPONS_ID = "couponsRecordInfo.couponsId";
+    public static final String PARAM_KEY_COUPONS_RECORD_INFO_TOTAL_PRICE = "couponsRecordInfo.totalPrice";
+
+    public static final String BUNDLE_KEY_COUPONS_ACTION = "coupons_action";
+    public static final String BUNDLE_KEY_ORDER_TOTAL = "order_total";
+    public static final int ACTION_COUPONS_LIST_GET = 1;
 }

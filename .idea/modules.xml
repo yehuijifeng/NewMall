@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/skin/skin.iml" filepath="$PROJECT_DIR$/skin/skin.iml" />
       <module fileurl="file://$PROJECT_DIR$/take-turns-view/take-turns-view.iml" filepath="$PROJECT_DIR$/take-turns-view/take-turns-view.iml" />
       <module fileurl="file://$PROJECT_DIR$/umeng/umeng.iml" filepath="$PROJECT_DIR$/umeng/umeng.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xinge/xinge.iml" filepath="$PROJECT_DIR$/xinge/xinge.iml" />
     </modules>
   </component>
 </project>

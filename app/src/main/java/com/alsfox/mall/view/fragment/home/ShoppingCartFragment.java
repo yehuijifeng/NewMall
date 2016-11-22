@@ -41,6 +41,11 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     private PromptDialog promptDialog;
 
     @Override
+    protected boolean isLoadMore() {
+        return false;
+    }
+
+    @Override
     protected ShoppingCartPresenter initPresenter() {
         return new ShoppingCartPresenter(this);
     }
@@ -167,6 +172,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         } else {
             closeLoading();
             this.shoppingCartBeens = shoppingCartBeenList;
+            clearAll();
             addAll(shoppingCartBeens);
             notifyDataChange();
         }
@@ -176,7 +182,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     public void deleteShoppingCart(int i) {
         if (i > 0)
             presenter.queryShoppingCart();
-
     }
 
     @Override

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/mall_white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_min_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_and_margin_xx"
+        android:background="@color/white"
+        android:padding="@dimen/padding_and_margin_xx">
+
+        <TextView
+            android:id="@+id/tv_min_money"
+            style="@style/tv_commodity_name"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="活动名称" />
+
+        <TextView
+            android:id="@+id/tv_add_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/tv_min_money"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/tv_min_money"
+            android:layout_below="@+id/tv_min_money"
+            android:gravity="center"
+            android:text="满0元，减0元"
+            android:textColor="@color/mall_main" />
+
+
+    </RelativeLayout>
+
+    <View style="@style/default_hour_view" />
+
+    <RelativeLayout
+        android:id="@+id/rl_add_youfei"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/padding_and_margin_xx">
+
+        <TextView
+            android:id="@+id/tv_name_youfei"
+            style="@style/tv_commodity_name"
+            android:layout_centerVertical="true"
+            android:text="邮费           " />
+
+        <TextView
+            android:id="@+id/tv_add_youfei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_and_margin_x"
+            android:layout_toRightOf="@+id/tv_name_youfei"
+            android:padding="@dimen/padding_and_margin"
+            android:text="未满0元加0元邮费"
+            android:textColor="@color/mall_main" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_order_over_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_and_margin_xx"
+        android:background="@drawable/bg_default_btn"
+        android:padding="@dimen/padding_and_margin_xx">
+
+        <TextView
+            android:id="@+id/tv_lab_receive_time"
+            style="@style/tv_commodity_name"
+            android:layout_centerVertical="true"
+            android:text="收货时间   " />
+
+        <TextView
+            android:id="@+id/tv_select_order_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_and_margin_x"
+            android:layout_toRightOf="@+id/tv_lab_receive_time"
+            android:padding="@dimen/padding_and_margin"
+            android:text="选择收货时间"
+            android:textColor="@color/mall_main" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_more" />
+
+    </RelativeLayout>
+
+    <View style="@style/default_hour_view" />
+
+    <RelativeLayout
+        android:id="@+id/rl_order_select_coupons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_and_margin_xx"
+        android:background="@drawable/bg_default_btn"
+        android:padding="@dimen/padding_and_margin_xx">
+
+        <TextView
+            android:id="@+id/tv_lab_choose_coupons"
+            style="@style/tv_commodity_name"
+            android:layout_centerVertical="true"
+            android:text="选择优惠券" />
+
+        <TextView
+            android:id="@+id/tv_coupons_usable_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_and_margin_x"
+            android:layout_toRightOf="@+id/tv_lab_choose_coupons"
+            android:padding="@dimen/padding_and_margin"
+            android:singleLine="true"
+            android:text="0张可用"
+            android:textColor="@color/mall_main" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_more" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_my_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_and_margin_xx"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:padding="@dimen/padding_and_margin_xx">
+
+            <TextView
+                android:id="@+id/tv_lab_my_score"
+                style="@style/tv_commodity_name"
+                android:text="我的积分" />
+
+            <TextView
+                android:id="@+id/tv_my_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_and_margin_x"
+                android:layout_toRightOf="@+id/tv_lab_my_score"
+                android:text="0"
+                android:textColor="@color/mall_main"
+                android:textSize="@dimen/text_size_x" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_lab_max_deductible"
+                    style="@style/tv_commodity_name"
+                    android:text="最多抵扣" />
+
+                <TextView
+                    android:id="@+id/tv_deductible_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_and_margin_x"
+                    android:layout_toRightOf="@+id/tv_lab_my_score"
+                    android:text="0"
+                    android:textColor="@color/mall_main"
+                    android:textSize="@dimen/text_size_x" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_lab_score_explain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="1积分=0.01元"
+                android:textColor="@color/mall_main"
+                android:textSize="@dimen/text_size_x" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:padding="@dimen/padding_and_margin_xx">
+
+            <TextView
+                android:id="@+id/tv_lab_deductible"
+                style="@style/tv_commodity_name"
+                android:layout_centerVertical="true"
+                android:text="抵用" />
+
+            <EditText
+                android:id="@+id/et_order_confirm_score"
+                android:layout_width="@dimen/et_score_deductible_width"
+                android:layout_height="@dimen/et_score_deductible_height"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/padding_and_margin"
+                android:layout_toEndOf="@+id/tv_lab_deductible"
+                android:layout_toRightOf="@+id/tv_lab_deductible"
+                android:background="@drawable/shape_bg_score_input_box"
+                android:inputType="number"
+                android:padding="@dimen/padding_and_margin"
+                android:singleLine="true"
+                android:textSize="@dimen/text_size" />
+
+
+            <TextView
+                android:id="@+id/tv_lab_favourable"
+                style="@style/tv_commodity_name"
+                android:layout_centerInParent="true"
+                android:text="优惠" />
+
+            <TextView
+                android:id="@+id/tv_score_deductible_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tv_lab_favourable"
+                android:layout_marginLeft="@dimen/padding_and_margin"
+                android:layout_toEndOf="@+id/tv_lab_favourable"
+                android:layout_toRightOf="@+id/tv_lab_favourable"
+                android:padding="@dimen/padding_and_margin"
+                android:text="0.0"
+                android:textColor="@color/mall_main" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_order_confirm_msg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/et_score_deductible_width"
+        android:layout_margin="@dimen/padding_and_margin_xx"
+        android:background="@drawable/shape_general_input_box"
+        android:gravity="top"
+        android:hint="留言"
+        android:inputType="textMultiLine"
+        android:maxLength="100"
+        android:padding="@dimen/padding_and_margin"
+        android:textSize="@dimen/text_size_x" />
+
+</LinearLayout>

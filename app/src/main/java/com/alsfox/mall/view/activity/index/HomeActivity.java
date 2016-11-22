@@ -8,12 +8,19 @@ import android.widget.TextView;
 
 import com.alsfox.mall.R;
 import com.alsfox.mall.appliaction.ActivityCollector;
+import com.alsfox.mall.appliaction.MallAppliaction;
+import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.presenter.base.BasePresenter;
+import com.alsfox.mall.utils.LogUtils;
 import com.alsfox.mall.view.activity.base.BaseViewPagerActivity;
 import com.alsfox.mall.view.fragment.home.ClassifyFragment;
 import com.alsfox.mall.view.fragment.home.IndexFragment;
 import com.alsfox.mall.view.fragment.home.ShoppingCartFragment;
 import com.alsfox.mall.view.fragment.home.UserContentFragment;
+import com.alsfox.mall.xinge.XingeUtils;
+import com.tencent.android.tpush.XGIOperateCallback;
+
+import java.util.Map;
 
 /**
  * Created by 浩 on 2016/10/19.
@@ -21,6 +28,10 @@ import com.alsfox.mall.view.fragment.home.UserContentFragment;
  */
 
 public class HomeActivity extends BaseViewPagerActivity {
+
+    private long exitTime = 0;//计算用户点击返回键的时间
+    private boolean isXGRegister, isRunXG;//信鸽是否注册，信鸽是否已经在运行过程中
+    private int runXGNum;
 
     @Override
     protected BasePresenter initPresenter() {
@@ -45,6 +56,15 @@ public class HomeActivity extends BaseViewPagerActivity {
         mViewList.add(new ShoppingCartFragment());
         mViewList.add(new UserContentFragment());
         setPageNumber(0);
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        isXGRegister = false;
+        isRunXG = false;
+        runXGNum = 0;
+        getXG();
     }
 
     @Override
@@ -79,7 +99,45 @@ public class HomeActivity extends BaseViewPagerActivity {
         return view;
     }
 
-    private long exitTime = 0;
+    /**
+     * 去信鸽注册
+     */
+    public synchronized void getXG() {
+        if (MallAppliaction.getInstance().userBean == null || isXGRegister || isRunXG || runXGNum > 3)
+            return;
+        isRunXG = true;
+        //XingeUtils.enableDebug(this, true);
+        XingeUtils.registerPush(this, "user_" + MallAppliaction.getInstance().userBean.getUserId(), new XGIOperateCallback() {
+            @Override
+            public void onSuccess(final Object data, int arg1) {
+                LogUtils.i("注册成功，设备token为：" + data);
+                isXGRegister = true;
+                isRunXG = false;
+                getClient(data);
+            }
+
+            @Override
+            public void onFail(Object data, int errCode, String msg) {
+                LogUtils.i("注册失败，错误码：" + errCode + ",错误信息：" + msg);
+                isXGRegister = false;
+                isRunXG = false;
+                runXGNum++;
+                getXG();
+            }
+        });
+    }
+
+    /**
+     * 将信鸽的token提交到服务器
+     *
+     * @param data
+     */
+    private void getClient(Object data) {
+        Map<String, Object> params = RequestAction.GET_IS_LOGOUT.params.getParams();
+        params.put("userInfo.userId", MallAppliaction.getInstance().userBean.getUserId());
+        params.put("userInfo.signLoginMark", data);
+        sendRequest(RequestAction.GET_IS_LOGOUT);
+    }
 
     /**
      * @see android.support.v4.app.FragmentActivity#onKeyDown(int, android.view.KeyEvent)

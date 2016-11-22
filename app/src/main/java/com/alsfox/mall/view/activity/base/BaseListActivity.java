@@ -74,12 +74,13 @@ public abstract class BaseListActivity<T extends BasePresenter> extends BaseActi
     public void initView() {
         baseListView = (BaseListView) findViewById(R.id.default_list_view);
         listView = baseListView.listView;
-        if (getHeaderView() > 0) {
-            View view = inflater.inflate(getHeaderView(), null);
+        if (setHeaderView() > 0) {
+            View view = View.inflate(this, setHeaderView(), null);
             if (view != null) {
                 ViewGroup viewGroup = (ViewGroup) view.getRootView();
                 viewGroup.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
                 listView.addHeaderView(view, null, getIsHeaderViewClick());
+                getHeaderView(view);
             }
         }
         baseListAdapter = new BaseListAdapter(data, new OnAdapterStatus());
@@ -148,8 +149,14 @@ public abstract class BaseListActivity<T extends BasePresenter> extends BaseActi
     /**
      * 传入头view
      */
-    protected int getHeaderView() {
+    protected int setHeaderView() {
         return 0;
+    }
+
+    /**
+     * 传出头view
+     */
+    protected void getHeaderView(View view) {
     }
 
     /**

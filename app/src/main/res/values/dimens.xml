@@ -86,5 +86,10 @@
 
     <dimen name="image_width_xxlarge">84dp</dimen>
     <dimen name="image_height_xxlarge">84dp</dimen>
+    <!-- 抵用积分输入框宽度 -->
+    <dimen name="et_score_deductible_width">90dp</dimen>
+    <!-- 抵用积分输入框高度 -->
+    <dimen name="et_score_deductible_height">25dp</dimen>
 
+    <dimen name="bg_order_confirm_address_height">65dp</dimen>
 </resources>

@@ -56,7 +56,7 @@ public class SignUtils {
      * @param param
      * @return
      */
-    public static String createGetParams(Map<String, Object> param) {
+    public static String getParams(Map<String, Object> param) {
         Collection<String> keySet = param.keySet();
         List<String> list = new ArrayList<>(keySet);
 
@@ -72,13 +72,23 @@ public class SignUtils {
     }
 
     /**
+     * 签名过滤字符串
+     *
+     * @param str
+     * @return
+     */
+    public static String getKeyParams(String str) {
+        return str.replace("+", "%2B").replace(" ", "%20");
+    }
+
+    /**
      * 默认配置
      *
      * @return
      */
     public static Map<String, Object> getParameters() {
         Map<String, Object> params = new HashMap<>();
-        params.put(KEY_TIMESTAMP, System.currentTimeMillis());
+        //params.put(KEY_TIMESTAMP, System.currentTimeMillis());
         return params;
     }
 }

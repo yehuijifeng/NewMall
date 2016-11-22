@@ -6,6 +6,7 @@ import com.alsfox.mall.bean.app.AppVersionBean;
 import com.alsfox.mall.bean.classify.ShopTypeBean;
 import com.alsfox.mall.bean.index.IndexBean;
 import com.alsfox.mall.bean.merchant.MerchantInfoBean;
+import com.alsfox.mall.bean.order.OrderConfirmBean;
 import com.alsfox.mall.bean.order.OrderCountBean;
 import com.alsfox.mall.bean.searth.HotWordBean;
 import com.alsfox.mall.bean.shop.ShopInfoBean;
@@ -89,7 +90,7 @@ public interface ApiService {
     //更换用户头像
     @Multipart
     @POST(RequestUrls.REQUEST_MODIFY_USER_HEAD_IMG_URL)
-    Call<ResponseBody> getUpdateUserIcon(@PartMap Map<String, RequestBody> params,@QueryMap Map<String, Object> options);
+    Call<ResponseBody> getUpdateUserIcon(@PartMap Map<String, RequestBody> params, @QueryMap Map<String, Object> options);
 
     //获取注册验证码
     @POST(RequestUrls.GET_REGISTER_ID_CODE_URL)
@@ -115,4 +116,19 @@ public interface ApiService {
     @POST(RequestUrls.DEL_COMMODITY_COLLECT_URL)
     Observable<HttpBean<String>> getDeleteCollectionGoods(@QueryMap Map<String, Object> options);
 
+    //挤掉用户
+    @POST(RequestUrls.GET_IS_LOGOUT_URL)
+    Observable<HttpBean<String>> getIsLoginOut(@QueryMap Map<String, Object> options);
+
+    //获取确认订单信息
+    @POST(RequestUrls.GET_ORDER_CONFIRM_INFO_URL)
+    Observable<HttpBean<OrderConfirmBean>> getOrderConfirm(@QueryMap Map<String, Object> options);
+
+    //获取服务器时间
+    @POST(RequestUrls.GET_SERVER_CURRENT_TIME_URL)
+    Observable<HttpBean<Long>> getServiceTime(@QueryMap Map<String, Object> options);
+
+    //获取用户可用优惠券张数
+    @POST(RequestUrls.GET_COUPONS_AVAILABLE_COUNT_URL)
+    Observable<HttpBean<Integer>> getUserCoupons(@QueryMap Map<String, Object> options);
 }

@@ -549,4 +549,9 @@ public class RequestUrls {
      */
     public static final String CHANGE_USER_AUTHENTICATION_URL = ROOT_URL + "alsfoxShop/site/user/changeUserAuthenticationInfo.action";
 
+    /**
+     * 挤掉用户下线，注册信鸽
+     */
+    public static final String GET_IS_LOGOUT_URL = ROOT_URL + "alsfoxShop/site/user/isLogout.action";
+
 }

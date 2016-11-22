@@ -1,1 +1,1 @@
-include ':app', ':skin', ':take-turns-view','umeng','baidu-map','cropper'
+include ':app', ':skin', ':take-turns-view', ':xinge', 'umeng', 'baidu-map', 'cropper'

@@ -20,12 +20,13 @@ import com.alsfox.mall.view.customview.tow_d_view.RemoveView;
  */
 
 public class CountEditText extends LinearLayout implements View.OnClickListener, TextWatcher {
-    private View root;
-    private AddView add_view;
-    private RemoveView remove_view;
-    private EditText count_edit;
+    protected View root;
+    private AddView add_view;//加号
+    private RemoveView remove_view;//减号
+    private EditText count_edit;//输入数量框
     private int maxCount = Integer.MAX_VALUE;//最大范围
     private int count = 1;//当前数值
+    private OnChangeEditText onChangeEditText;//数量改变的回调接口
 
     public int getCount() {
         return count;
@@ -35,8 +36,6 @@ public class CountEditText extends LinearLayout implements View.OnClickListener,
         this.count = count;
         count_edit.setText(count + "");
     }
-
-    private OnChangeEditText onChangeEditText;
 
     public OnChangeEditText getOnChangeEditText() {
         return onChangeEditText;
@@ -63,9 +62,24 @@ public class CountEditText extends LinearLayout implements View.OnClickListener,
         }
     }
 
-
+    /**
+     * 初始化的输入框长度
+     *
+     * @param i
+     */
     public void setEditContentLengh(int i) {
         count_edit.setMinEms(i);
+    }
+
+    /**添加最大输入量
+     * @param maxCount
+     */
+    public void setMaxCount(int maxCount) {
+        this.maxCount = maxCount;
+        if (count > maxCount) {
+            count = maxCount;
+            count_edit.setText(count + "");
+        }
     }
 
     public interface OnChangeEditText {
@@ -87,8 +101,12 @@ public class CountEditText extends LinearLayout implements View.OnClickListener,
         initView();
     }
 
-    private void initView() {
+    protected void getRoot() {
         root = View.inflate(getContext(), R.layout.layout_count_edit, this);
+    }
+
+    private void initView() {
+        getRoot();
         add_view = (AddView) root.findViewById(R.id.add_view);
         remove_view = (RemoveView) root.findViewById(R.id.remove_view);
         count_edit = (EditText) root.findViewById(R.id.count_edit);
@@ -109,14 +127,6 @@ public class CountEditText extends LinearLayout implements View.OnClickListener,
         }
         if (count < 1) count = 1;
         count_edit.setText(count + "");
-    }
-
-    public void setMaxCount(int maxCount) {
-        this.maxCount = maxCount;
-        if (count > maxCount) {
-            count = maxCount;
-            count_edit.setText(count + "");
-        }
     }
 
     /**

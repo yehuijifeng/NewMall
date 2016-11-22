@@ -86,23 +86,11 @@ public class LoadingActivity extends BaseActivity<AppPresenter> implements IAppV
         //判断是否是第一次进入app
         if (AppUtils.isOneStart()) {
             startActivity(StartAppActivity.class);
-            finish();
+            //finish();
             return;
         }
-        //判断数据库是否存储了loading页面
-        AppLoadingImgBean appLoadingImgBean = presenter.queryLoadingImg();
-        if (appLoadingImgBean == null) {
-            getLoadingImag();
-        } else {
-            imageLoader.displayImage(appLoadingImgBean.getImgUrl(), app_loading_img, MallAppliaction.getInstance().defaultOptions);
-        }
-
-        //获得用户信息
-        getUserInfo();
-
-        //获得服务器上的版本号，判断是否应该升级
-        getAppVersion();
     }
+
 
     @Override
     protected void onRequestSuccess(ResponseSuccessAction success) {
@@ -148,6 +136,19 @@ public class LoadingActivity extends BaseActivity<AppPresenter> implements IAppV
     @Override
     protected void onResume() {
         super.onResume();
+        //判断数据库是否存储了loading页面
+        AppLoadingImgBean appLoadingImgBean = presenter.queryLoadingImg();
+        if (appLoadingImgBean == null) {
+            getLoadingImag();
+        } else {
+            imageLoader.displayImage(appLoadingImgBean.getImgUrl(), app_loading_img, MallAppliaction.getInstance().defaultOptions);
+        }
+
+        //获得用户信息
+        getUserInfo();
+
+        //获得服务器上的版本号，判断是否应该升级
+        getAppVersion();
     }
 
     /**
@@ -211,9 +212,9 @@ public class LoadingActivity extends BaseActivity<AppPresenter> implements IAppV
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (presenter != null && isDefaultRxBus()) {
+        if (presenter != null) {
             presenter.onPause();
-            presenter=null;
+            presenter = null;
         }
     }
 }
