@@ -244,6 +244,19 @@ public abstract class BaseActivity<T extends BasePresenter> extends BaseSkinActi
     }
 
     /**
+     * 隐藏软键盘的方法
+     *
+     * @param view
+     */
+    protected void hideSoftInputFromWindow(View view) {
+        baseHelper.hideSoftInputFromWindow(view);
+    }
+
+    protected void showSoftInputFromWindow(View view) {
+        baseHelper.showSoftInputFromWindow(view);
+    }
+
+    /**
      * 去设置网络
      */
     protected void toSetNetWork() {

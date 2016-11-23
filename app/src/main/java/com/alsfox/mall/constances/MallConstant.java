@@ -7,7 +7,6 @@ package com.alsfox.mall.constances;
 
 public class MallConstant {
     public static final String PAGE_NUM = "pageNum";
-
     public static final String INFORMATION_INFORMATIONID = "information.informationId";
 
     public static final String ORDERINFO_USERID = "orderInfo.userId";
@@ -38,4 +37,14 @@ public class MallConstant {
     public static final String BUNDLE_KEY_COUPONS_ACTION = "coupons_action";
     public static final String BUNDLE_KEY_ORDER_TOTAL = "order_total";
     public static final int ACTION_COUPONS_LIST_GET = 1;
+
+    public static final String PARAM_KEY_USERDSPT_USERID = "userDspt.userId";
+    public static final String PARAM_KEY_USERDSPT_DSPTID = "userDspt.dsptId";
+    public static final String PARAM_KEY_USERDSPT_DSPTNAME = "userDspt.dsptName";
+    public static final String PARAM_KEY_USERDSPT_DSPTPHONE = "userDspt.dsptPhone";
+    public static final String PARAM_KEY_USERDSPT_DSPTAREA = "userDspt.dsptArea";
+    public static final String PARAM_KEY_USERDSPT_DSPTADDRESS = "userDspt.dsptAddress";
+
+    public static final String USER_ADDRESS = "user_address";
+
 }

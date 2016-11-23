@@ -237,6 +237,10 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".view.activity.order.OrderConfirmActivity"
+            android:launchMode="singleTop"
+            />
+        <activity
+            android:name=".view.activity.user.UserAddressListActivity"
             android:launchMode="singleTop" />
     </application>
 

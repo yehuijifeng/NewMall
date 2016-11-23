@@ -1,12 +1,15 @@
 package com.alsfox.mall.view.activity.order;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -31,6 +34,7 @@ import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.order.OrderConfirmPresenter;
 import com.alsfox.mall.view.activity.base.BaseListActivity;
+import com.alsfox.mall.view.activity.user.UserAddressListActivity;
 import com.alsfox.mall.view.customview.CountEditText;
 import com.alsfox.mall.view.interfaces.order.IOrderConfirmView;
 import com.bigkoo.pickerview.OptionsPopupWindow;
@@ -86,7 +90,7 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
     private OptionsPopupWindow opw;//时间选择器
     private UserAddressBean userAddressBean;//用户收货地址
     //总金额
-    private double totalMoney;
+    private double totalMoney, toralCountMoney;
 
     //确认订单信息
     private OrderConfirmBean orderConfirmBean;
@@ -209,12 +213,89 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
         et_order_confirm_score = (EditText) footView.findViewById(R.id.et_order_confirm_score);//输入抵扣金额
         tv_score_deductible_count = (TextView) footView.findViewById(R.id.tv_score_deductible_count);//抵扣金额
         et_order_confirm_msg = (EditText) footView.findViewById(R.id.et_order_confirm_msg);//留言
-
+        et_order_confirm_msg.setInputType(InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_TIME);
         rl_order_over_time.setOnClickListener(this);
         rl_order_select_coupons.setOnClickListener(this);
         et_order_confirm_score.addTextChangedListener(new JifenTextChanged());
+        final int[] index = {0};
+        final int position = data.size();
+        final MyWatcher[] mWatcher = {null};
+        et_order_confirm_msg.setOnTouchListener(new View.OnTouchListener() {
 
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    index[0] = position;
+                }
+                return false;
+            }
+        });
+        et_order_confirm_msg.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            //设置焦点监听，当获取到焦点的时候才给它设置内容变化监听解决卡的问题
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                EditText et = (EditText) v;
+                if (mWatcher[0] == null) {
+                    mWatcher[0] = new MyWatcher();
+                }
+                if (hasFocus) {
+                    et.addTextChangedListener(mWatcher[0]);//设置edittext内容监听
+                } else {
+                    et.removeTextChangedListener(mWatcher[0]);
+                }
+            }
+        });
+        et_order_confirm_msg.clearFocus();//防止点击以后弹出键盘，重新getview导致的焦点丢失
+//        if (index[0] != -1 && index[0] == position) {
+//            // 如果当前的行下标和点击事件中保存的index一致，手动为EditText设置焦点。
+//            et_order_confirm_msg.requestFocus();
+//        }
+        et_order_confirm_msg.requestFocus();
+        showSoftInputFromWindow(et_order_confirm_score);
+        if (mWatcher[0] != null)
+            et_order_confirm_msg.setText(mWatcher[0].getText());//这一定要放在clearFocus()之后，否则最后输入的内容在拉回来时会消失
+        et_order_confirm_msg.setSelection(et_order_confirm_msg.getText().length());
         return footView;
+    }
+
+    class MyWatcher implements TextWatcher {
+        private String text;
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            // TODO Auto-generated method stub
+
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            //text[index]=s.toString();//为输入的位置内容设置数组管理器，防止item重用机制导致的上下内容一样的问题
+            if (TextUtils.isEmpty(s.toString()))
+                text = "留言";
+            else
+                text = s.toString();
+        }
+
     }
 
     @Override
@@ -336,8 +417,8 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
         } else {
             rl_add_youfei.setVisibility(View.GONE);
         }
-        totalMoney = total;
-        total_money_text.setText("合计:" + decimalFormat.format(totalMoney));
+        toralCountMoney = total;//这个总价是实际支付价格计算过邮费，满减，优惠券，积分抵扣以后的价格
+        total_money_text.setText("合计:" + decimalFormat.format(toralCountMoney));
         //积分系统，0，开启，-1关闭
         if (orderConfirmBean.getInteger() == 0) {
             ll_my_score.setVisibility(View.VISIBLE);
@@ -363,9 +444,9 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
         //默认收货地址
         if (userAddressBean != null) {
             this.userAddressBean = userAddressBean;
-            tv_user_name.setText(orderConfirmBean.getUserDspt().getDsptName());
-            tv_user_tel.setText(orderConfirmBean.getUserDspt().getDsptPhone());
-            tv_user_address.setText(orderConfirmBean.getUserDspt().getDsptArea() + orderConfirmBean.getUserDspt().getDsptAddress());
+            tv_user_name.setText(userAddressBean.getDsptName());
+            tv_user_tel.setText(userAddressBean.getDsptPhone());
+            tv_user_address.setText(userAddressBean.getDsptArea() + orderConfirmBean.getUserDspt().getDsptAddress());
         }
     }
 
@@ -468,9 +549,9 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
                 confirmOrder();
                 break;
             case R.id.ll_user_addres://选择收货地址
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("isGetAddress", true);
-                //startActivityForResult(DeliveryAddressListActivity.class, bundle, CODE_GET_ADDRESS);
+//                Bundle bundle = new Bundle();
+//                bundle.putBoolean("isGetAddress", true);
+                startActivityForResult(UserAddressListActivity.class, CODE_GET_ADDRESS);
                 break;
             case R.id.rl_order_over_time://选择收货时间
                 getServerTime();
@@ -490,7 +571,7 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case CODE_GET_ADDRESS:
-                    userAddressBean = data.getParcelableExtra("user_address");
+                    userAddressBean = data.getParcelableExtra(MallConstant.USER_ADDRESS);
                     showUserAddress(userAddressBean);
                     break;
                 case CODE_CHOOSE_COUPONS:

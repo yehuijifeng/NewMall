@@ -255,7 +255,6 @@
         android:background="@drawable/shape_general_input_box"
         android:gravity="top"
         android:hint="留言"
-        android:inputType="textMultiLine"
         android:maxLength="100"
         android:padding="@dimen/padding_and_margin"
         android:textSize="@dimen/text_size_x" />

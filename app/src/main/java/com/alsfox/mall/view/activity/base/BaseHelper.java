@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.alsfox.mall.appliaction.ActivityCollector;
@@ -43,6 +45,11 @@ public class BaseHelper {
      */
     public Toast toast;
 
+    /**
+     * 软键盘监听
+     */
+    protected InputMethodManager imm;
+
     public BaseHelper(Context context) {
         this.activity = (BaseActivity) context;
         activityClass = activity.getClass();
@@ -50,6 +57,7 @@ public class BaseHelper {
         inflater = activity.getLayoutInflater();
         rootGroup = (ViewGroup) activity.findViewById(android.R.id.content);
         root = (ViewGroup) rootGroup.getChildAt(0);
+        imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     public LayoutInflater getInflater() {
@@ -64,6 +72,14 @@ public class BaseHelper {
         return rootGroup;
     }
 
+    public void hideSoftInputFromWindow(View view) {
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public void showSoftInputFromWindow(View view) {
+        imm.showSoftInput(view, 0);
+    }
+
     /**
      * 发送网络请求
      *
@@ -71,16 +87,6 @@ public class BaseHelper {
      */
     protected void sendRequest(RequestAction requesteAction) {
         activity.presenter.sendRequest(requesteAction);
-//        if (!NetWorkUtils.isConnected(activity)) {
-//            //网络错误，服务器错误，等等
-//            ResponseAction responseAction = new ResponseFinalAction();
-//            responseAction.setRequestCode(StatusCode.NETWORK_ERROR);
-//            responseAction.setRequestAction(requesteAction);
-//            responseAction.setErrorMessage(activity.getResources().getString(R.string.network_error));
-//            RxBus.getDefault().post(responseAction);
-//        } else if (activity.presenter != null) {
-//            activity.presenter.sendRequest(requesteAction);
-//        }
     }
 
     public void startActivity(Class<?> cls) {

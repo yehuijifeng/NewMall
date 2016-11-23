@@ -174,6 +174,38 @@ public enum RequestAction {
         public void getRequest() {
             observable = RetrofitManage.getInstance().getService().getUserCoupons(params.getParams());
         }
+    },
+
+    //获取用户收货地址列表
+    SELECT_USER_DSPT_LIST(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserAddressList(params.getParams());
+        }
+    },
+
+    //设置用户默认收货地址
+    SET_USERDSPT_DEFAULT(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserDefaultAddress(params.getParams());
+        }
+    },
+
+    //删除收货地址
+    DELETE_USER_DSPT(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserDeleteAddress(params.getParams());
+        }
+    },
+
+    //修改我的收货地址请求
+    UPDATE_USER_DSPT(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserUpdateAddress(params.getParams());
+        }
     },;
     public Call<ResponseBody> call;//下载文件专用，okhttp类型的回调
     public Observable observable;//普通网络请求使用，网络请求的操作实例

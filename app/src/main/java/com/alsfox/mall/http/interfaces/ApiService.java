@@ -10,6 +10,7 @@ import com.alsfox.mall.bean.order.OrderConfirmBean;
 import com.alsfox.mall.bean.order.OrderCountBean;
 import com.alsfox.mall.bean.searth.HotWordBean;
 import com.alsfox.mall.bean.shop.ShopInfoBean;
+import com.alsfox.mall.bean.user.UserAddressBean;
 import com.alsfox.mall.bean.user.UserBean;
 import com.alsfox.mall.http.HttpBean;
 import com.alsfox.mall.http.request.RequestUrls;
@@ -131,4 +132,21 @@ public interface ApiService {
     //获取用户可用优惠券张数
     @POST(RequestUrls.GET_COUPONS_AVAILABLE_COUNT_URL)
     Observable<HttpBean<Integer>> getUserCoupons(@QueryMap Map<String, Object> options);
+
+    //获取用户收货地址列表
+    @POST(RequestUrls.GET_USER_DSPT_LIST)
+    Observable<HttpBean<UserAddressBean>> getUserAddressList(@QueryMap Map<String, Object> options);
+
+    //设置用户默认收货地址
+    @POST(RequestUrls.UPDATE_USERDSPT_DEFAULT)
+    Observable<HttpBean<String>> getUserDefaultAddress(@QueryMap Map<String, Object> options);
+
+    //删除收货地址
+    @POST(RequestUrls.REQUEST_DELETE_USER_DSPT)
+    Observable<HttpBean<String>> getUserDeleteAddress(@QueryMap Map<String, Object> options);
+
+    //修改收货地址
+    @POST(RequestUrls.REQUEST_UPDATE_USER_DSPT)
+    Observable<HttpBean<String>> getUserUpdateAddress(@QueryMap Map<String, Object> options);
+
 }

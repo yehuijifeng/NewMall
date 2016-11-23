@@ -1,11 +1,14 @@
 package com.alsfox.mall.bean.user;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by 浩 on 2016/11/22.
  * 用户收货地址
  */
 
-public class UserAddressBean {
+public class UserAddressBean implements Parcelable{
 
     private int dsptId;     //收货地址ID
     private int userId;     //用户ID
@@ -70,4 +73,44 @@ public class UserAddressBean {
     public void setIsDefault(int isDefault) {
         this.isDefault = isDefault;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.dsptId);
+        dest.writeInt(this.userId);
+        dest.writeString(this.dsptName);
+        dest.writeString(this.dsptPhone);
+        dest.writeString(this.dsptArea);
+        dest.writeString(this.dsptAddress);
+        dest.writeInt(this.isDefault);
+    }
+
+    public UserAddressBean() {
+    }
+
+    private UserAddressBean(Parcel in) {
+        this.dsptId = in.readInt();
+        this.userId = in.readInt();
+        this.dsptName = in.readString();
+        this.dsptPhone = in.readString();
+        this.dsptArea = in.readString();
+        this.dsptAddress = in.readString();
+        this.isDefault = in.readInt();
+    }
+
+    public static final Creator<UserAddressBean> CREATOR = new Creator<UserAddressBean>() {
+        public UserAddressBean createFromParcel(Parcel source) {
+            return new UserAddressBean(source);
+        }
+
+        public UserAddressBean[] newArray(int size) {
+            return new UserAddressBean[size];
+        }
+    };
 }
