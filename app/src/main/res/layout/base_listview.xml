@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:descendantFocusability="blocksDescendants">
+    android:orientation="vertical">
 
     <!--&lt;!&ndash;下拉刷新，上拉加载控件&ndash;&gt;-->
     <in.srain.cube.views.ptr.PtrFrameLayout
@@ -15,7 +14,7 @@
             android:id="@+id/base_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none"/>
+            android:scrollbars="none" />
 
     </in.srain.cube.views.ptr.PtrFrameLayout>
 

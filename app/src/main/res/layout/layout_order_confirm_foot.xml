@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/mall_white"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -193,34 +194,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="1积分=0.01元"
+                android:text="0积分=0.00元"
                 android:textColor="@color/mall_main"
                 android:textSize="@dimen/text_size_x" />
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:padding="@dimen/padding_and_margin_xx">
 
             <TextView
                 android:id="@+id/tv_lab_deductible"
                 style="@style/tv_commodity_name"
-                android:layout_centerVertical="true"
                 android:text="抵用" />
 
             <EditText
                 android:id="@+id/et_order_confirm_score"
-                android:layout_width="@dimen/et_score_deductible_width"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/et_score_deductible_height"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/padding_and_margin"
-                android:layout_toEndOf="@+id/tv_lab_deductible"
-                android:layout_toRightOf="@+id/tv_lab_deductible"
                 android:background="@drawable/shape_bg_score_input_box"
+                android:digits="0123456789"
+                android:hint="最大使用0积分"
                 android:inputType="number"
                 android:padding="@dimen/padding_and_margin"
                 android:singleLine="true"
@@ -230,21 +231,18 @@
             <TextView
                 android:id="@+id/tv_lab_favourable"
                 style="@style/tv_commodity_name"
-                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/padding_and_margin_xxxx"
                 android:text="优惠" />
 
             <TextView
                 android:id="@+id/tv_score_deductible_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/tv_lab_favourable"
                 android:layout_marginLeft="@dimen/padding_and_margin"
-                android:layout_toEndOf="@+id/tv_lab_favourable"
-                android:layout_toRightOf="@+id/tv_lab_favourable"
                 android:padding="@dimen/padding_and_margin"
                 android:text="0.0"
                 android:textColor="@color/mall_main" />
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <EditText
