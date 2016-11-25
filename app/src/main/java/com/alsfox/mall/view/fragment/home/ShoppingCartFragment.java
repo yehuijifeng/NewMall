@@ -1,7 +1,9 @@
 package com.alsfox.mall.view.fragment.home;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -10,15 +12,19 @@ import android.widget.TextView;
 import com.alsfox.mall.R;
 import com.alsfox.mall.adapter.BaseViewHolder;
 import com.alsfox.mall.bean.shoppingcart.ShoppingCartBean;
+import com.alsfox.mall.constances.MallConstant;
 import com.alsfox.mall.presenter.home.ShoppingCartPresenter;
 import com.alsfox.mall.view.activity.base.BaseViewPagerActivity;
+import com.alsfox.mall.view.activity.goods.GoodsContentActivity;
 import com.alsfox.mall.view.activity.index.HomeActivity;
+import com.alsfox.mall.view.activity.order.OrderConfirmActivity;
 import com.alsfox.mall.view.baseview.MyTitleView;
 import com.alsfox.mall.view.baseview.dialog.PromptDialog;
 import com.alsfox.mall.view.customview.CountEditText;
 import com.alsfox.mall.view.fragment.base.BaseListFragment;
 import com.alsfox.mall.view.interfaces.home.IShoppingCartvView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +33,10 @@ import java.util.List;
  */
 
 public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter> implements IShoppingCartvView {
+
+    private CheckBox cb_all_select;//全选
+    private Button btn_jiesuan;//去结算
+    private TextView tv_heji;//合计金额
 
     public static final String KEY_SHOPPING_CART_TYPE = "shopping_cart_type";
 
@@ -59,6 +69,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     public void getItemData(int position, BaseViewHolder baseViewHolder, int itemType) {
         ShoppingViewHolder shoppingViewHolder = (ShoppingViewHolder) baseViewHolder;
         final ShoppingCartBean shoppingCartBean = shoppingCartBeens.get(position);
+        shoppingViewHolder.shopping_cb.setOnCheckedChangeListener(null);
         shoppingViewHolder.shopping_cb.setChecked(shoppingCartBean.isChecked());
         imageLoader.displayImage(shoppingCartBean.getShopIcon(), shoppingViewHolder.shopping_img);
         shoppingViewHolder.shopping_name_text.setText(shoppingCartBean.getShopName());
@@ -120,6 +131,9 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     protected void initView(View parentView) {
         super.initView(parentView);
         mTitleView.setTitleText(getResources().getString(R.string.str_shopping_cart));
+        cb_all_select = (CheckBox) parentView.findViewById(R.id.cb_all_select);//全选
+        btn_jiesuan = (Button) parentView.findViewById(R.id.btn_jiesuan);//去结算
+        tv_heji = (TextView) parentView.findViewById(R.id.tv_heji);//合计金额
         promptDialog = new PromptDialog(getActivity());
         shopCartType = getInt(KEY_SHOPPING_CART_TYPE, SHOPPING_CART_BY_FRAGMENT);
         if (shopCartType == SHOPPING_CART_BY_ACTIVITY) {
@@ -135,6 +149,22 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     protected void initData() {
         showLoading("正在加载购物车……");
         presenter.queryShoppingCart();
+        presenter.querySelectGoodsPrice();
+        presenter.isAllSelect();
+        //全选，全不选
+        cb_all_select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.setAllSelect(cb_all_select.isChecked());
+            }
+        });
+        //去结算
+        btn_jiesuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.querySelectGoodsList();
+            }
+        });
     }
 
     @Override
@@ -148,6 +178,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         if (presenter != null) {
             clearAll();
             presenter.queryShoppingCart();
+            presenter.querySelectGoodsPrice();
         }
     }
 
@@ -186,18 +217,51 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 
     @Override
     public void updateShoppingCart(int i) {
-        //if (i > 0)
-        //notifyDataChange();
     }
 
     @Override
-    public void insterShoppingCart(int i) {
+    public void isAllSelect(boolean bl) {
+        cb_all_select.setChecked(bl);
+    }
 
+    @Override
+    public void setAllSelect(boolean bl) {
+        for (ShoppingCartBean shoppingCartBean : shoppingCartBeens) {
+            if (shoppingCartBean.isChecked() != bl)
+                shoppingCartBean.setChecked(bl);
+        }
+        notifyDataChange();
+        //refresh();
+    }
+
+    @Override
+    public void querySelectGoodsPrice(double price, int number) {
+        tv_heji.setText("合计:￥" + price);
+        btn_jiesuan.setText("结算(" + number + ")");
+    }
+
+    /**
+     * 查询所有选中的商品
+     *
+     * @param shoppingCartBeens
+     */
+    @Override
+    public void querySelectGoodsList(ArrayList<ShoppingCartBean> shoppingCartBeens) {
+        if (shoppingCartBeens == null || shoppingCartBeens.isEmpty()) {
+            showLongToast("至少选择一件商品结算");
+            return;
+        }
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(OrderConfirmActivity.SHOPPING_CART_CONTENT, shoppingCartBeens);
+        startActivity(OrderConfirmActivity.class, bundle);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        if (shoppingCartBeens == null || shoppingCartBeens.isEmpty()) return;
+        Bundle bundle = new Bundle();
+        bundle.putInt(MallConstant.GOODSID, shoppingCartBeens.get(position).getShopId());
+        startActivity(GoodsContentActivity.class, bundle);
     }
 
     private class ShoppingViewHolder extends BaseViewHolder {

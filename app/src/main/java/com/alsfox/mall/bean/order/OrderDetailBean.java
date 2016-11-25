@@ -1,5 +1,8 @@
 package com.alsfox.mall.bean.order;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.alsfox.mall.http.request.RequestUrls;
 
 /**
@@ -7,7 +10,7 @@ import com.alsfox.mall.http.request.RequestUrls;
  * 订单详情
  */
 
-public class OrderDetailBean {
+public class OrderDetailBean implements Parcelable {
 
     private int isComment;                     // 该商品是否已经评价，0未评价，1已经评价
     private int detailId;                      // 订单详情ID
@@ -165,4 +168,62 @@ public class OrderDetailBean {
     public void setServiceType(int serviceType) {
         this.serviceType = serviceType;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.isComment);
+        dest.writeInt(this.detailId);
+        dest.writeInt(this.orderId);
+        dest.writeInt(this.shopId);
+        dest.writeString(this.shopName);
+        dest.writeString(this.shopImg);
+        dest.writeInt(this.isGuge);
+        dest.writeInt(this.shopSpecId);
+        dest.writeString(this.shopSpecName);
+        dest.writeDouble(this.shopPrice);
+        dest.writeInt(this.shopNum);
+        dest.writeDouble(this.shopDikou);
+        dest.writeInt(this.shopGetIntegral);
+        dest.writeInt(this.yuStock);
+        dest.writeInt(this.isService);
+        dest.writeInt(this.serviceType);
+    }
+
+    public OrderDetailBean() {
+    }
+
+    private OrderDetailBean(Parcel in) {
+        this.isComment = in.readInt();
+        this.detailId = in.readInt();
+        this.orderId = in.readInt();
+        this.shopId = in.readInt();
+        this.shopName = in.readString();
+        this.shopImg = in.readString();
+        this.isGuge = in.readInt();
+        this.shopSpecId = in.readInt();
+        this.shopSpecName = in.readString();
+        this.shopPrice = in.readDouble();
+        this.shopNum = in.readInt();
+        this.shopDikou = in.readDouble();
+        this.shopGetIntegral = in.readInt();
+        this.yuStock = in.readInt();
+        this.isService = in.readInt();
+        this.serviceType = in.readInt();
+    }
+
+    public static final Creator<OrderDetailBean> CREATOR = new Creator<OrderDetailBean>() {
+        public OrderDetailBean createFromParcel(Parcel source) {
+            return new OrderDetailBean(source);
+        }
+
+        public OrderDetailBean[] newArray(int size) {
+            return new OrderDetailBean[size];
+        }
+    };
 }

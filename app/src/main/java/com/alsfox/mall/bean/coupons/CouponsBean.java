@@ -1,11 +1,14 @@
 package com.alsfox.mall.bean.coupons;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by 浩 on 2016/11/22.
  * 优惠券信息
  */
 
-public class CouponsBean {
+public class CouponsBean implements Parcelable{
 
     private int isTask;            // 是否已经领取过该优惠券，0表示没有，1表示已经领取过
     private double totalPrice;               // 订单总金额，用来查询优惠券是否满足使用条件
@@ -18,6 +21,33 @@ public class CouponsBean {
     private String startTime;                // 优惠券开始时间
     private String endTime;                  // 优惠券结束时间
     private int userId;                  // 优惠券领取人ID
+    private String createTime;             // 创建时间
+    private String updateTime;             // 更新时间
+    private int status;                // 状态
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public int getIsTask() {
         return isTask;
@@ -106,4 +136,57 @@ public class CouponsBean {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.isTask);
+        dest.writeDouble(this.totalPrice);
+        dest.writeInt(this.recordId);
+        dest.writeInt(this.couponsId);
+        dest.writeInt(this.couponsType);
+        dest.writeString(this.couponsName);
+        dest.writeDouble(this.useTerm);
+        dest.writeDouble(this.money);
+        dest.writeString(this.startTime);
+        dest.writeString(this.endTime);
+        dest.writeInt(this.userId);
+        dest.writeString(this.createTime);
+        dest.writeString(this.updateTime);
+        dest.writeInt(this.status);
+    }
+
+    public CouponsBean() {
+    }
+
+    private CouponsBean(Parcel in) {
+        this.isTask = in.readInt();
+        this.totalPrice = in.readDouble();
+        this.recordId = in.readInt();
+        this.couponsId = in.readInt();
+        this.couponsType = in.readInt();
+        this.couponsName = in.readString();
+        this.useTerm = in.readDouble();
+        this.money = in.readDouble();
+        this.startTime = in.readString();
+        this.endTime = in.readString();
+        this.userId = in.readInt();
+        this.createTime = in.readString();
+        this.updateTime = in.readString();
+        this.status = in.readInt();
+    }
+
+    public static final Creator<CouponsBean> CREATOR = new Creator<CouponsBean>() {
+        public CouponsBean createFromParcel(Parcel source) {
+            return new CouponsBean(source);
+        }
+
+        public CouponsBean[] newArray(int size) {
+            return new CouponsBean[size];
+        }
+    };
 }

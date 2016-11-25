@@ -9,7 +9,7 @@ import com.alsfox.mall.view.interfaces.home.IShoppingCartvView;
  * Created by 浩 on 2016/10/25.
  */
 
-public class ShoppingCartPresenter extends BasePresenter<IShoppingCartvView,ShoppingCartModel> {
+public class ShoppingCartPresenter extends BasePresenter<IShoppingCartvView, ShoppingCartModel> {
 
 
     /**
@@ -26,18 +26,52 @@ public class ShoppingCartPresenter extends BasePresenter<IShoppingCartvView,Shop
         mView.queryShoppingCart(mModel.queryShoppingCart());
     }
 
-    public void deleteShoppingCart(int shopId) {
-        mView.deleteShoppingCart(mModel.deleteShoppingCart(shopId));
-    }
+
     public void deleteShoppingCart(ShoppingCartBean shopId) {
         mView.deleteShoppingCart(mModel.deleteShoppingCart(shopId));
-    }
-    public void updateShoppingCart(ShoppingCartBean shoppingCartBean) {
-        mView.updateShoppingCart(mModel.updateShoppingCart(shoppingCartBean));
+        querySelectGoodsPrice();
+        isAllSelect();
     }
 
-    public void insterShoppingCart(ShoppingCartBean shoppingCartBean) {
-        mView.insterShoppingCart(mModel.insterShoppingCart(shoppingCartBean));
+    public void updateShoppingCart(ShoppingCartBean shoppingCartBean) {
+        mView.updateShoppingCart(mModel.updateShoppingCart(shoppingCartBean));
+        querySelectGoodsPrice();
+        isAllSelect();
+    }
+
+    /**
+     * 是否全选
+     */
+    public void isAllSelect() {
+        mView.isAllSelect(mModel.isAllSelect());
+    }
+
+    /**
+     * 手动全选
+     *
+     * @param bl
+     */
+    public void setAllSelect(boolean bl) {
+        mView.setAllSelect(mModel.setAllSelect(bl));
+        querySelectGoodsPrice();
+    }
+
+    /**
+     * 计算所有选中商品的价格
+     *
+     * @return
+     */
+    public void querySelectGoodsPrice() {
+        mView.querySelectGoodsPrice(mModel.querySelectGoodsPrice()[0], (int) mModel.querySelectGoodsPrice()[1]);
+    }
+
+    /**
+     * 返回所有选中的商品信息
+     *
+     * @return
+     */
+    public void querySelectGoodsList() {
+        mView.querySelectGoodsList(mModel.querySelectGoodsList());
     }
 
 }

@@ -57,7 +57,8 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
     private TextView tv_goods_price;//价格
     private TextView tv_goods_stock;//库存
     private TextView tv_goods_integral;//可获得积分
-    private FlowLayout flow_layout;//规格最外层view
+    private FlowLayout flow_layout;//显示规格用视图
+    private RelativeLayout line_tow;//规格最外层view
     private CountEditByWindowText count_edit_view;//数量的加减
     private Button btn_goods_commit;//确定
     private ImageView iv_goods_icon;//商品图片
@@ -78,6 +79,7 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
         tv_goods_stock = (TextView) popView.findViewById(R.id.tv_goods_stock);
         tv_goods_integral = (TextView) popView.findViewById(R.id.tv_goods_integral);
         flow_layout = (FlowLayout) popView.findViewById(R.id.flow_layout);
+        line_tow = (RelativeLayout) popView.findViewById(R.id.line_tow);
         count_edit_view = (CountEditByWindowText) popView.findViewById(R.id.count_edit_view);
         count_edit_view.setEditContentLengh(2);
         btn_goods_commit = (Button) popView.findViewById(R.id.btn_goods_commit);
@@ -85,7 +87,6 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
         btn_goods_commit.setOnClickListener(this);
         fl_popupwindow_root.setOnClickListener(this);
         ImageLoader.getInstance().displayImage(shopInfo.getShopIcon(), iv_goods_icon, MallAppliaction.getInstance().defaultOptions);
-        initSpec();
     }
 
 
@@ -97,31 +98,33 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
 //                        Toast.makeText(context, "超过最大购买数量", Toast.LENGTH_LONG).show();
             }
         });
-
-        if (shopSpecs == null || shopSpecs.size() < 1) {
-            int shopStock = shopInfo.getShopStock();
-            tv_goods_price.setText(SpecUtils.getPriceInterval(shopInfo));
-            tv_goods_integral.setText(SpecUtils.getIntegralInterval(shopInfo));
-            tv_goods_stock.setText("库存" + shopInfo.getShopStock());
-            if (shopInfo.getTypeId() == -2)
-                count_edit_view.setMaxCount(1);
-
-            if (shopStock < 1) {
-                btn_goods_commit.setEnabled(false);
-                count_edit_view.setInputBoxEnable(false);
-                btn_goods_commit.setText("库存不足");
-            } else {
-                count_edit_view.setInputBoxEnable(true);
-                btn_goods_commit.setEnabled(true);
-                btn_goods_commit.setText("确定");
-            }
-            if (shopInfo.getIsTimeout() == 0) {//限时抢购商品不能加数量
-                count_edit_view.setInputBoxEnable(false);
-            } else if (shopInfo.getTypeId() == -2) {//报销商品不能加数量
-                count_edit_view.setInputBoxEnable(false);
+        if (shopInfo != null) {
+            if (shopInfo.getIsGuige() == 0) {//有规格
+                shopSpecs = shopInfo.getShopSpecList();
+                line_tow.setVisibility(View.VISIBLE);
+                showSpecItem(shopSpecs);
+            } else {//无规格
+                line_tow.setVisibility(View.GONE);
+                int shopStock = shopInfo.getShopStock();//库存
+                tv_goods_price.setText(SpecUtils.getPriceInterval(shopInfo));
+                tv_goods_integral.setText(SpecUtils.getIntegralInterval(shopInfo));
+                tv_goods_stock.setText("库存" + shopInfo.getShopStock());
+                if (shopStock < 1) {
+                    btn_goods_commit.setEnabled(false);
+                    btn_goods_commit.setText("库存不足");
+                    count_edit_view.setInputBoxEnable(false);
+                } else {
+                    count_edit_view.setInputBoxEnable(true);
+                    btn_goods_commit.setEnabled(true);
+                    btn_goods_commit.setText("确定");
+                }
+                if (shopInfo.getIsTimeout() == 0) {//限时抢购商品不能加数量
+                    count_edit_view.setInputBoxEnable(false);
+                } else if (shopInfo.getTypeId() == -2) {//报销商品不能加数量
+                    count_edit_view.setInputBoxEnable(false);
+                }
             }
         }
-
     }
 
     /**
@@ -134,20 +137,11 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
         super(context);
         this.context = context;
         this.shopInfo = shopInfoVo;
-        if (shopInfo != null) {
-            shopSpecs = shopInfo.getShopSpecList();
-        }
         setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         popView = View.inflate(context, R.layout.window_goods_spec, null);
         assignViews(popView);
-        if (shopInfo != null) {
-            if (shopInfo.getIsGuige() == 0) {
-                flow_layout.setVisibility(View.VISIBLE);
-                showSpecItem(shopSpecs);
-            } else
-                flow_layout.setVisibility(View.GONE);
-        }
+        initSpec();
         setFocusable(true);
         setAnimationStyle(R.style.AnimationPreviewForCommodityPop);
         setBackgroundDrawable(new ColorDrawable(0xFFFFFF));
@@ -165,6 +159,7 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
     private void showSpecItem(List<ShopSpecBean> shopSpecs) {
         if (shopSpecs == null || shopSpecs.size() < 1) return;
         int padding = DisplayUtils.dip2px(context, 10);
+
         for (int i = 0; i < shopSpecs.size(); i++) {
             ShopSpecBean shopSpecBean = shopSpecs.get(i);
             final TextView specItemText = new TextView(context);
@@ -180,12 +175,13 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
             if (i == 0) {
                 specItemText.setSelected(true);
                 specItemText.setTextColor(context.getResources().getColor(R.color.white));
+                currentShopSpec = shopSpecBean;
                 tv_goods_price.setText(SpecUtils.getPriceInterval(shopSpecBean));
                 tv_goods_integral.setText(SpecUtils.getIntegralInterval(shopSpecBean));
                 tv_goods_stock.setText("库存" + shopSpecBean.getSpecNum());
                 count_edit_view.setMaxCount(shopSpecBean.getSpecNum());
-                currentShopSpec = shopSpecBean;
             }
+
             flow_layout.addView(specItemText);
             flow_layout.setHorizontalSpacing(padding);
         }
@@ -364,17 +360,14 @@ public class GoodsSpecWindow extends PopupWindow implements View.OnClickListener
 //                tvCommodityPrice.setText("￥" + (currentShopSpec.getSpecPrice() + shopInfo.getDelPrice()));
 //            tv_commodity_jifen.setText(SpecUtils.getIntegralInterval(currentShopSpec));
 //            tvCommodityStock.setText("库存" + specNum);
-            if (count_edit_view != null) {
-                //count_edit_view.setMaxCount(currentShopSpec.getSpecNum() > shopInfo.getTodayBuyMaxMun() ? shopInfo.getTodayBuyMaxMun() : currentShopSpec.getSpecNum());
-                count_edit_view.setCount(1);
-            }
+            //count_edit_view.setMaxCount(currentShopSpec.getSpecNum() > shopInfo.getTodayBuyMaxMun() ? shopInfo.getTodayBuyMaxMun() : currentShopSpec.getSpecNum());
+            count_edit_view.setCount(1);
             if (specNum < 1) {
                 btn_goods_commit.setEnabled(false);
                 btn_goods_commit.setText("库存不足");
             } else {
-                if (count_edit_view != null) {
-                    count_edit_view.setInputBoxEnable(true);
-                }
+                count_edit_view.setInputBoxEnable(true);
+                count_edit_view.setMaxCount(specNum);
                 btn_goods_commit.setEnabled(true);
                 btn_goods_commit.setText("确定");
             }

@@ -56,10 +56,20 @@ public class CountEditText extends LinearLayout implements View.OnClickListener,
      * @param bl
      */
     public void setInputBoxEnable(boolean bl) {
-        if (bl) {
+        if (!bl) {
             maxCount = 0;
             count_edit.setText(0 + "");
         }
+    }
+
+    /**
+     * 是否可以手动输入数量
+     *
+     * @param bl
+     */
+    public void setInputEditText(boolean bl) {
+        count_edit.setEnabled(bl);
+        count_edit.setTextColor(getResources().getColor(R.color.black));
     }
 
     /**
@@ -71,7 +81,9 @@ public class CountEditText extends LinearLayout implements View.OnClickListener,
         count_edit.setMinEms(i);
     }
 
-    /**添加最大输入量
+    /**
+     * 添加最大输入量
+     *
      * @param maxCount
      */
     public void setMaxCount(int maxCount) {

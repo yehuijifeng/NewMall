@@ -48,8 +48,7 @@ public class ShoppingCartDao {
     public int delete(int shopId) {
         int i;
         try {
-
-            shoppingCartDao.getDao().deleteBuilder().where().eq("shopid", shopId).prepare();
+            shoppingCartDao.getDao().executeRaw("delete from ShoppingCartBean where shopId=?", shopId + "");
             i = 1;
         } catch (SQLException e) {
             e.printStackTrace();

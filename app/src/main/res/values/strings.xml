@@ -157,6 +157,7 @@
     <string name="str_tab_sales_volume">销量</string>
     <string name="str_tab_price">价格</string>
     <string name="str_tab_comment">评论</string>
+    <string name="str_square">发现</string>
 
     <string-array name="select_icon_type">
         <item>相册</item>

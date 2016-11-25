@@ -206,7 +206,57 @@ public enum RequestAction {
         public void getRequest() {
             observable = RetrofitManage.getInstance().getService().getUserUpdateAddress(params.getParams());
         }
-    },;
+    },
+
+    //获取我的优惠券
+    GET_MY_COUPONS_LIST(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserCouponsMy(params.getParams());
+        }
+    },
+
+    //优惠券广场
+    GET_KEYONG_COUPONS_LIST(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserCouponsSquare(params.getParams());
+        }
+    },
+
+    //显示可用优惠券
+    GET_USE_COUPONS_LIST(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserCouponsUse(params.getParams());
+        }
+    },
+
+    //领取优惠券
+    REQUEST_ADD_COUPONS(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getUserCouponsAdd(params.getParams());
+        }
+    },
+
+    //获取支付方式
+    SELECT_PAY_TYPE(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getOrderPayType(params.getParams());
+        }
+    },
+
+    //生成订单
+    REQUEST_CONFIRM_ORDER(new RequestParams()) {
+        @Override
+        public void getRequest() {
+            observable = RetrofitManage.getInstance().getService().getConfirmOrder(params.getParams());
+        }
+    },
+
+    ;
     public Call<ResponseBody> call;//下载文件专用，okhttp类型的回调
     public Observable observable;//普通网络请求使用，网络请求的操作实例
     public RequestParams params;//请求参数实例

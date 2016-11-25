@@ -62,11 +62,15 @@
             android:layout_below="@+id/view_three"
             android:padding="@dimen/padding_and_margin_x">
 
-            <com.alsfox.mall.view.customview.FlowLayout
-                android:id="@+id/flow_layout"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
 
+                <com.alsfox.mall.view.customview.FlowLayout
+                    android:id="@+id/flow_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
         </RelativeLayout>
 
         <View

@@ -4,10 +4,13 @@ package com.alsfox.mall.http.interfaces;
 import com.alsfox.mall.bean.app.AppLoadingImgBean;
 import com.alsfox.mall.bean.app.AppVersionBean;
 import com.alsfox.mall.bean.classify.ShopTypeBean;
+import com.alsfox.mall.bean.coupons.CouponsBean;
 import com.alsfox.mall.bean.index.IndexBean;
 import com.alsfox.mall.bean.merchant.MerchantInfoBean;
 import com.alsfox.mall.bean.order.OrderConfirmBean;
 import com.alsfox.mall.bean.order.OrderCountBean;
+import com.alsfox.mall.bean.order.OrderInfoBean;
+import com.alsfox.mall.bean.order.OrderPayTypeBean;
 import com.alsfox.mall.bean.searth.HotWordBean;
 import com.alsfox.mall.bean.shop.ShopInfoBean;
 import com.alsfox.mall.bean.user.UserAddressBean;
@@ -148,5 +151,29 @@ public interface ApiService {
     //修改收货地址
     @POST(RequestUrls.REQUEST_UPDATE_USER_DSPT)
     Observable<HttpBean<String>> getUserUpdateAddress(@QueryMap Map<String, Object> options);
+
+    //我的优惠券
+    @POST(RequestUrls.GET_MY_COUPONS_LIST_URL)
+    Observable<HttpBean<CouponsBean>> getUserCouponsMy(@QueryMap Map<String, Object> options);
+
+    //优惠券广场
+    @POST(RequestUrls.GET_COUPONS_SQUARE_URL)
+    Observable<HttpBean<CouponsBean>> getUserCouponsSquare(@QueryMap Map<String, Object> options);
+
+    //查询当前价格下可用的优惠券
+    @POST(RequestUrls.GET_COUPONS_AVAILABLE_LIST_URL)
+    Observable<HttpBean<CouponsBean>> getUserCouponsUse(@QueryMap Map<String, Object> options);
+
+    //领取优惠券
+    @POST(RequestUrls.REQUEST_ADD_COUPONS_URL)
+    Observable<HttpBean<String>> getUserCouponsAdd(@QueryMap Map<String, Object> options);
+
+    //获取订单支付方式
+    @POST(RequestUrls.SELECT_PAY_TYPE_URL)
+    Observable<HttpBean<OrderPayTypeBean>> getOrderPayType(@QueryMap Map<String, Object> options);
+
+    //生成订单
+    @POST(RequestUrls.REQUEST_CONFIRM_ORDER_URL)
+    Observable<HttpBean<OrderInfoBean>> getConfirmOrder(@QueryMap Map<String, Object> options);
 
 }

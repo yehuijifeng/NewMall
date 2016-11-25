@@ -18,5 +18,5 @@
         android:id="@+id/viewpager_image_bar"
         android:layout_width="1dp"
         android:layout_height="@dimen/viewpager_image_bar_height"
-        android:src="@color/viewpager_image_bar_color" />
+        android:src="@color/mall_main" />
 </LinearLayout>

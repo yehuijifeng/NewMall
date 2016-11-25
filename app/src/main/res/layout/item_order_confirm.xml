@@ -22,63 +22,57 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_default_img" />
 
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toLeftOf="@+id/linearLayout2"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/order_confirm_name_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:padding="@dimen/padding_and_margin"
+                android:text="商品名称"
+                android:textColor="@color/mall_text_color"
+                android:textSize="@dimen/text_size_x" />
+
+            <TextView
+                android:id="@+id/order_confirm_spec_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:padding="@dimen/padding_and_margin"
+                android:text="规格名称"
+                android:textColor="@color/mall_text_color"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/order_confirm_price_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:padding="@dimen/padding_and_margin"
+                android:text="￥0.00"
+                android:textColor="@color/red"
+                android:textSize="@dimen/text_size" />
+
+            <com.alsfox.mall.view.customview.CountEditText
+                android:id="@+id/order_confirm_count_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="center_vertical"
-                android:layout_toLeftOf="@+id/linearLayout2"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/order_confirm_name_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:padding="@dimen/padding_and_margin"
-                    android:text="商品名称"
-                    android:textColor="@color/mall_text_color"
-                    android:textSize="@dimen/text_size_x" />
-
-                <TextView
-                    android:id="@+id/order_confirm_spec_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:padding="@dimen/padding_and_margin"
-                    android:text="规格名称"
-                    android:textColor="@color/mall_text_color"
-                    android:textSize="@dimen/text_size" />
-
-                <TextView
-                    android:id="@+id/order_confirm_price_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:padding="@dimen/padding_and_margin"
-                    android:text="￥0.00"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/text_size" />
-
-                <com.alsfox.mall.view.customview.CountEditText
-                    android:id="@+id/order_confirm_count_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/padding_and_margin" />
-            </LinearLayout>
-        </RelativeLayout>
+                android:layout_margin="@dimen/padding_and_margin" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

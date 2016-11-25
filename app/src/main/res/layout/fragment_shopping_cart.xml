@@ -1,10 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/default_titleview" />
+    <include
+        android:id="@+id/default_title_view"
+        layout="@layout/default_titleview" />
 
-    <include layout="@layout/default_listview" />
-</LinearLayout>
+    <include
+        android:id="@+id/default_list_view"
+        layout="@layout/default_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_jiesuan"
+        android:layout_below="@+id/default_title_view" />
+
+    <RelativeLayout
+        android:id="@+id/rl_jiesuan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_and_margin_x">
+
+        <CheckBox
+            android:id="@+id/cb_all_select"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/padding_and_margin"
+            android:button="@drawable/selector_cb_shopping_cart"
+            android:padding="@dimen/padding_and_margin_x"
+            android:text="全选"
+            android:textColor="@color/mall_main" />
+
+        <Button
+            android:id="@+id/btn_jiesuan"
+            style="@style/btn_main_type"
+            android:layout_alignParentRight="true"
+            android:text="结算(0)" />
+
+        <TextView
+            android:id="@+id/tv_heji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/btn_jiesuan"
+            android:padding="@dimen/padding_and_margin_x"
+            android:text="合计:￥0.0"
+            android:textColor="@color/mall_main"
+            android:textSize="@dimen/text_size_xx" />
+    </RelativeLayout>
+
+</RelativeLayout>

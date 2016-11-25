@@ -238,9 +238,12 @@
         <activity
             android:name=".view.activity.order.OrderConfirmActivity"
             android:launchMode="singleTop"
-            />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.activity.user.UserAddressListActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.user.UserCouponsActivity"
             android:launchMode="singleTop" />
     </application>
 

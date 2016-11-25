@@ -47,4 +47,7 @@ public class MallConstant {
 
     public static final String USER_ADDRESS = "user_address";
 
+    public static final int ACTION_COUPONS_LIST_SELECT = 0;
+
+    public static final String COUPONS_CONTENT = "coupons_content";
 }

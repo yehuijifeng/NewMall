@@ -74,7 +74,7 @@ public class HomeActivity extends BaseViewPagerActivity {
 
     @Override
     protected View setTabView(ViewGroup container, int position) {
-        View view = inflater.inflate(R.layout.base_viewpager_tab_item, container, false);
+        View view = inflater.inflate(R.layout.layout_index_viewpager_tab_item, container, false);
         TextView tabText = (TextView) view.findViewById(R.id.viewpager_tab_text);
         ImageView tabImg = (ImageView) view.findViewById(R.id.viewpager_tab_img);
         tabImg.setVisibility(View.VISIBLE);

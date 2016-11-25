@@ -1,7 +1,9 @@
 package com.alsfox.mall.view.activity.order;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -25,15 +27,19 @@ import com.alsfox.mall.appliaction.MallAppliaction;
 import com.alsfox.mall.bean.coupons.CouponsBean;
 import com.alsfox.mall.bean.order.OrderConfirmBean;
 import com.alsfox.mall.bean.order.OrderDetailBean;
+import com.alsfox.mall.bean.order.OrderInfoBean;
+import com.alsfox.mall.bean.order.OrderPayTypeBean;
 import com.alsfox.mall.bean.shoppingcart.ShoppingCartBean;
 import com.alsfox.mall.bean.user.UserAddressBean;
 import com.alsfox.mall.constances.MallConstant;
+import com.alsfox.mall.http.SignUtils;
 import com.alsfox.mall.http.request.RequestAction;
 import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.order.OrderConfirmPresenter;
 import com.alsfox.mall.view.activity.base.BaseListActivity;
 import com.alsfox.mall.view.activity.user.UserAddressListActivity;
+import com.alsfox.mall.view.activity.user.UserCouponsActivity;
 import com.alsfox.mall.view.customview.CountEditText;
 import com.alsfox.mall.view.interfaces.order.IOrderConfirmView;
 import com.bigkoo.pickerview.OptionsPopupWindow;
@@ -88,6 +94,7 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
     private DecimalFormat decimalFormat = new DecimalFormat("0.00");
     private OptionsPopupWindow opw;//时间选择器
     private UserAddressBean userAddressBean;//用户收货地址
+    private CouponsBean couponsInfo;//用户选择的优惠券
     //总金额
     private double totalMoney, toralCountMoney;
 
@@ -132,7 +139,7 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
         imageLoader.displayImage(orderDetail.getShopImg(), viewHolder.order_confirm_img, MallAppliaction.getInstance().defaultOptions);
         viewHolder.order_confirm_count_edit.setMaxCount(orderDetail.getYuStock());
         viewHolder.order_confirm_count_edit.setCount(orderDetail.getShopNum());
-        viewHolder.order_confirm_count_edit.setInputBoxEnable(false);
+        viewHolder.order_confirm_count_edit.setInputEditText(false);
         viewHolder.order_confirm_name_text.setText(orderDetail.getShopName());
         viewHolder.order_confirm_price_text.setText("￥" + shopPrice);
         viewHolder.order_confirm_spec_text.setText(orderDetail.getShopSpecName());
@@ -217,6 +224,7 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
         et_order_confirm_score.addTextChangedListener(new JifenTextChanged());
         rl_order_select_coupons.setOnTouchListener(new EditTextOnTouchListener());
         et_order_confirm_msg.setOnTouchListener(new EditTextOnTouchListener());
+
         return footView;
     }
 
@@ -326,6 +334,11 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
      */
     private void calculateJifen() {
         //积分区
+        if (couponsInfo != null && totalMoney - jifenMoney <= couponsInfo.getUseTerm()) {
+            youhuijuanMoney = 0;
+            record_id = 0;
+            tv_coupons_usable_count.setText("0张可用");
+        }
         //总金额-积分抵扣-优惠券抵扣
         BigDecimal bigDecimal = new BigDecimal(totalMoney - youhuijuanMoney - jifenMoney);
         //保留两位小数
@@ -474,7 +487,7 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
             showShortToast("请选择收货地址");
             return;
         }
-        //sendRequest(RequestAction.SELECT_PAY_TYPE);
+        sendRequest(RequestAction.SELECT_PAY_TYPE);
     }
 
     @Override
@@ -496,7 +509,7 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
                 Bundle bundle1 = new Bundle();
                 bundle1.putInt(MallConstant.BUNDLE_KEY_COUPONS_ACTION, MallConstant.ACTION_COUPONS_LIST_GET);
                 bundle1.putDouble(MallConstant.BUNDLE_KEY_ORDER_TOTAL, totalMoney);
-                //startActivityForResult(UserCouponsActivity.class, bundle1, CODE_CHOOSE_COUPONS);
+                startActivityForResult(UserCouponsActivity.class, bundle1, CODE_CHOOSE_COUPONS);
                 break;
         }
     }
@@ -511,7 +524,7 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
                     showUserAddress(userAddressBean);
                     break;
                 case CODE_CHOOSE_COUPONS:
-                    CouponsBean couponsInfo = data.getParcelableExtra("coupons");
+                    couponsInfo = data.getParcelableExtra(MallConstant.COUPONS_CONTENT);
                     tv_coupons_usable_count.setText(couponsInfo.getCouponsName() + ",可抵扣" + couponsInfo.getMoney() + "元");
                     record_id = couponsInfo.getRecordId();
                     youhuijuanMoney = couponsInfo.getMoney();
@@ -536,9 +549,29 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
                 openTimePicker(time);
                 break;
             case GET_USER_COUPONS://获取用户可用优惠券张数
-                if (youhuijuanMoney <= 0.0) {
-                    tv_coupons_usable_count.setText(success.getHttpBean().getObject() + "张可用");
+                tv_coupons_usable_count.setText(success.getHttpBean().getObject() + "张可用");
+                if (success.getHttpBean().getObject().equals("0")) {
+                    couponsInfo = null;
                 }
+                break;
+            case SELECT_PAY_TYPE://获取订单支付方式
+                List<OrderPayTypeBean> payTypeBeanVoList = success.getHttpBean().getObjects();
+                String[] payTypes = new String[payTypeBeanVoList.size()];
+                int[] payTypess = new int[payTypeBeanVoList.size()];
+                for (int i = 0; i < payTypeBeanVoList.size(); i++) {
+                    payTypes[i] = payTypeBeanVoList.get(i).getPayType();
+                    payTypess[i] = payTypeBeanVoList.get(i).getPayNumber();
+                }
+                showPayDialog(payTypess, payTypes);
+                break;
+            case REQUEST_CONFIRM_ORDER://订单生成
+                OrderInfoBean orderInfoVo = (OrderInfoBean) success.getHttpBean().getObject();
+                //postEventBus(confirmOrderInfo);
+                showLongToast("订单生成成功!");
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("orderInfo", orderInfoVo);
+                //startActivity(OrderDetailActivity.class, bundle);
+                //finish();
                 break;
         }
     }
@@ -550,8 +583,110 @@ public class OrderConfirmActivity extends BaseListActivity<OrderConfirmPresenter
             case GET_ORDER_CONFIRM_INFO://获取确认订单信息
 
                 break;
+            case REQUEST_CONFIRM_ORDER://生成订单失败
+                showLongToast(finals.getErrorMessage());
+                btn_jiesuan.setEnabled(true);
+                btn_jiesuan.setText("结算");
+                break;
         }
     }
+
+    /**
+     * 选择支付方式
+     *
+     * @param payNumbers
+     * @param payTypes
+     */
+    private void showPayDialog(final int[] payNumbers, String[] payTypes) {
+        //支付方式弹框
+        new AlertDialog
+                .Builder(this)
+                .setTitle("请选择支付方式")
+                .setItems(payTypes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        btn_jiesuan.setEnabled(false);
+                        btn_jiesuan.setText("结算中...");
+                        if (payNumbers[which] == 0) {
+                            //支付宝
+                            payAccount(0);
+                        } else if (payNumbers[which] == 1) {
+                            //微信支付
+                            payAccount(1);
+                        } else if (payNumbers[which] == 2) {
+                            //银联支付
+                            payAccount(2);
+                        } else if (payNumbers[which] == 3) {
+                            //钱包支付
+                            payAccount(3);
+                        } else if (payNumbers[which] == 4) {
+                            //货到付款
+                            AlertDialog alert = new AlertDialog
+                                    .Builder(OrderConfirmActivity.this)
+                                    .setTitle(null)
+                                    .setMessage("确定货到付款?")
+                                    .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface arg0, int arg1) {
+                                            btn_jiesuan.setEnabled(true);
+                                            btn_jiesuan.setText("结算");
+                                        }
+                                    })
+                                    .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface arg0, int arg1) {
+                                            payAccount(4);
+                                        }
+                                    }).show();
+                            alert.setCanceledOnTouchOutside(false);
+                        }
+                    }
+                }).show();
+    }
+
+    /**
+     * 结算订单
+     * 0，支付宝，1，微信，2，银联，3，余额，4，货到付款
+     *
+     * @param payType
+     */
+    private void payAccount(int payType) {
+        int integral;
+        if (et_order_confirm_score == null || TextUtils.isEmpty(et_order_confirm_score.getText())) {
+            integral = 0;
+        } else {
+            integral = Integer.valueOf(et_order_confirm_score.getText().toString());
+        }
+        Map<String, Object> param = SignUtils.getParameters();
+        param.put("orderInsertParm.payType", payType);
+        param.put("orderInsertParm.userId", MallAppliaction.getInstance().userBean.getUserId());
+        param.put("orderInsertParm.dsptId", userAddressBean.getDsptId());
+        if (et_order_confirm_msg != null && !TextUtils.isEmpty(et_order_confirm_msg.getText()))
+            param.put("orderInsertParm.orderDesc", et_order_confirm_msg.getText().toString().trim());
+        if (!TextUtils.isEmpty(receiveTime))
+            param.put("orderInsertParm.orderPeisongTime", receiveTime);
+        //优惠券id
+        if (record_id > 0) {
+            param.put("orderInsertParm.isUseCoupons", 1);
+            param.put("orderInsertParm.couponsId", record_id);
+        } else {
+            param.put("orderInsertParm.isUseCoupons", 0);
+        }
+        if (integral > 0) {
+            param.put("orderInsertParm.isOnIntegral", 0);
+            param.put("orderInsertParm.integralPay", integral);
+        } else {
+            param.put("orderInsertParm.isOnIntegral", -1);
+        }
+        if (shoppingCarts != null && shoppingCarts.size() > 0)
+            param.put("orderInsertParm.dianpuId", shoppingCarts.get(0).getMerchantId());
+        String jsonStr = gson.toJson(data);
+        param.put("orderInsertParm.orderDetailStrJson", jsonStr);
+        RequestAction.REQUEST_CONFIRM_ORDER.params.setParams(param);
+        sendRequest(RequestAction.REQUEST_CONFIRM_ORDER);
+    }
+
 
     /**
      * 积分换算金额事件

@@ -64,7 +64,7 @@
     <dimen name="default_button_width_main_white">70dp</dimen>
     <dimen name="default_text_size_main_white">18sp</dimen>
 
-    <dimen name="viewpager_image_bar_height">10dp</dimen>
+    <dimen name="viewpager_image_bar_height">5dp</dimen>
     <dimen name="viewpager_tab_img_height">25dp</dimen>
 
     <dimen name="default_dialog_list_item">5dp</dimen>

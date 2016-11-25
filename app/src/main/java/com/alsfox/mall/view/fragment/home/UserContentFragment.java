@@ -20,6 +20,7 @@ import com.alsfox.mall.http.response.ResponseFinalAction;
 import com.alsfox.mall.http.response.ResponseSuccessAction;
 import com.alsfox.mall.presenter.home.UserContentPresenter;
 import com.alsfox.mall.view.activity.index.HomeActivity;
+import com.alsfox.mall.view.activity.user.UserCouponsActivity;
 import com.alsfox.mall.view.activity.user.UserInfoActivity;
 import com.alsfox.mall.view.activity.user.UserLoginActivity;
 import com.alsfox.mall.view.activity.user.UserRegisterActivity;
@@ -277,6 +278,7 @@ public class UserContentFragment extends BaseFragment<UserContentPresenter> impl
             case R.id.user_wallet_rl://我的余额
                 break;
             case R.id.user_coupons_rl://我的优惠券
+                startActivity(UserCouponsActivity.class);
                 break;
             case R.id.user_service_rl://售后服务
                 break;
